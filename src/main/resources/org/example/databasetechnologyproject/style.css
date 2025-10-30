@@ -1,0 +1,9 @@
+
+@font-face {
+    font-family: 'Lexend Giga';
+    src: url('Lexend-VariableFont_wght.ttf');
+}
+#Label1{
+    -fx-font-size: 32px;
+    -fx-font-family: "Lexend Giga";
+}
