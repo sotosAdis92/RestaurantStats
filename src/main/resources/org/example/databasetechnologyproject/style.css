@@ -14,3 +14,14 @@
     -fx-background-repeat: no-repeat;
     -fx-background-size: contain;
 }
+#exitButton:hover{
+    -fx-background-image: url('exit.png');
+    -fx-background-color: -color-danger-5;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+}
+#tooltipexit{
+    -fx-border-radius: 20px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: white;
+}
