@@ -3,7 +3,9 @@ package org.example.databasetechnologyproject;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
+    @FXML
+    Button exitButton;
     static Connection dbConnection = null;
     static String driverClassName = "org.postgresql.Driver";
     public void initialize(URL location, ResourceBundle arg1){
