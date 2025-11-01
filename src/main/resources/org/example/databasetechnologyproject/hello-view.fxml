@@ -39,9 +39,9 @@
          <children>
             <Button fx:id="HomeButton" layoutX="26.0" layoutY="35.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Home Page">
                <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@home.png" />
+                        <Image url="@house2.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -55,7 +55,15 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="ReservationsButton" layoutX="26.0" layoutY="190.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Reservations" textAlignment="CENTER" />
+            <Button fx:id="ReservationsButton" layoutX="26.0" layoutY="190.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Reservations" textAlignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@reservations.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <Button fx:id="EmployeesButton" layoutX="26.0" layoutY="270.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Employees" textAlignment="CENTER" />
             <Button fx:id="MenuButton" layoutX="26.0" layoutY="354.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Menu" />
             <Button fx:id="TablesButton" layoutX="26.0" layoutY="437.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Tables" />
