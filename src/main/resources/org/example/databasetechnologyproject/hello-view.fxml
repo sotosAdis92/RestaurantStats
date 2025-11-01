@@ -35,12 +35,28 @@
       </AnchorPane>
    </top>
    <left>
-      <AnchorPane prefHeight="805.0" prefWidth="271.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="menuSideBar" prefHeight="805.0" prefWidth="271.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="HomeButton" layoutX="26.0" layoutY="35.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Home Page" />
-            <Button fx:id="CustomersButton" layoutX="26.0" layoutY="111.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Customers" />
-            <Button fx:id="ReservationsButton" layoutX="26.0" layoutY="190.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Reservations" />
-            <Button fx:id="EmployeesButton" layoutX="26.0" layoutY="270.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Employees" />
+            <Button fx:id="HomeButton" layoutX="26.0" layoutY="35.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Home Page">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="CustomersButton" layoutX="26.0" layoutY="111.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Customers" textAlignment="CENTER">
+               <graphic>
+                  <ImageView fx:id="customerView" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@customer.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="ReservationsButton" layoutX="26.0" layoutY="190.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Reservations" textAlignment="CENTER" />
+            <Button fx:id="EmployeesButton" layoutX="26.0" layoutY="270.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Employees" textAlignment="CENTER" />
             <Button fx:id="MenuButton" layoutX="26.0" layoutY="354.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Menu" />
             <Button fx:id="TablesButton" layoutX="26.0" layoutY="437.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Tables" />
             <Button fx:id="OrdersButton" layoutX="26.0" layoutY="520.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Orders" />

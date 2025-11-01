@@ -133,3 +133,7 @@
     -fx-background-color: #5CABF5;
     -fx-text-fill: white;
 }
+#customerView{
+    -fx-padding: 10px 20px 20px 20px;
+    -fx-end-margin: 10px;
+}
