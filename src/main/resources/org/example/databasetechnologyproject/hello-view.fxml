@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.HelloController">
    <top>
       <AnchorPane prefHeight="67.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
@@ -26,10 +25,28 @@
             </Label>
             <Button fx:id="exitButton" layoutX="1518.0" layoutY="17.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="52.0">
                <tooltip>
-                  <Tooltip fx:id="tooltipexit" text="Exit Application" />
+                  <Tooltip fx:id="tooltipexit" text="Exit Application">
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic></Tooltip>
                </tooltip>
             </Button>
          </children>
       </AnchorPane>
    </top>
+   <left>
+      <AnchorPane prefHeight="805.0" prefWidth="271.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="HomeButton" layoutX="26.0" layoutY="35.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Home Page" />
+            <Button fx:id="CustomersButton" layoutX="26.0" layoutY="111.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Customers" />
+            <Button fx:id="ReservationsButton" layoutX="26.0" layoutY="190.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Reservations" />
+            <Button fx:id="EmployeesButton" layoutX="26.0" layoutY="270.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Employees" />
+            <Button fx:id="MenuButton" layoutX="26.0" layoutY="354.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Menu" />
+            <Button fx:id="TablesButton" layoutX="26.0" layoutY="437.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Tables" />
+            <Button fx:id="OrdersButton" layoutX="26.0" layoutY="520.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Orders" />
+            <Button fx:id="settingsButton" layoutX="26.0" layoutY="604.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Settings" />
+            <Button fx:id="AboutButton" layoutX="26.0" layoutY="687.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="About" />
+         </children>
+      </AnchorPane>
+   </left>
 </BorderPane>

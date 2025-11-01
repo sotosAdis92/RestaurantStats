@@ -25,7 +25,7 @@ public class HelloController implements Initializable {
     static String driverClassName = "org.postgresql.Driver";
     public void initialize(URL location, ResourceBundle arg1){
         try{
-            Image image = new Image(getClass().getResourceAsStream("exit.png"));
+            Image image = new Image(getClass().getResourceAsStream("g.png"));
             ImageView imageview = new ImageView(image);
             tooltipexit.setGraphic(imageview);
         } catch (Exception ex){

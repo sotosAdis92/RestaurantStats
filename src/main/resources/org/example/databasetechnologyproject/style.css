@@ -25,3 +25,111 @@
     -fx-font-family: "Lexend Giga";
     -fx-background-color: white;
 }
+#HomeButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+#HomeButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+}
+#CustomersButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+#CustomersButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+}
+#ReservationsButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+#ReservationsButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+}
+#EmployeesButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+#EmployeesButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+}
+#MenuButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+#MenuButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+}
+#TablesButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+#TablesButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+}
+#OrdersButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+#OrdersButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+}
+#settingsButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+#settingsButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+}
+#AboutButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+#AboutButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+}
