@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.HelloController">
+<BorderPane fx:id="scene1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.HelloController">
    <top>
       <AnchorPane prefHeight="67.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
          <children>
@@ -23,7 +23,7 @@
                   <Font name="Lexend Regular" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="exitButton" layoutX="1518.0" layoutY="17.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="52.0">
+            <Button fx:id="exitButton" layoutX="1518.0" layoutY="17.0" mnemonicParsing="false" onAction="#exitButton" prefHeight="54.0" prefWidth="52.0">
                <tooltip>
                   <Tooltip fx:id="tooltipexit" text="Exit Application">
                      <graphic>
@@ -64,12 +64,60 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="EmployeesButton" layoutX="26.0" layoutY="270.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Employees" textAlignment="CENTER" />
-            <Button fx:id="MenuButton" layoutX="26.0" layoutY="354.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Menu" />
-            <Button fx:id="TablesButton" layoutX="26.0" layoutY="437.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Tables" />
-            <Button fx:id="OrdersButton" layoutX="26.0" layoutY="520.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Orders" />
-            <Button fx:id="settingsButton" layoutX="26.0" layoutY="604.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Settings" />
-            <Button fx:id="AboutButton" layoutX="26.0" layoutY="687.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="About" />
+            <Button fx:id="EmployeesButton" layoutX="26.0" layoutY="270.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Employees" textAlignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@emp.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="MenuButton" layoutX="26.0" layoutY="354.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Menu">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@menu.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="TablesButton" layoutX="26.0" layoutY="437.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Tables">
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Group%2010.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="OrdersButton" layoutX="26.0" layoutY="520.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Orders">
+               <graphic>
+                  <ImageView fitHeight="41.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Group%2014.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="settingsButton" layoutX="26.0" layoutY="604.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Settings">
+               <graphic>
+                  <ImageView fitHeight="44.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Group%2012.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="AboutButton" layoutX="26.0" layoutY="687.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="About">
+               <graphic>
+                  <ImageView fitHeight="37.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Group%2013.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
    </left>

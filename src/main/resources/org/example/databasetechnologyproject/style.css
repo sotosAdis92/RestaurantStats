@@ -155,3 +155,31 @@
     -fx-padding: 10px 20px 20px 20px;
     -fx-end-margin: 10px;
 }
+.dialog2{
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-font-family: "Lexend Giga";
+}
+.dialog2 .button{
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-text-fill: black;
+    -fx-background-color: white;
+    -fx-font-family: "Lexend Giga";
+    -fx-font-size: 18px;
+    transition: 0.3s;
+}
+.dialog2 .button:hover{
+    -fx-background-color: -color-danger-5;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+.dialog2 > *.content.label {
+    -fx-font-size: 23px;
+    -fx-text-fill: black;
+    -fx-text-alignment: center;
+}
+.dialog2 > *.header-panel{
+    -fx-font-size: 20px;
+    -fx-font-family: "Lexend Giga";
+}
