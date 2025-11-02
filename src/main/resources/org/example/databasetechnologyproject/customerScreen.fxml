@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="scene1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.HelloController">
+<BorderPane fx:id="scene1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@styleCustomer.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.CustomerController">
     <top>
         <AnchorPane prefHeight="67.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fitHeight="95.0" fitWidth="107.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="95.0" fitWidth="107.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="1494.321678161621" AnchorPane.topAnchor="0.0">
                     <image>
                         <Image url="@../../../logos.png" />
                     </image>
@@ -122,13 +122,10 @@
         </AnchorPane>
     </left>
     <center>
-        <AnchorPane fx:id="homePageCenter" prefHeight="805.0" prefWidth="1275.0" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="homePageCenter" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="homeTitle" layoutX="404.0" layoutY="8.0" text="Customer Page" />
+                <Label fx:id="homeTitle" layoutX="572.0" layoutY="27.0" text="Home Page" />
             </children>
         </AnchorPane>
     </center>
-   <right>
-      <AnchorPane prefHeight="805.0" prefWidth="250.0" BorderPane.alignment="CENTER" />
-   </right>
 </BorderPane>

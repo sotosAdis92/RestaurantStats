@@ -13,7 +13,7 @@
    <top>
       <AnchorPane prefHeight="67.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="95.0" fitWidth="107.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="95.0" fitWidth="107.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="1494.321678161621" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@../../../logos.png" />
                </image>

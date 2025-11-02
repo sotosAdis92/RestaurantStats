@@ -1,0 +1,194 @@
+
+@font-face {
+    font-family: 'Lexend Giga';
+    src: url('LexendGiga-VariableFont_wght.ttf');
+}
+#Label1{
+    -fx-font-size: 25px;
+    -fx-font-family: 'Lexend Giga';
+    -fx-font-weight: 800;
+}
+#exitButton{
+    -fx-background-image: url('exit.png');
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+}
+#exitButton:hover{
+    -fx-background-image: url('exit.png');
+    -fx-background-color: -color-danger-5;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+}
+#tooltipexit{
+    -fx-border-radius: 20px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: white;
+}
+#HomeButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-alignment: CENTER_LEFT;
+}
+#HomeButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+}
+#CustomersButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-alignment: CENTER_LEFT;
+}
+#CustomersButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+}
+#ReservationsButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-alignment: CENTER_LEFT;
+}
+#ReservationsButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+}
+#EmployeesButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-alignment: CENTER_LEFT;
+}
+#EmployeesButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+}
+#MenuButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-alignment: CENTER_LEFT;
+}
+#MenuButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+}
+#TablesButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-alignment: CENTER_LEFT;
+}
+#TablesButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+}
+#OrdersButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-alignment: CENTER_LEFT;
+}
+#OrdersButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+}
+#settingsButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-alignment: CENTER_LEFT;
+}
+#settingsButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+}
+#AboutButton{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-alignment: CENTER_LEFT;
+}
+#AboutButton:hover{
+    -fx-font-size: 17px;
+    -fx-font-family: "Lexend Giga";
+    -fx-background-color: #5CABF5;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+}
+#customerView{
+    -fx-padding: 10px 20px 20px 20px;
+    -fx-end-margin: 10px;
+}
+.dialog2{
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-font-family: "Lexend Giga";
+}
+.dialog2 .button{
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-text-fill: black;
+    -fx-background-color: white;
+    -fx-font-family: "Lexend Giga";
+    -fx-font-size: 18px;
+    transition: 0.3s;
+}
+.dialog2 .button:hover{
+    -fx-background-color: -color-danger-5;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+.dialog2 > *.content.label {
+    -fx-font-size: 23px;
+    -fx-text-fill: black;
+    -fx-text-alignment: center;
+}
+.dialog2 > *.header-panel{
+    -fx-font-size: 20px;
+    -fx-font-family: "Lexend Giga";
+}
+#homeTitle{
+    -fx-font-size: 25px;
+    -fx-font-family: "Lexend Giga";
+    -fx-font-weight: 600;
+}
+#homePageCenter{
+    -fx-background-color: #D9D9D9;
+    -fx-text-fill: black;
+}

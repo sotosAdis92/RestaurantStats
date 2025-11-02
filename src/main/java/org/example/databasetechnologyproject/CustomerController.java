@@ -1,6 +1,5 @@
 package org.example.databasetechnologyproject;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,37 +8,32 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class HelloController implements Initializable {
+public class CustomerController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
     @FXML
     BorderPane scene1;
     @FXML
-    Button exitButton;
+    Button CustomersButton;
     @FXML
     Tooltip tooltipexit;
-    @FXML
-    Button HomeButton;
     private DialogPane dialog;
     static Connection dbConnection = null;
     static String driverClassName = "org.postgresql.Driver";
-    public void initialize(URL location, ResourceBundle arg1){
-        int homeScreenId = 1;
-        if(homeScreenId == 1){
-            HomeButton.setStyle("-fx-font-size: 17px;\n" +
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        int customerScreenId = 2;
+        if (customerScreenId == 2){
+            CustomersButton.setStyle("-fx-font-size: 17px;\n" +
                     "    -fx-font-family: \"Lexend Giga\";\n" +
                     "    -fx-background-color: #5CABF5;\n" +
                     "    -fx-text-fill: white;\n" +
@@ -81,7 +75,7 @@ public class HelloController implements Initializable {
             stage.close();
         }
     }
-    public void switchToSceneCustomer(ActionEvent event){
+    public void switchToHomeScene(ActionEvent event){
 
     }
 }
