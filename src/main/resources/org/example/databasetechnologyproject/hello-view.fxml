@@ -46,7 +46,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="CustomersButton" layoutX="26.0" layoutY="111.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Customers" textAlignment="CENTER">
+            <Button fx:id="CustomersButton" layoutX="26.0" layoutY="111.0" mnemonicParsing="false" onAction="#switchToSceneCustomer" prefHeight="55.0" prefWidth="220.0" text="Customers" textAlignment="CENTER">
                <graphic>
                   <ImageView fx:id="customerView" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>

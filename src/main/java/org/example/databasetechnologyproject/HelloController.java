@@ -3,7 +3,9 @@ package org.example.databasetechnologyproject;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -82,6 +84,14 @@ public class HelloController implements Initializable {
         }
     }
     public void switchToSceneCustomer(ActionEvent event){
-
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("customerScreen.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex){
+            System.out.println("Cannot change scenes");
+        }
     }
 }
