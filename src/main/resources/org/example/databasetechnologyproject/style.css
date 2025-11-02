@@ -183,3 +183,12 @@
     -fx-font-size: 20px;
     -fx-font-family: "Lexend Giga";
 }
+#homeTitle{
+    -fx-font-size: 25px;
+    -fx-font-family: "Lexend Giga";
+    -fx-font-weight: 600;
+}
+#homePageCenter{
+    -fx-background-color: #D9D9D9;
+    -fx-text-fill: black;
+}

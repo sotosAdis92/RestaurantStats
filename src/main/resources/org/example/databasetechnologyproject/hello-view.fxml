@@ -121,4 +121,11 @@
          </children>
       </AnchorPane>
    </left>
+   <center>
+      <AnchorPane fx:id="homePageCenter" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="homeTitle" layoutX="572.0" layoutY="27.0" text="Home Page" />
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>

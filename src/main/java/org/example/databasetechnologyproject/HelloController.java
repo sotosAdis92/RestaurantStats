@@ -31,10 +31,20 @@ public class HelloController implements Initializable {
     Button exitButton;
     @FXML
     Tooltip tooltipexit;
+    @FXML
+    Button HomeButton;
     private DialogPane dialog;
     static Connection dbConnection = null;
     static String driverClassName = "org.postgresql.Driver";
     public void initialize(URL location, ResourceBundle arg1){
+        int homeScreenId = 1;
+        if(homeScreenId == 1){
+            HomeButton.setStyle("-fx-font-size: 17px;\n" +
+                    "    -fx-font-family: \"Lexend Giga\";\n" +
+                    "    -fx-background-color: #5CABF5;\n" +
+                    "    -fx-text-fill: white;\n" +
+                    "    -fx-alignment: CENTER_LEFT;");
+        }
         try{
             Image image = new Image(getClass().getResourceAsStream("g.png"));
             ImageView imageview = new ImageView(image);
