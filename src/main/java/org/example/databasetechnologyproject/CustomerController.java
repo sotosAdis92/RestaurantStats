@@ -89,4 +89,22 @@ public class CustomerController implements Initializable {
             System.out.println("Cannot change scenes");
         }
     }
+    public void switchToReservationsScene(ActionEvent event){
+
+    }
+    public void switchToEmployeesScene(ActionEvent event){
+
+    }
+    public void switchToMenuScreen(ActionEvent event){
+
+    }
+    public void switchToTableScene(ActionEvent event){
+
+    }
+    public void switchToOrdersScene(ActionEvent event){
+
+    }
+    public void switchToAboutScene(ActionEvent event){
+
+    }
 }

@@ -55,7 +55,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="ReservationsButton" layoutX="26.0" layoutY="190.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Reservations" textAlignment="CENTER">
+            <Button fx:id="ReservationsButton" layoutX="26.0" layoutY="190.0" mnemonicParsing="false" onAction="#switchToReservationsScene" prefHeight="55.0" prefWidth="220.0" text="Reservations" textAlignment="CENTER">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -64,7 +64,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="EmployeesButton" layoutX="26.0" layoutY="270.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Employees" textAlignment="CENTER">
+            <Button fx:id="EmployeesButton" layoutX="26.0" layoutY="270.0" mnemonicParsing="false" onAction="#switchToEmployeesScene" prefHeight="55.0" prefWidth="220.0" text="Employees" textAlignment="CENTER">
                <graphic>
                   <ImageView fitHeight="36.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -73,7 +73,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="MenuButton" layoutX="26.0" layoutY="354.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Menu">
+            <Button fx:id="MenuButton" layoutX="26.0" layoutY="354.0" mnemonicParsing="false" onAction="#switchToMenuScreen" prefHeight="55.0" prefWidth="220.0" text="Menu">
                <graphic>
                   <ImageView fitHeight="36.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -82,7 +82,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="TablesButton" layoutX="26.0" layoutY="437.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Tables">
+            <Button fx:id="TablesButton" layoutX="26.0" layoutY="437.0" mnemonicParsing="false" onAction="#switchToTableScene" prefHeight="55.0" prefWidth="220.0" text="Tables">
                <graphic>
                   <ImageView fitHeight="38.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -91,7 +91,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="OrdersButton" layoutX="26.0" layoutY="520.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Orders">
+            <Button fx:id="OrdersButton" layoutX="26.0" layoutY="520.0" mnemonicParsing="false" onAction="#switchToOrdersScene" prefHeight="55.0" prefWidth="220.0" text="Orders">
                <graphic>
                   <ImageView fitHeight="41.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                      <image>
