@@ -150,7 +150,15 @@ public class HelloController implements Initializable {
         }
     }
     public void switchToAboutScene(ActionEvent event){
-
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("aboutScreen.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex){
+            System.out.println("Cannot change scenes");
+        }
     }
 
 }
