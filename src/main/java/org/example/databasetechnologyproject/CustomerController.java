@@ -1,5 +1,7 @@
 package org.example.databasetechnologyproject;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -16,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -29,11 +33,35 @@ public class CustomerController implements Initializable {
     Button CustomersButton;
     @FXML
     Tooltip tooltipexit;
+    @FXML
+    TableView<Customer> customerTable;
+
+    ObservableList<Customer> customers = FXCollections.observableArrayList();
+    public PreparedStatement fillColums;
+
     private DialogPane dialog;
     static Connection dbConnection = null;
     static String driverClassName = "org.postgresql.Driver";
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        TableColumn<Customer, String> firstNameColumn = new TableColumn<>("First Name");
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        TableColumn<Customer, String> lastNameColumn = new TableColumn<>("Last Name");
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        TableColumn<Customer, String> homeAddressColoumn = new TableColumn<>("Home Address");
+        homeAddressColoumn.setCellValueFactory(new PropertyValueFactory<>("homeAddress"));
+        TableColumn<Customer, String> numberColumn = new TableColumn<>("Phone");
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
+        TableColumn<Customer, String> emailColumn = new TableColumn<>("Email");
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        customerTable.getColumns().add(firstNameColumn);
+        customerTable.getColumns().add(lastNameColumn);
+        customerTable.getColumns().add(homeAddressColoumn);
+        customerTable.getColumns().add(numberColumn);
+        customerTable.getColumns().add(emailColumn);
+
+
         int customerScreenId = 2;
         if (customerScreenId == 2){
             CustomersButton.setStyle("-fx-font-size: 17px;\n" +
@@ -59,6 +87,8 @@ public class CustomerController implements Initializable {
         } catch (SQLException ex){
             System.out.println("Connection to database failed");
         }
+
+
     }
     public void exitButton(ActionEvent event){
         Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
@@ -153,6 +183,17 @@ public class CustomerController implements Initializable {
             stage.show();
         } catch (IOException ex){
             System.out.println("Cannot change scenes");
+        }
+    }
+    public void openCustomerInsertForm(ActionEvent event){
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("customerInsertFormWindow.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex){
+            System.out.println("Cannot load scene");
         }
     }
 }
