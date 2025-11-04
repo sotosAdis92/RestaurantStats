@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.IO;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -35,6 +36,16 @@ public class CustomerController implements Initializable {
     Tooltip tooltipexit;
     @FXML
     TableView<Customer> customerTable;
+    @FXML
+    TableColumn<Customer, String> firstNameColumn;
+    @FXML
+    TableColumn<Customer, String> lastNameColumn;
+    @FXML
+    TableColumn<Customer, String> homeAddressColoumn;
+    @FXML
+    TableColumn<Customer, String> numberColumn;
+    @FXML
+    TableColumn<Customer, String> emailColumn;
 
     ObservableList<Customer> customers = FXCollections.observableArrayList();
     public PreparedStatement fillColums;
@@ -45,21 +56,11 @@ public class CustomerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        TableColumn<Customer, String> firstNameColumn = new TableColumn<>("First Name");
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        TableColumn<Customer, String> lastNameColumn = new TableColumn<>("Last Name");
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        TableColumn<Customer, String> homeAddressColoumn = new TableColumn<>("Home Address");
         homeAddressColoumn.setCellValueFactory(new PropertyValueFactory<>("homeAddress"));
-        TableColumn<Customer, String> numberColumn = new TableColumn<>("Phone");
         numberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
-        TableColumn<Customer, String> emailColumn = new TableColumn<>("Email");
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        customerTable.getColumns().add(firstNameColumn);
-        customerTable.getColumns().add(lastNameColumn);
-        customerTable.getColumns().add(homeAddressColoumn);
-        customerTable.getColumns().add(numberColumn);
-        customerTable.getColumns().add(emailColumn);
 
 
         int customerScreenId = 2;
@@ -187,13 +188,24 @@ public class CustomerController implements Initializable {
     }
     public void openCustomerInsertForm(ActionEvent event){
         try{
-            Parent root = FXMLLoader.load(getClass().getResource("customerInsertFormWindow.fxml"));
-            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customerInsertFormWindow.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Insert Form");
+            Image icon = new Image("logos.png");
+            stage.getIcons().add(icon);
+            stage.setScene(new Scene(root));
             stage.show();
+            CustomerInsertController customerinsetcontroller = fxmlLoader.getController();
+            customerinsetcontroller.setMainController(this);
+            customerinsetcontroller.setFirstNameColumn(firstNameColumn);
+            customerinsetcontroller.setLastNameColumn(lastNameColumn);
+            customerinsetcontroller.setHomeAddressColoumn(homeAddressColoumn);
+            customerinsetcontroller.setNumberColumn(numberColumn);
+            customerinsetcontroller.setEmailColumn(emailColumn);
         } catch (IOException ex){
-            System.out.println("Cannot load scene");
+            System.out.println("This window could not load");
+            ex.printStackTrace();
         }
     }
 }
