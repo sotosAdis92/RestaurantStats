@@ -1,9 +1,11 @@
 package org.example.databasetechnologyproject;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,11 +14,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
+import javafx.scene.control.TableColumn.CellEditEvent;
 import java.io.IO;
 import java.io.IOException;
 import java.net.URL;
@@ -51,6 +54,7 @@ public class CustomerController implements Initializable {
     ObservableList<Customer> customers = FXCollections.observableArrayList();
     PreparedStatement fillTable;
     PreparedStatement delete;
+    PreparedStatement update;
 
     private DialogPane dialog;
     static String driverClassName = "org.postgresql.Driver";
@@ -79,11 +83,6 @@ public class CustomerController implements Initializable {
             System.err.println("Failed to connect to database: " + ex.getMessage());
             ex.printStackTrace();
         }
-
-
-
-
-
 
 
         int customerScreenId = 2;
@@ -120,7 +119,159 @@ public class CustomerController implements Initializable {
         }catch (SQLException ex){
             System.out.println("SQL error");
         }
+
+        customerTable.setOnMouseClicked(event ->{
+            if(event.getClickCount()==1 || event.getClickCount()==2){
+                Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+            }
+        });
+
+        firstNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
+        firstNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        firstNameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Customer, String>>() {
+            @Override
+            public void handle(CellEditEvent<Customer, String> event) {
+                Customer customer1 = event.getRowValue();
+                customer1.setFirstName(event.getNewValue());
+                String firstName = customer1.getFirstName();
+                int id = customer1.getId();
+                String lastName = null;
+                String homeAddress = null;
+                String phone = null;
+                String email = null;
+                try{
+                    String selectString = "SELECT updateCustomer(?,?,?,?,?,?)";
+                    update = dbConnection.prepareStatement(selectString);
+                    update.setInt(1,id);
+                    update.setString(2,firstName);
+                    update.setString(3, lastName);
+                    update.setString(4, homeAddress);
+                    update.setString(5, phone);
+                    update.setString(6, email);
+                    update.executeQuery();
+                }catch (SQLException e){
+
+                }
+            }
+        });
+
+        lastNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
+        lastNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        lastNameColumn.setOnEditCommit(new EventHandler<CellEditEvent<Customer, String>>() {
+            @Override
+            public void handle(CellEditEvent<Customer, String> event) {
+                Customer customer1 = event.getRowValue();
+                customer1.setLastName(event.getNewValue());
+                String firstName = null;
+                int id = customer1.getId();
+                String lastName = customer1.getLastName();
+                String homeAddress = null;
+                String phone = null;
+                String email = null;
+                try{
+                    String selectString = "SELECT updateCustomer(?,?,?,?,?,?)";
+                    update = dbConnection.prepareStatement(selectString);
+                    update.setInt(1,id);
+                    update.setString(2,firstName);
+                    update.setString(3, lastName);
+                    update.setString(4, homeAddress);
+                    update.setString(5, phone);
+                    update.setString(6, email);
+                    update.executeQuery();
+                }catch (SQLException e){
+
+                }
+            }
+        });
+
+        homeAddressColoumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
+        homeAddressColoumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        homeAddressColoumn.setOnEditCommit(new EventHandler<CellEditEvent<Customer, String>>() {
+            @Override
+            public void handle(CellEditEvent<Customer, String> event) {
+                Customer customer1 = event.getRowValue();
+                customer1.setHomeAddress(event.getNewValue());
+                String firstName = null;
+                int id = customer1.getId();
+                String lastName = null;
+                String homeAddress = customer1.getHomeAddress();
+                String phone = null;
+                String email = null;
+                try{
+                    String selectString = "SELECT updateCustomer(?,?,?,?,?,?)";
+                    update = dbConnection.prepareStatement(selectString);
+                    update.setInt(1,id);
+                    update.setString(2,firstName);
+                    update.setString(3, lastName);
+                    update.setString(4, homeAddress);
+                    update.setString(5, phone);
+                    update.setString(6, email);
+                    update.executeQuery();
+                }catch (SQLException e){
+
+                }
+            }
+        });
+
+        numberColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
+        numberColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        numberColumn.setOnEditCommit(new EventHandler<CellEditEvent<Customer, String>>() {
+            @Override
+            public void handle(CellEditEvent<Customer, String> event) {
+                Customer customer1 = event.getRowValue();
+                customer1.setNumber(event.getNewValue());
+                String firstName = null;
+                int id = customer1.getId();
+                String lastName = null;
+                String homeAddress = null;
+                String phone = customer1.getNumber();
+                String email = null;
+                try{
+                    String selectString = "SELECT updateCustomer(?,?,?,?,?,?)";
+                    update = dbConnection.prepareStatement(selectString);
+                    update.setInt(1,id);
+                    update.setString(2,firstName);
+                    update.setString(3, lastName);
+                    update.setString(4, homeAddress);
+                    update.setString(5, phone);
+                    update.setString(6, email);
+                    update.executeQuery();
+                }catch (SQLException e){
+
+                }
+            }
+        });
+
+        emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
+        emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        emailColumn.setOnEditCommit(new EventHandler<CellEditEvent<Customer, String>>() {
+            @Override
+            public void handle(CellEditEvent<Customer, String> event) {
+                Customer customer1 = event.getRowValue();
+                customer1.setEmail(event.getNewValue());
+                String firstName = null;
+                int id = customer1.getId();
+                String lastName = null;
+                String homeAddress = null;
+                String phone = null;
+                String email = customer1.getEmail();
+                try{
+                    String selectString = "SELECT updateCustomer(?,?,?,?,?,?)";
+                    update = dbConnection.prepareStatement(selectString);
+                    update.setInt(1,id);
+                    update.setString(2,firstName);
+                    update.setString(3, lastName);
+                    update.setString(4, homeAddress);
+                    update.setString(5, phone);
+                    update.setString(6, email);
+                    update.executeQuery();
+                }catch (SQLException e){
+
+                }
+            }
+        });
         customerTable.setItems(customers);
+
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("lastName"));
         homeAddressColoumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("homeAddress"));
