@@ -7,7 +7,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" stylesheets="@styleInsertCustomer.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.CustomerInsertController">
    <children>
       <TextField fx:id="textField1" layoutX="113.0" layoutY="187.0" prefHeight="34.0" prefWidth="366.0" />
@@ -25,7 +24,7 @@
       <Label fx:id="addressError" layoutX="112.0" layoutY="417.0" prefHeight="17.0" prefWidth="366.0" />
       <Label fx:id="phoneError" layoutX="113.0" layoutY="523.0" prefHeight="17.0" prefWidth="366.0" />
       <Label fx:id="emailError" layoutX="119.0" layoutY="638.0" prefHeight="17.0" prefWidth="366.0" />
-      <Button fx:id="submitButton" layoutX="120.0" layoutY="688.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="139.0" text="Submit">
+      <Button fx:id="submitButton" layoutX="120.0" layoutY="688.0" mnemonicParsing="false" onAction="#Submit" prefHeight="43.0" prefWidth="139.0" text="Submit">
          <graphic>
             <ImageView fitHeight="31.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -34,7 +33,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="CancelButton" layoutX="346.0" layoutY="688.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" text="Reset">
+      <Button fx:id="CancelButton" layoutX="346.0" layoutY="688.0" mnemonicParsing="false" onAction="#cancelInput" prefHeight="46.0" prefWidth="140.0" text="Reset">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                <image>

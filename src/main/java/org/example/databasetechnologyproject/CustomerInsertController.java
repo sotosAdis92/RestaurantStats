@@ -57,21 +57,104 @@ public class CustomerInsertController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(textField1.isFocused()){
-            firstNameLabel.setStyle("-fx-background-color: #FF5C00");
-        }
-        else if(textField2.isFocused()){
-            lastNameLabel.setStyle("-fx-background-color: #FF5C00");
-        }
-        else if(textField3.isFocused()){
-            homeLabel.setStyle("-fx-background-color: #FF5C00");
-        }
-        else if(textField4.isFocused()){
-            phoneLabel.setStyle("-fx-background-color: #FF5C00");
-        }
-        else if(textField5.isFocused()){
-            emailLabel.setStyle("-fx-background-color: #FF5C00");
-        }
+        setupFocusListeners();
+    }
+    private void setupFocusListeners() {
+        textField1.focusedProperty().addListener((observable, oldValue, newValue) ->{
+            if(newValue){
+                firstNameLabel.setStyle("-fx-text-fill: #FF5C00");
+                textField1.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #FF5C00;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            } else{
+                firstNameLabel.setStyle("");
+                textField1.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #bdc3c7;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            }
+        });
+        textField2.focusedProperty().addListener((observable, oldValue, newValue) ->{
+            if(newValue){
+                lastNameLabel.setStyle("-fx-text-fill: #FF5C00");
+                textField2.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #FF5C00;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            } else{
+                lastNameLabel.setStyle("");
+                textField2.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #bdc3c7;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            }
+        });
+        textField3.focusedProperty().addListener((observable, oldValue, newValue) ->{
+            if(newValue){
+                homeLabel.setStyle("-fx-text-fill: #FF5C00");
+                textField3.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #FF5C00;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            } else{
+                homeLabel.setStyle("");
+                textField3.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #bdc3c7;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            }
+        });
+        textField4.focusedProperty().addListener((observable, oldValue, newValue) ->{
+            if(newValue){
+                phoneLabel.setStyle("-fx-text-fill: #FF5C00");
+                textField4.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #FF5C00;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            } else{
+                phoneLabel.setStyle("");
+                textField4.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #bdc3c7;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            }
+        });
+        textField5.focusedProperty().addListener((observable, oldValue, newValue) ->{
+            if(newValue){
+                emailLabel.setStyle("-fx-text-fill: #FF5C00");
+                textField5.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #FF5C00;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            } else{
+                emailLabel.setStyle("");
+                textField5.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #bdc3c7;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            }
+        });
     }
     public void setMainController(CustomerController mainController){
         this.mainController = mainController;
