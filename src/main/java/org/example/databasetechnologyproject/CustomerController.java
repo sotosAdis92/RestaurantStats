@@ -1,5 +1,6 @@
 package org.example.databasetechnologyproject;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import java.io.IO;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class CustomerController implements Initializable {
@@ -45,20 +47,43 @@ public class CustomerController implements Initializable {
     @FXML
     TableColumn<Customer, String> emailColumn;
 
+
     ObservableList<Customer> customers = FXCollections.observableArrayList();
-    public PreparedStatement fillTable;
+    PreparedStatement fillTable;
+    PreparedStatement delete;
 
     private DialogPane dialog;
-    static Connection dbConnection = null;
     static String driverClassName = "org.postgresql.Driver";
+    static Dotenv dotenv = Dotenv.load();
+    static String url = dotenv.get("DB_URL");
+    static String user = dotenv.get("DB_USER");
+    static String password = dotenv.get("DB_PASSWORD");
+    static Connection dbConnection;
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL location, ResourceBundle resourceBundle) {
+        System.out.println(url);
+        System.out.println(user);
+        System.out.println(password);
+        try {
+            Class.forName(driverClassName);
+            System.out.println("JDBC driver loaded successfully");
+        } catch (ClassNotFoundException ex) {
+            System.err.println("Failed to load JDBC driver: " + ex.getMessage());
+            ex.printStackTrace();
+        }
 
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        homeAddressColoumn.setCellValueFactory(new PropertyValueFactory<>("homeAddress"));
-        numberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        try {
+            dbConnection = DriverManager.getConnection(url, user, password);
+            System.out.println("Database connection established successfully");
+        } catch (SQLException ex) {
+            System.err.println("Failed to connect to database: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+
+
+
+
+
 
 
         int customerScreenId = 2;
@@ -76,16 +101,6 @@ public class CustomerController implements Initializable {
         } catch (Exception ex){
             System.out.println("Image not found");
         }
-        try {
-            Class.forName(driverClassName);
-        } catch (ClassNotFoundException ex){
-            System.out.println("Class not found");
-        }
-        try{
-            dbConnection = DatabaseConnection.getConnection();
-        } catch (SQLException ex){
-            System.out.println("Connection to database failed");
-        }
         try{
             String selectString = "SELECT * FROM getTable()";
             fillTable = dbConnection.prepareStatement(selectString);
@@ -96,9 +111,9 @@ public class CustomerController implements Initializable {
                 int id = rs.getInt(1);
                 String firstName = rs.getString(2);
                 String lastName = rs.getString(3);
-                String homeAddress = rs.getString(5);
-                String phone = rs.getString(4);
-                String email = rs.getString(5);
+                String homeAddress = rs.getString(4);
+                String phone = rs.getString(5);
+                String email = rs.getString(6);
                 Customer customer1 = new Customer(id,firstName,lastName,homeAddress,phone,email);
                 customers.add(customer1);
             }
@@ -221,6 +236,7 @@ public class CustomerController implements Initializable {
             stage.show();
             CustomerInsertController customerinsetcontroller = fxmlLoader.getController();
             customerinsetcontroller.setMainController(this);
+            customerinsetcontroller.setTableView(customerTable);
             customerinsetcontroller.setFirstNameColumn(firstNameColumn);
             customerinsetcontroller.setLastNameColumn(lastNameColumn);
             customerinsetcontroller.setHomeAddressColoumn(homeAddressColoumn);
@@ -243,14 +259,41 @@ public class CustomerController implements Initializable {
                 int id = rs.getInt(1);
                 String firstName = rs.getString(2);
                 String lastName = rs.getString(3);
-                String homeAddress = rs.getString(5);
-                String phone = rs.getString(4);
-                String email = rs.getString(5);
+                String homeAddress = rs.getString(4);
+                String phone = rs.getString(5);
+                String email = rs.getString(6);
                 Customer customer1 = new Customer(id,firstName,lastName,homeAddress,phone,email);
                 customers.add(customer1);
             }
         } catch (SQLException es){
 
+        }
+    }
+    public void deleteCustomer(ActionEvent event){
+        Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+        if(selectedCustomer!=null){
+            try{
+                int id = selectedCustomer.getId();
+                String selectString = "SELECT deleteCustomer(?)";
+                delete = dbConnection.prepareStatement(selectString);
+                delete.setInt(1, id);
+                delete.executeQuery();
+            } catch (SQLException exception){
+                exception.printStackTrace();
+                System.out.println("Database error: " + exception.getMessage());
+            }
+        }
+        TableView.TableViewSelectionModel<Customer> selectionModel = customerTable.getSelectionModel();
+        if(selectionModel.isEmpty()){
+            System.out.println("Table is empty");
+        }
+        ObservableList<Integer> list = selectionModel.getSelectedIndices();
+        Integer[] selectedItems = new Integer[list.size()];
+        selectedItems = list.toArray(selectedItems);
+        Arrays.sort(selectedItems);
+        for(int i=selectedItems.length - 1;i>=0;i--){
+            selectionModel.clearSelection(selectedItems[i].intValue());
+            customerTable.getItems().remove(selectedItems[i].intValue());
         }
     }
 }

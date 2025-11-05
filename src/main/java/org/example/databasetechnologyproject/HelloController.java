@@ -36,9 +36,29 @@ public class HelloController implements Initializable {
     @FXML
     Button HomeButton;
     private DialogPane dialog;
-    static Connection dbConnection = null;
     static String driverClassName = "org.postgresql.Driver";
+    static Dotenv dotenv = Dotenv.load();
+    static String url = dotenv.get("DB_URL");
+    static String user = dotenv.get("DB_USER");
+    static String password = dotenv.get("DB_PASSWORD");
+    static Connection dbConnection;
+
     public void initialize(URL location, ResourceBundle arg1){
+        System.out.println(url);
+        System.out.println(user);
+        System.out.println(password);
+        try{
+            Class.forName(driverClassName);
+        }catch (ClassNotFoundException ex){
+
+        }
+        try{
+            dbConnection = DriverManager.getConnection(url,user,password);
+            System.out.println(dbConnection);
+        } catch (SQLException ex){
+
+        }
+
         int homeScreenId = 1;
         if(homeScreenId == 1){
             HomeButton.setStyle("-fx-font-size: 17px;\n" +
@@ -53,16 +73,6 @@ public class HelloController implements Initializable {
             tooltipexit.setGraphic(imageview);
         } catch (Exception ex){
             System.out.println("Image not found");
-        }
-        try {
-            Class.forName(driverClassName);
-        } catch (ClassNotFoundException ex){
-            System.out.println("Class not found");
-        }
-        try{
-            dbConnection = DatabaseConnection.getConnection();
-        } catch (SQLException ex){
-            System.out.println("Connection to database failed");
         }
     }
     public void exitButton(ActionEvent event){
@@ -92,6 +102,7 @@ public class HelloController implements Initializable {
             stage.show();
         } catch (IOException ex){
             System.out.println("Cannot change scenes");
+            ex.printStackTrace();
         }
     }
     public void switchToReservationsScene(ActionEvent event){

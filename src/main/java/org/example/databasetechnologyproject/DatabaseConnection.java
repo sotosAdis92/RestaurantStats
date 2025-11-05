@@ -10,8 +10,14 @@ public class DatabaseConnection {
         Dotenv dotenv = Dotenv.load();
 
         String url = dotenv.get("DB_URL");
+        System.out.println(url);
         String user = dotenv.get("DB_USER");
         String password = dotenv.get("DB_PASSWORD");
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("PostgreSQL JDBC Driver not found", e);
+        }
         return DriverManager.getConnection(url,user,password);
     }
 }

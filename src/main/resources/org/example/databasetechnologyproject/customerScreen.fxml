@@ -147,7 +147,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="deleteCustomerButton" layoutX="1130.0" layoutY="320.0" mnemonicParsing="false" text="Delete Customer" AnchorPane.bottomAnchor="450.0">
+            <Button fx:id="deleteCustomerButton" layoutX="1130.0" layoutY="320.0" mnemonicParsing="false" onAction="#deleteCustomer" text="Delete Customer" AnchorPane.bottomAnchor="450.0">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -1,5 +1,6 @@
 package org.example.databasetechnologyproject;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,12 +11,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 import static org.example.databasetechnologyproject.CustomerController.dbConnection;
+import static org.example.databasetechnologyproject.HelloController.driverClassName;
 
 public class CustomerInsertController implements Initializable {
     public CustomerController mainController;
@@ -61,10 +61,24 @@ public class CustomerInsertController implements Initializable {
     @FXML
     Label phoneLabel;
     PreparedStatement insert;
-
+    static Dotenv dotenv = Dotenv.load();
+    static String url = dotenv.get("DB_URL");
+    static String user = dotenv.get("DB_USER");
+    static String password = dotenv.get("DB_PASSWORD");
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL location, ResourceBundle resourceBundle) {
         setupFocusListeners();
+        try{
+            Class.forName(driverClassName);
+        }catch (ClassNotFoundException ex){
+
+        }
+        try{
+            dbConnection = DriverManager.getConnection(url,user,password);
+            System.out.println(dbConnection);
+        } catch (SQLException ex){
+
+        }
     }
     private void setupFocusListeners() {
         textField1.focusedProperty().addListener((observable, oldValue, newValue) ->{
@@ -166,7 +180,7 @@ public class CustomerInsertController implements Initializable {
     public void setMainController(CustomerController mainController){
         this.mainController = mainController;
     }
-    public void setTableView(TableView<Customer> tableView){
+    public void setTableView(TableView<Customer> customerTable){
         this.customerTable = customerTable;
     }
     public void setFirstNameColumn(TableColumn<Customer, String> firstNameColumn){

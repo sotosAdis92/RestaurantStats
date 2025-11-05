@@ -10,6 +10,7 @@ module org.example.databasetechnologyproject {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires org.postgresql.jdbc;
 
     opens org.example.databasetechnologyproject to javafx.fxml;
     requires java.dotenv;
