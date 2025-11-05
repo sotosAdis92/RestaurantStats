@@ -19,9 +19,7 @@ import javafx.stage.Stage;
 import java.io.IO;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class CustomerController implements Initializable {
@@ -48,7 +46,7 @@ public class CustomerController implements Initializable {
     TableColumn<Customer, String> emailColumn;
 
     ObservableList<Customer> customers = FXCollections.observableArrayList();
-    public PreparedStatement fillColums;
+    public PreparedStatement fillTable;
 
     private DialogPane dialog;
     static Connection dbConnection = null;
@@ -88,7 +86,32 @@ public class CustomerController implements Initializable {
         } catch (SQLException ex){
             System.out.println("Connection to database failed");
         }
-
+        try{
+            String selectString = "SELECT * FROM getTable()";
+            fillTable = dbConnection.prepareStatement(selectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            while(rs.next()){
+                int id = rs.getInt(1);
+                String firstName = rs.getString(2);
+                String lastName = rs.getString(3);
+                String homeAddress = rs.getString(5);
+                String phone = rs.getString(4);
+                String email = rs.getString(5);
+                Customer customer1 = new Customer(id,firstName,lastName,homeAddress,phone,email);
+                customers.add(customer1);
+            }
+        }catch (SQLException ex){
+            System.out.println("SQL error");
+        }
+        customerTable.setItems(customers);
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("firstName"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("lastName"));
+        homeAddressColoumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("homeAddress"));
+        numberColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("number"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("email"));
+        customerTable.setItems(customers);
 
     }
     public void exitButton(ActionEvent event){
@@ -186,8 +209,8 @@ public class CustomerController implements Initializable {
             System.out.println("Cannot change scenes");
         }
     }
-    public void openCustomerInsertForm(ActionEvent event){
-        try{
+    public void openCustomerInsertForm(ActionEvent event) {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customerInsertFormWindow.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
@@ -203,9 +226,31 @@ public class CustomerController implements Initializable {
             customerinsetcontroller.setHomeAddressColoumn(homeAddressColoumn);
             customerinsetcontroller.setNumberColumn(numberColumn);
             customerinsetcontroller.setEmailColumn(emailColumn);
-        } catch (IOException ex){
+        } catch (IOException ex) {
             System.out.println("This window could not load");
             ex.printStackTrace();
+        }
+    }
+    public void refresh(){
+        try{
+            customers.clear();
+            String selectString = "SELECT * FROM getTable()";
+            fillTable = dbConnection.prepareStatement(selectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            while(rs.next()){
+                int id = rs.getInt(1);
+                String firstName = rs.getString(2);
+                String lastName = rs.getString(3);
+                String homeAddress = rs.getString(5);
+                String phone = rs.getString(4);
+                String email = rs.getString(5);
+                Customer customer1 = new Customer(id,firstName,lastName,homeAddress,phone,email);
+                customers.add(customer1);
+            }
+        } catch (SQLException es){
+
         }
     }
 }

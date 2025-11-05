@@ -1,5 +1,6 @@
 package org.example.databasetechnologyproject;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,7 +10,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import static org.example.databasetechnologyproject.CustomerController.dbConnection;
 
 public class CustomerInsertController implements Initializable {
     public CustomerController mainController;
@@ -54,6 +60,7 @@ public class CustomerInsertController implements Initializable {
 
     @FXML
     Label phoneLabel;
+    PreparedStatement insert;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -178,9 +185,44 @@ public class CustomerInsertController implements Initializable {
         this.emailColumn = emailColumn;
     }
     public void cancelInput(ActionEvent event){
-
+        textField1.setText("");
+        textField2.setText("");
+        textField3.setText("");
+        textField4.setText("");
+        textField5.setText("");
     }
     public void Submit(ActionEvent event){
-
+        int id = 0;
+        String firstName = textField1.getText();
+        String lastName = textField2.getText();
+        String homeAddress = textField3.getText();
+        String number = textField4.getText();
+        String email = textField5.getText();
+        try{
+            String selectString = "SELECT insertCustomer(?,?,?,?,?)";
+            insert = dbConnection.prepareStatement(selectString);
+            insert.setString(1, firstName);
+            insert.setString(2, lastName);
+            insert.setString(3, homeAddress);
+            insert.setString(4, number);
+            insert.setString(5, email);
+            ResultSet rs = insert.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+            }
+        } catch (SQLException ex){
+            System.out.println("SqlException");
+        }
+        Customer customer = new Customer(id, firstName, lastName, homeAddress, number, email);
+        if(customerTable.getItems() == null){
+            customerTable.setItems(FXCollections.observableArrayList());
+        }
+        customerTable.getItems().add(customer);
+        textField1.setText("");
+        textField2.setText("");
+        textField3.setText("");
+        textField4.setText("");
+        textField5.setText("");
+        mainController.refresh();
     }
 }

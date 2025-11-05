@@ -44,6 +44,21 @@
     -fx-border-color: #ef4444;
     -fx-border-width: 1px;
 }
+#submitButton:hover{
+    -fx-background-color: linear-gradient(to bottom, #4ade80, #22c55e);
+    -fx-border-color: #15803d;
+    -fx-effect: dropshadow(gaussian, rgba(34, 197, 94, 0.4), 8, 0, 0, 2);
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+}
+
+#CancelButton:hover{
+    -fx-background-color: linear-gradient(to bottom, #f87171, #ef4444);
+    -fx-border-color: #b91c1c;
+    -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.4), 8, 0, 0, 2);
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+}
 #textField1{
     -fx-background-color: transparent;
     -fx-border-width: 0 0 1 0;
