@@ -222,32 +222,7 @@ public class CustomerInsertController implements Initializable {
         this.ratingColumn = ratingColumn;
     }
     public void showNotification(){
-        Stage notificationStage = new Stage();
-        notificationStage.initStyle(StageStyle.UNDECORATED);
-        notificationStage.initModality(Modality.NONE);
-        Pane root = new Pane();
-        root.setPrefSize(400, 65);
-        root.setStyle(" -fx-font-size: 17px;\n" +
-                "    -fx-text-fill: #166534;\n" +
-                "    -fx-background-color: #dcfce7;\n" +
-                "    -fx-background-radius: 6px;\n" +
-                "    -fx-border-color: #22c55e;\n" +
-                "    -fx-border-width: 1px;" +
-                "-fx-border-radius: 2px;");
-        Label label = new Label("Operation was Successful, Customer Inserted");
-        Label iconLabel = new Label("✓");
-        iconLabel.setStyle("-fx-text-fill: #166534; -fx-font-size: 24px; -fx-font-weight: bold;");
-        label.layoutXProperty().bind(root.widthProperty().subtract(label.widthProperty()).divide(2));
-        label.layoutYProperty().bind(root.heightProperty().subtract(label.heightProperty()).divide(2));
-        label.setStyle("-fx-text-fill: #001D00");
-        root.getChildren().add(label);
-        root.getChildren().add(iconLabel);
-        Scene scene = new Scene(root);
-        notificationStage.setScene(scene);
-        notificationStage.show();
-        PauseTransition delay = new PauseTransition(Duration.seconds(5));
-        delay.setOnFinished(e -> notificationStage.close());
-        delay.play();
+
     }
     public void cancelInput(ActionEvent event){
         textField1.setText("");
