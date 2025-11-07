@@ -136,7 +136,7 @@
                   <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name" />
                   <TableColumn fx:id="homeAddressColoumn" prefWidth="75.0" text="Address" />
                   <TableColumn fx:id="numberColumn" prefWidth="75.0" text="Phone Number" />
-                  <TableColumn fx:id="emailColumn" prefWidth="75.0" text="Email" />
+                  <TableColumn fx:id="ratingColumn" prefWidth="75.0" text="Rating" />
                </columns></TableView>
             <Button fx:id="insertCustomerButton" layoutX="22.0" layoutY="320.0" mnemonicParsing="false" onAction="#openCustomerInsertForm" text="Insert Customer" AnchorPane.bottomAnchor="450.0" AnchorPane.leftAnchor="10.0">
                <graphic>
