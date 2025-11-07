@@ -259,7 +259,7 @@ public class CustomerInsertController implements Initializable {
         toastStage.setY(scene1.getY() + scene1.getHeight() - 80);
 
         toastStage.show();
-        PauseTransition delay = new PauseTransition(Duration.seconds(7));
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
         delay.setOnFinished(e -> toastStage.close());
         delay.play();
     }

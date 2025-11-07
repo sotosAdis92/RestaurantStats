@@ -1,6 +1,7 @@
 package org.example.databasetechnologyproject;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -19,10 +20,14 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.IO;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -57,8 +62,9 @@ public class CustomerController implements Initializable {
     PreparedStatement fillTable;
     PreparedStatement delete;
     PreparedStatement update;
-
+    int i = 0;
     private DialogPane dialog;
+    DialogPane dialog3;
     static String driverClassName = "org.postgresql.Driver";
     static Dotenv dotenv = Dotenv.load();
     static String url = dotenv.get("DB_URL");
@@ -151,9 +157,15 @@ public class CustomerController implements Initializable {
                     update.setString(5, phone);
                     update.setInt(6, rating);
                     update.executeQuery();
+
                 }catch (SQLException e){
                     e.printStackTrace();
                 }
+                ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
+                selectedItem.forEach(index ->{
+                    i = index + 1;
+                });
+                showNotification(i);
             }
         });
 
@@ -180,9 +192,15 @@ public class CustomerController implements Initializable {
                     update.setString(5, phone);
                     update.setInt(6, rating);
                     update.executeQuery();
+
                 }catch (SQLException e){
                     e.printStackTrace();
                 }
+                ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
+                selectedItem.forEach(index ->{
+                    i = index + 1;
+                });
+                showNotification(i);
             }
         });
 
@@ -209,9 +227,15 @@ public class CustomerController implements Initializable {
                     update.setString(5, phone);
                     update.setInt(6, rating);
                     update.executeQuery();
+
                 }catch (SQLException e){
                     e.printStackTrace();
                 }
+                ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
+                selectedItem.forEach(index ->{
+                    i = index + 1;
+                });
+                showNotification(i);
             }
         });
 
@@ -238,9 +262,15 @@ public class CustomerController implements Initializable {
                     update.setString(5, phone);
                     update.setInt(6, rating);
                     update.executeQuery();
+
                 }catch (SQLException e){
                     e.printStackTrace();
                 }
+                ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
+                selectedItem.forEach(index ->{
+                    i = index + 1;
+                });
+                showNotification(i);
             }
         });
 
@@ -273,6 +303,11 @@ public class CustomerController implements Initializable {
                 }catch (SQLException e){
                     e.printStackTrace();
                 }
+                ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
+                selectedItem.forEach(index ->{
+                    i = index + 1;
+                });
+                showNotification(i);
             }
         });
         customerTable.setItems(customers);
@@ -285,6 +320,69 @@ public class CustomerController implements Initializable {
         customerTable.setItems(customers);
 
     }
+
+    public void showNotification(int ind){
+        Stage toastStage = new Stage();
+        Stage currentStage = (Stage) scene1.getScene().getWindow();
+        toastStage.initOwner(currentStage);
+        toastStage.setResizable(false);
+        toastStage.initStyle(StageStyle.TRANSPARENT);
+
+        Label label = new Label("✔Operation Successful, Customer Updated at Row: " + ind);
+        label.setStyle("-fx-font-size: 17px;\n" +
+                "-fx-text-fill: #001D00;\n" +
+                "-fx-background-color: #dcfce7;\n" +
+                "-fx-background-radius: 10px;\n" +
+                "-fx-border-color: #22c55e;\n" +
+                "-fx-border-width: 2px;\n" +
+                "-fx-border-radius: 10px;\n" +
+                "-fx-text-alignment: center;\n" +
+                "-fx-padding: 10px 15px;");
+
+        Scene scene = new Scene(label);
+        scene.setFill(Color.TRANSPARENT);
+        toastStage.setScene(scene);
+        toastStage.setWidth(450);
+        toastStage.setHeight(60);
+        toastStage.setX(currentStage.getX() + currentStage.getWidth() - 470);
+        toastStage.setY(currentStage.getY() + currentStage.getHeight() - 80);
+
+        toastStage.show();
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        delay.setOnFinished(e -> toastStage.close());
+        delay.play();
+    }
+
+    public void showNotification2(){
+        Stage toastStage = new Stage();
+        Stage currentStage = (Stage) scene1.getScene().getWindow();
+        toastStage.initOwner(currentStage);
+        toastStage.setResizable(false);
+        toastStage.initStyle(StageStyle.TRANSPARENT);
+        Label label = new Label("✔Operation Successful, Customer Deleted");
+        label.setStyle("-fx-font-size: 17px;\n" +
+                "-fx-text-fill: #001D00;\n" +
+                "-fx-background-color: #dcfce7;\n" +
+                "-fx-background-radius: 10px;\n" +
+                "-fx-border-color: #22c55e;\n" +
+                "-fx-border-width: 2px;\n" +
+                "-fx-border-radius: 10px;\n" +
+                "-fx-text-alignment: center;\n" +
+                "-fx-padding: 10px 15px;");
+        Scene scene = new Scene(label);
+        scene.setFill(Color.TRANSPARENT);
+        toastStage.setScene(scene);
+        toastStage.setWidth(370);
+        toastStage.setHeight(60);
+        toastStage.setX(currentStage.getX() + currentStage.getWidth() - 400);
+        toastStage.setY(currentStage.getY() + currentStage.getHeight() - 80);
+        toastStage.show();
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        delay.setOnFinished(e -> toastStage.close());
+        delay.play();
+    }
+
+
     public void exitButton(ActionEvent event){
         Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
         dialog = alert2.getDialogPane();
@@ -405,6 +503,20 @@ public class CustomerController implements Initializable {
             ex.printStackTrace();
         }
     }
+    public void openCustomerAudit(ActionEvent evet){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customerAudit.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Log File");
+            Image icon = new Image("logos.png");
+            stage.getIcons().add(icon);
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
     public void refresh(){
         try{
             customers.clear();
@@ -428,30 +540,47 @@ public class CustomerController implements Initializable {
         }
     }
     public void deleteCustomer(ActionEvent event){
-        Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
-        if(selectedCustomer!=null){
-            try{
-                int id = selectedCustomer.getId();
-                String selectString = "SELECT deleteCustomer(?)";
-                delete = dbConnection.prepareStatement(selectString);
-                delete.setInt(1, id);
-                delete.executeQuery();
-            } catch (SQLException exception){
-                exception.printStackTrace();
-                System.out.println("Database error: " + exception.getMessage());
+        Alert alert3 = new Alert(Alert.AlertType.CONFIRMATION);
+        dialog3 = alert3.getDialogPane();
+        alert3.setGraphic(new ImageView(this.getClass().getResource("kk.png").toString()));
+        Image icon = new Image("logos.png");
+        dialog3.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        alert3.setTitle("Delete Customer");
+        dialog3.getStyleClass().add("dialog2");
+        alert3.setHeaderText("You are about to delete a customer");
+        alert3.setContentText("This Action is permanent, do you wish to continue?");
+        Stage alertstage = (Stage) dialog3.getScene().getWindow();
+        alertstage.getIcons().add(icon);
+        if (alert3.showAndWait().get() == ButtonType.OK) {
+            Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+            if(selectedCustomer!=null){
+                try{
+                    int id = selectedCustomer.getId();
+                    String selectString = "SELECT deleteCustomer(?)";
+                    delete = dbConnection.prepareStatement(selectString);
+                    delete.setInt(1, id);
+                    delete.executeQuery();
+                } catch (SQLException exception){
+                    exception.printStackTrace();
+                    System.out.println("Database error: " + exception.getMessage());
+                }
             }
+            TableView.TableViewSelectionModel<Customer> selectionModel = customerTable.getSelectionModel();
+            if(selectionModel.isEmpty()){
+                System.out.println("Table is empty");
+            }
+            ObservableList<Integer> list = selectionModel.getSelectedIndices();
+            Integer[] selectedItems = new Integer[list.size()];
+            selectedItems = list.toArray(selectedItems);
+            Arrays.sort(selectedItems);
+            for(int i=selectedItems.length - 1;i>=0;i--){
+                selectionModel.clearSelection(selectedItems[i].intValue());
+                customerTable.getItems().remove(selectedItems[i].intValue());
+            }
+            showNotification2();
         }
-        TableView.TableViewSelectionModel<Customer> selectionModel = customerTable.getSelectionModel();
-        if(selectionModel.isEmpty()){
-            System.out.println("Table is empty");
-        }
-        ObservableList<Integer> list = selectionModel.getSelectedIndices();
-        Integer[] selectedItems = new Integer[list.size()];
-        selectedItems = list.toArray(selectedItems);
-        Arrays.sort(selectedItems);
-        for(int i=selectedItems.length - 1;i>=0;i--){
-            selectionModel.clearSelection(selectedItems[i].intValue());
-            customerTable.getItems().remove(selectedItems[i].intValue());
+        else{
+            return;
         }
     }
 }

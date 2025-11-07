@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1650.0" stylesheets="@CustomerAuditStyle.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.CustomerLogFileController">
+   <bottom>
+      <AnchorPane prefHeight="464.0" prefWidth="1350.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="table1" layoutY="18.0" prefHeight="412.0" prefWidth="1350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <columns>
+                  <TableColumn fx:id="operation" prefWidth="75.0" text="Operation" />
+                  <TableColumn fx:id="time" prefWidth="75.0" text="Timetamp" />
+                  <TableColumn fx:id="use" prefWidth="75.0" text="User" />
+                  <TableColumn fx:id="nfn" prefWidth="99.0" text="New First Name" />
+                  <TableColumn fx:id="ofn" prefWidth="100.0" text="Old First Name" />
+                  <TableColumn fx:id="nln" prefWidth="75.0" text="New Last Name" />
+                  <TableColumn fx:id="oln" prefWidth="75.0" text="Old Last Name" />
+                  <TableColumn fx:id="na" prefWidth="75.0" text="New Address" />
+                  <TableColumn fx:id="oa" prefWidth="75.0" text="Old Address" />
+                  <TableColumn fx:id="np" prefWidth="75.0" text="New Phone" />
+                  <TableColumn fx:id="op" prefWidth="75.0" text="Old Phone" />
+                  <TableColumn fx:id="nr" prefWidth="75.0" text="New Rating" />
+                  <TableColumn fx:id="or" prefWidth="75.0" text="Old Rating" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </bottom>
+   <top>
+      <AnchorPane fx:id="topLayer" prefHeight="100.0" prefWidth="1650.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="Title" layoutX="28.0" layoutY="14.0" text="Customer Log File" />
+            <Label fx:id="subtitle" layoutX="28.0" layoutY="57.0" text="Here you can view all the operations and history of the customers table" />
+         </children></AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

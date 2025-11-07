@@ -156,7 +156,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="openLogCustomer" layoutX="210.0" layoutY="311.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="192.0" text="Open Log Table" AnchorPane.bottomAnchor="450.0" AnchorPane.leftAnchor="210.0">
+            <Button fx:id="openLogCustomer" layoutX="210.0" layoutY="311.0" mnemonicParsing="false" onAction="#openCustomerAudit" prefHeight="44.0" prefWidth="192.0" text="Open Log Table" AnchorPane.bottomAnchor="450.0" AnchorPane.leftAnchor="210.0">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                      <image>
