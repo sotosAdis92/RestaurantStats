@@ -1,6 +1,7 @@
 package org.example.databasetechnologyproject;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +21,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import java.io.IO;
+import javafx.util.converter.IntegerStringConverter;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -48,7 +50,7 @@ public class CustomerController implements Initializable {
     @FXML
     TableColumn<Customer, String> numberColumn;
     @FXML
-    TableColumn<Customer, String> emailColumn;
+    TableColumn<Customer, Integer> ratingColumn;
 
 
     ObservableList<Customer> customers = FXCollections.observableArrayList();
@@ -112,8 +114,8 @@ public class CustomerController implements Initializable {
                 String lastName = rs.getString(3);
                 String homeAddress = rs.getString(4);
                 String phone = rs.getString(5);
-                String email = rs.getString(6);
-                Customer customer1 = new Customer(id,firstName,lastName,homeAddress,phone,email);
+                int rating = rs.getInt(6);
+                Customer customer1 = new Customer(id,firstName,lastName,homeAddress,phone,rating);
                 customers.add(customer1);
             }
         }catch (SQLException ex){
@@ -138,7 +140,7 @@ public class CustomerController implements Initializable {
                 String lastName = null;
                 String homeAddress = null;
                 String phone = null;
-                String email = null;
+                int rating = customer1.getRating();
                 try{
                     String selectString = "SELECT updateCustomer(?,?,?,?,?,?)";
                     update = dbConnection.prepareStatement(selectString);
@@ -147,10 +149,10 @@ public class CustomerController implements Initializable {
                     update.setString(3, lastName);
                     update.setString(4, homeAddress);
                     update.setString(5, phone);
-                    update.setString(6, email);
+                    update.setInt(6, rating);
                     update.executeQuery();
                 }catch (SQLException e){
-
+                    e.printStackTrace();
                 }
             }
         });
@@ -167,7 +169,7 @@ public class CustomerController implements Initializable {
                 String lastName = customer1.getLastName();
                 String homeAddress = null;
                 String phone = null;
-                String email = null;
+                int rating = customer1.getRating();
                 try{
                     String selectString = "SELECT updateCustomer(?,?,?,?,?,?)";
                     update = dbConnection.prepareStatement(selectString);
@@ -176,10 +178,10 @@ public class CustomerController implements Initializable {
                     update.setString(3, lastName);
                     update.setString(4, homeAddress);
                     update.setString(5, phone);
-                    update.setString(6, email);
+                    update.setInt(6, rating);
                     update.executeQuery();
                 }catch (SQLException e){
-
+                    e.printStackTrace();
                 }
             }
         });
@@ -196,7 +198,7 @@ public class CustomerController implements Initializable {
                 String lastName = null;
                 String homeAddress = customer1.getHomeAddress();
                 String phone = null;
-                String email = null;
+                int rating = customer1.getRating();
                 try{
                     String selectString = "SELECT updateCustomer(?,?,?,?,?,?)";
                     update = dbConnection.prepareStatement(selectString);
@@ -205,10 +207,10 @@ public class CustomerController implements Initializable {
                     update.setString(3, lastName);
                     update.setString(4, homeAddress);
                     update.setString(5, phone);
-                    update.setString(6, email);
+                    update.setInt(6, rating);
                     update.executeQuery();
                 }catch (SQLException e){
-
+                    e.printStackTrace();
                 }
             }
         });
@@ -225,7 +227,7 @@ public class CustomerController implements Initializable {
                 String lastName = null;
                 String homeAddress = null;
                 String phone = customer1.getNumber();
-                String email = null;
+                int rating = customer1.getRating();
                 try{
                     String selectString = "SELECT updateCustomer(?,?,?,?,?,?)";
                     update = dbConnection.prepareStatement(selectString);
@@ -234,27 +236,30 @@ public class CustomerController implements Initializable {
                     update.setString(3, lastName);
                     update.setString(4, homeAddress);
                     update.setString(5, phone);
-                    update.setString(6, email);
+                    update.setInt(6, rating);
                     update.executeQuery();
                 }catch (SQLException e){
-
+                    e.printStackTrace();
                 }
             }
         });
 
-        emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
-        emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        emailColumn.setOnEditCommit(new EventHandler<CellEditEvent<Customer, String>>() {
+        ratingColumn.setCellValueFactory(cellData -> {
+            Customer customer = cellData.getValue();
+            return new SimpleIntegerProperty(customer.getRating()).asObject();
+        });
+        ratingColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        ratingColumn.setOnEditCommit(new EventHandler<CellEditEvent<Customer, Integer>>() {
             @Override
-            public void handle(CellEditEvent<Customer, String> event) {
+            public void handle(CellEditEvent<Customer, Integer> event) {
                 Customer customer1 = event.getRowValue();
-                customer1.setEmail(event.getNewValue());
+                customer1.setRating(event.getNewValue());
                 String firstName = null;
                 int id = customer1.getId();
                 String lastName = null;
                 String homeAddress = null;
                 String phone = null;
-                String email = customer1.getEmail();
+                int rating = customer1.getRating();
                 try{
                     String selectString = "SELECT updateCustomer(?,?,?,?,?,?)";
                     update = dbConnection.prepareStatement(selectString);
@@ -263,10 +268,10 @@ public class CustomerController implements Initializable {
                     update.setString(3, lastName);
                     update.setString(4, homeAddress);
                     update.setString(5, phone);
-                    update.setString(6, email);
+                    update.setInt(6, rating);
                     update.executeQuery();
                 }catch (SQLException e){
-
+                    e.printStackTrace();
                 }
             }
         });
@@ -276,7 +281,7 @@ public class CustomerController implements Initializable {
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("lastName"));
         homeAddressColoumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("homeAddress"));
         numberColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("number"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("email"));
+        ratingColumn.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("rating"));
         customerTable.setItems(customers);
 
     }
@@ -392,7 +397,7 @@ public class CustomerController implements Initializable {
             customerinsetcontroller.setLastNameColumn(lastNameColumn);
             customerinsetcontroller.setHomeAddressColoumn(homeAddressColoumn);
             customerinsetcontroller.setNumberColumn(numberColumn);
-            customerinsetcontroller.setEmailColumn(emailColumn);
+            customerinsetcontroller.setRatingColumn(ratingColumn);
         } catch (IOException ex) {
             System.out.println("This window could not load");
             ex.printStackTrace();
@@ -412,8 +417,8 @@ public class CustomerController implements Initializable {
                 String lastName = rs.getString(3);
                 String homeAddress = rs.getString(4);
                 String phone = rs.getString(5);
-                String email = rs.getString(6);
-                Customer customer1 = new Customer(id,firstName,lastName,homeAddress,phone,email);
+                int rating = rs.getInt(6);
+                Customer customer1 = new Customer(id,firstName,lastName,homeAddress,phone,rating);
                 customers.add(customer1);
             }
         } catch (SQLException es){

@@ -30,7 +30,7 @@ public class CustomerInsertController implements Initializable {
     @FXML
     TableColumn<Customer, String> numberColumn;
     @FXML
-    TableColumn<Customer, String> emailColumn;
+    TableColumn<Customer, Integer> ratingColumn;
     @FXML
     TextField textField1;
 
@@ -57,6 +57,17 @@ public class CustomerInsertController implements Initializable {
 
     @FXML
     Label lastNameLabel;
+    @FXML
+     Label addressError;
+    @FXML
+     Label emailError;
+    @FXML
+     Label firstNameError;
+    @FXML
+     Label lastNameError;
+    @FXML
+     Label phoneError;
+
 
     @FXML
     Label phoneLabel;
@@ -82,6 +93,7 @@ public class CustomerInsertController implements Initializable {
     }
     private void setupFocusListeners() {
         textField1.focusedProperty().addListener((observable, oldValue, newValue) ->{
+            firstNameError.setVisible(false);
             if(newValue){
                 firstNameLabel.setStyle("-fx-text-fill: #FF5C00");
                 textField1.setStyle("-fx-background-color: transparent;\n" +
@@ -101,6 +113,7 @@ public class CustomerInsertController implements Initializable {
             }
         });
         textField2.focusedProperty().addListener((observable, oldValue, newValue) ->{
+            lastNameError.setVisible(false);
             if(newValue){
                 lastNameLabel.setStyle("-fx-text-fill: #FF5C00");
                 textField2.setStyle("-fx-background-color: transparent;\n" +
@@ -120,6 +133,7 @@ public class CustomerInsertController implements Initializable {
             }
         });
         textField3.focusedProperty().addListener((observable, oldValue, newValue) ->{
+            addressError.setVisible(false);
             if(newValue){
                 homeLabel.setStyle("-fx-text-fill: #FF5C00");
                 textField3.setStyle("-fx-background-color: transparent;\n" +
@@ -139,6 +153,7 @@ public class CustomerInsertController implements Initializable {
             }
         });
         textField4.focusedProperty().addListener((observable, oldValue, newValue) ->{
+            phoneError.setVisible(false);
             if(newValue){
                 phoneLabel.setStyle("-fx-text-fill: #FF5C00");
                 textField4.setStyle("-fx-background-color: transparent;\n" +
@@ -158,6 +173,7 @@ public class CustomerInsertController implements Initializable {
             }
         });
         textField5.focusedProperty().addListener((observable, oldValue, newValue) ->{
+            emailError.setVisible(false);
             if(newValue){
                 emailLabel.setStyle("-fx-text-fill: #FF5C00");
                 textField5.setStyle("-fx-background-color: transparent;\n" +
@@ -195,8 +211,8 @@ public class CustomerInsertController implements Initializable {
     public void setNumberColumn(TableColumn<Customer, String> numberColumn){
         this.numberColumn = numberColumn;
     }
-    public void setEmailColumn(TableColumn<Customer, String> emailColumn){
-        this.emailColumn = emailColumn;
+    public void setRatingColumn(TableColumn<Customer, Integer> ratingColumn){
+        this.ratingColumn = ratingColumn;
     }
     public void cancelInput(ActionEvent event){
         textField1.setText("");
@@ -205,21 +221,101 @@ public class CustomerInsertController implements Initializable {
         textField4.setText("");
         textField5.setText("");
     }
+    public void firstNameInputError(){
+        firstNameError.setVisible(true);
+        firstNameError.setText("First name cannot be empty");
+        firstNameError.setStyle("-fx-text-fill: #D0342C");
+        firstNameLabel.setStyle("-fx-text-fill: #D0342C");
+        textField1.setStyle("-fx-background-color: transparent;\n" +
+                "    -fx-border-width: 0 0 1 0;\n" +
+                "    -fx-border-color: #D0342C;\n" +
+                "    -fx-padding: 8 0 8 0;\n" +
+                "    -fx-background-radius: 0;\n" +
+                "    -fx-border-radius: 0;");
+    }
+    public void lastNameInputError(){
+        lastNameError.setVisible(true);
+        lastNameError.setText("Last name cannot be empty");
+        lastNameError.setStyle("-fx-text-fill: #D0342C");
+        lastNameLabel.setStyle("-fx-text-fill: #D0342C");
+        textField2.setStyle("-fx-background-color: transparent;\n" +
+                "    -fx-border-width: 0 0 1 0;\n" +
+                "    -fx-border-color: #D0342C;\n" +
+                "    -fx-padding: 8 0 8 0;\n" +
+                "    -fx-background-radius: 0;\n" +
+                "    -fx-border-radius: 0;");
+    }
+    public void homeAddressInputError(){
+        addressError.setVisible(true);
+        addressError.setText("address cannot be empty");
+        addressError.setStyle("-fx-text-fill: #D0342C");
+        homeLabel.setStyle("-fx-text-fill: #D0342C");
+        textField3.setStyle("-fx-background-color: transparent;\n" +
+                "    -fx-border-width: 0 0 1 0;\n" +
+                "    -fx-border-color: #D0342C;\n" +
+                "    -fx-padding: 8 0 8 0;\n" +
+                "    -fx-background-radius: 0;\n" +
+                "    -fx-border-radius: 0;");
+    }
+    public void phoneNumberInputError(){
+        phoneError.setVisible(true);
+        phoneError.setText("Phone Number cannot be empty");
+        phoneError.setStyle("-fx-text-fill: #D0342C");
+        phoneLabel.setStyle("-fx-text-fill: #D0342C");
+        textField4.setStyle("-fx-background-color: transparent;\n" +
+                "    -fx-border-width: 0 0 1 0;\n" +
+                "    -fx-border-color: #D0342C;\n" +
+                "    -fx-padding: 8 0 8 0;\n" +
+                "    -fx-background-radius: 0;\n" +
+                "    -fx-border-radius: 0;");
+    }
+    public void emailInputError(){
+        emailError.setVisible(true);
+        emailError.setText("Rating cannot be empty");
+        emailError.setStyle("-fx-text-fill: #D0342C");
+        emailLabel.setStyle("-fx-text-fill: #D0342C");
+        textField5.setStyle("-fx-background-color: transparent;\n" +
+                "    -fx-border-width: 0 0 1 0;\n" +
+                "    -fx-border-color: #D0342C;\n" +
+                "    -fx-padding: 8 0 8 0;\n" +
+                "    -fx-background-radius: 0;\n" +
+                "    -fx-border-radius: 0;");
+    }
     public void Submit(ActionEvent event){
+        if(textField1.getText().isEmpty()){
+            firstNameInputError();
+        }
+        if(textField2.getText().isEmpty()){
+            lastNameInputError();
+        }
+        if(textField3.getText().isEmpty()){
+            homeAddressInputError();
+        }
+        if(textField4.getText().isEmpty()){
+            phoneNumberInputError();
+        }
+        if(textField5.getText().isEmpty()){
+            emailInputError();
+        }
         int id = 0;
         String firstName = textField1.getText();
         String lastName = textField2.getText();
         String homeAddress = textField3.getText();
         String number = textField4.getText();
-        String email = textField5.getText();
+        int rating = 0;
         try{
+            try{
+                rating = Integer.parseInt(textField5.getText().trim());
+            } catch (NumberFormatException e){
+                return;
+            }
             String selectString = "SELECT insertCustomer(?,?,?,?,?)";
             insert = dbConnection.prepareStatement(selectString);
             insert.setString(1, firstName);
             insert.setString(2, lastName);
             insert.setString(3, homeAddress);
             insert.setString(4, number);
-            insert.setString(5, email);
+            insert.setInt(5, rating);
             ResultSet rs = insert.executeQuery();
             while(rs.next()){
                 id = rs.getInt(1);
@@ -227,7 +323,7 @@ public class CustomerInsertController implements Initializable {
         } catch (SQLException ex){
             System.out.println("SqlException");
         }
-        Customer customer = new Customer(id, firstName, lastName, homeAddress, number, email);
+        Customer customer = new Customer(id, firstName, lastName, homeAddress, number, rating);
         if(customerTable.getItems() == null){
             customerTable.setItems(FXCollections.observableArrayList());
         }

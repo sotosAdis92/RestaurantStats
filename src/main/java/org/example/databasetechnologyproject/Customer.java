@@ -6,15 +6,15 @@ public class Customer {
     private String lastName;
     private String homeAddress;
     private String number;
-    private String email;
+    private int rating;
     public Customer(){}
-    public Customer(int id, String firstName, String lastName, String homeAddress, String number, String email) {
+    public Customer(int id, String firstName, String lastName, String homeAddress, String number, int rating) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.homeAddress = homeAddress;
         this.number = number;
-        this.email = email;
+        this.rating = rating;
     }
     public int getId() {
         return id;
@@ -56,11 +56,11 @@ public class Customer {
         this.number = number;
     }
 
-    public String getEmail() {
-        return email;
+    public int getRating() {
+        return rating;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 }

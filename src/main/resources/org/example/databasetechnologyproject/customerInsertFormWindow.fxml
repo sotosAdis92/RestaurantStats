@@ -18,13 +18,13 @@
       <Label fx:id="lastNameLabel" layoutX="113.0" layoutY="266.0" text="Last Name" />
       <Label fx:id="homeLabel" layoutX="116.0" layoutY="366.0" text="Home Address" />
       <Label fx:id="phoneLabel" layoutX="113.0" layoutY="472.0" text="Phone Number" />
-      <Label fx:id="emailLabel" layoutX="116.0" layoutY="585.0" text="Email Address" />
-      <Label fx:id="firstNameError" layoutX="114.0" layoutY="219.0" prefHeight="17.0" prefWidth="366.0" />
-      <Label fx:id="lastNameError" layoutX="118.0" layoutY="317.0" prefHeight="17.0" prefWidth="366.0" />
-      <Label fx:id="addressError" layoutX="112.0" layoutY="417.0" prefHeight="17.0" prefWidth="366.0" />
-      <Label fx:id="phoneError" layoutX="113.0" layoutY="523.0" prefHeight="17.0" prefWidth="366.0" />
-      <Label fx:id="emailError" layoutX="119.0" layoutY="638.0" prefHeight="17.0" prefWidth="366.0" />
-      <Button fx:id="submitButton" layoutX="120.0" layoutY="688.0" mnemonicParsing="false" onAction="#Submit" prefHeight="43.0" prefWidth="139.0" text="Submit">
+      <Label fx:id="emailLabel" layoutX="116.0" layoutY="585.0" text="Customer Rating" />
+      <Label fx:id="firstNameError" layoutX="115.0" layoutY="227.0" prefHeight="17.0" prefWidth="366.0" />
+      <Label fx:id="lastNameError" layoutX="113.0" layoutY="325.0" prefHeight="17.0" prefWidth="366.0" />
+      <Label fx:id="addressError" layoutX="112.0" layoutY="425.0" prefHeight="17.0" prefWidth="366.0" />
+      <Label fx:id="phoneError" layoutX="116.0" layoutY="531.0" prefHeight="17.0" prefWidth="366.0" />
+      <Label fx:id="emailError" layoutX="116.0" layoutY="644.0" prefHeight="17.0" prefWidth="366.0" />
+      <Button fx:id="submitButton" layoutX="120.0" layoutY="689.0" mnemonicParsing="false" onAction="#Submit" prefHeight="43.0" prefWidth="139.0" text="Submit" AnchorPane.leftAnchor="115.0">
          <graphic>
             <ImageView fitHeight="31.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                <image>
