@@ -1,21 +1,26 @@
 package org.example.databasetechnologyproject;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.net.URL;
 import java.sql.*;
@@ -25,6 +30,7 @@ import static org.example.databasetechnologyproject.CustomerController.dbConnect
 import static org.example.databasetechnologyproject.HelloController.driverClassName;
 
 public class CustomerInsertController implements Initializable {
+    private DialogPane dialog;
     public CustomerController mainController;
     @FXML
     TableView<Customer> customerTable;
@@ -40,6 +46,9 @@ public class CustomerInsertController implements Initializable {
     TableColumn<Customer, Integer> ratingColumn;
     @FXML
     TextField textField1;
+
+    @FXML
+    Stage scene1;
 
     @FXML
     TextField textField2;
@@ -221,8 +230,38 @@ public class CustomerInsertController implements Initializable {
     public void setRatingColumn(TableColumn<Customer, Integer> ratingColumn){
         this.ratingColumn = ratingColumn;
     }
+    public void setStage(Stage stage) {
+        this.scene1 = stage;
+    }
     public void showNotification(){
+        Stage toastStage = new Stage();
+        toastStage.initOwner(scene1);
+        toastStage.setResizable(false);
+        toastStage.initStyle(StageStyle.TRANSPARENT);
 
+        Label label = new Label("Operation Successful, Customer Inserted ✔");
+        label.setStyle("-fx-font-size: 17px;\n" +
+                "-fx-text-fill: #001D00;\n" +
+                "-fx-background-color: #dcfce7;\n" +
+                "-fx-background-radius: 10px;\n" +
+                "-fx-border-color: #22c55e;\n" +
+                "-fx-border-width: 2px;\n" +
+                "-fx-border-radius: 10px;\n" +
+                "-fx-text-alignment: center;\n" +
+                "-fx-padding: 10px 15px;");
+
+        Scene scene = new Scene(label);
+        scene.setFill(Color.TRANSPARENT);
+        toastStage.setScene(scene);
+        toastStage.setWidth(370);
+        toastStage.setHeight(60);
+        toastStage.setX(scene1.getX() + scene1.getWidth() - 400);
+        toastStage.setY(scene1.getY() + scene1.getHeight() - 80);
+
+        toastStage.show();
+        PauseTransition delay = new PauseTransition(Duration.seconds(7));
+        delay.setOnFinished(e -> toastStage.close());
+        delay.play();
     }
     public void cancelInput(ActionEvent event){
         textField1.setText("");
