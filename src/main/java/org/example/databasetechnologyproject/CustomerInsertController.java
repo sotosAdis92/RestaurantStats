@@ -1,14 +1,21 @@
 package org.example.databasetechnologyproject;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.sql.*;
@@ -214,6 +221,34 @@ public class CustomerInsertController implements Initializable {
     public void setRatingColumn(TableColumn<Customer, Integer> ratingColumn){
         this.ratingColumn = ratingColumn;
     }
+    public void showNotification(){
+        Stage notificationStage = new Stage();
+        notificationStage.initStyle(StageStyle.UNDECORATED);
+        notificationStage.initModality(Modality.NONE);
+        Pane root = new Pane();
+        root.setPrefSize(400, 65);
+        root.setStyle(" -fx-font-size: 17px;\n" +
+                "    -fx-text-fill: #166534;\n" +
+                "    -fx-background-color: #dcfce7;\n" +
+                "    -fx-background-radius: 6px;\n" +
+                "    -fx-border-color: #22c55e;\n" +
+                "    -fx-border-width: 1px;" +
+                "-fx-border-radius: 2px;");
+        Label label = new Label("Operation was Successful, Customer Inserted");
+        Label iconLabel = new Label("✓");
+        iconLabel.setStyle("-fx-text-fill: #166534; -fx-font-size: 24px; -fx-font-weight: bold;");
+        label.layoutXProperty().bind(root.widthProperty().subtract(label.widthProperty()).divide(2));
+        label.layoutYProperty().bind(root.heightProperty().subtract(label.heightProperty()).divide(2));
+        label.setStyle("-fx-text-fill: #001D00");
+        root.getChildren().add(label);
+        root.getChildren().add(iconLabel);
+        Scene scene = new Scene(root);
+        notificationStage.setScene(scene);
+        notificationStage.show();
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        delay.setOnFinished(e -> notificationStage.close());
+        delay.play();
+    }
     public void cancelInput(ActionEvent event){
         textField1.setText("");
         textField2.setText("");
@@ -333,6 +368,7 @@ public class CustomerInsertController implements Initializable {
         textField3.setText("");
         textField4.setText("");
         textField5.setText("");
+        showNotification();
         mainController.refresh();
     }
 }
