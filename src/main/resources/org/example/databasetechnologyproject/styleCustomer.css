@@ -216,3 +216,41 @@
     -fx-border-color: #3b82f6;
     -fx-border-width: 1px;
 }
+#filterLabel{
+    -fx-font-family: "Lexend Giga";
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #5CABF5;
+}
+#firstLabel{
+    -fx-font-family: "Lexend Giga";
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+}
+#secondLabel{
+    -fx-font-family: "Lexend Giga";
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+}
+#thirdLabel{
+    -fx-font-family: "Lexend Giga";
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+}
+#forthLabel{
+    -fx-font-family: "Lexend Giga";
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+}
+#rowsLabel{
+    -fx-font-family: "Lexend Giga";
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #5CABF5;
+}
+#rowResult{
+    -fx-font-family: "Lexend Giga";
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #5CABF5;
+}
