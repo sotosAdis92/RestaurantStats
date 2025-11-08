@@ -165,6 +165,7 @@ public class CustomerController implements Initializable {
                 selectedItem.forEach(index ->{
                     i = index + 1;
                 });
+                refresh();
                 showNotification(i);
             }
         });
@@ -200,6 +201,7 @@ public class CustomerController implements Initializable {
                 selectedItem.forEach(index ->{
                     i = index + 1;
                 });
+                refresh();
                 showNotification(i);
             }
         });
@@ -235,6 +237,7 @@ public class CustomerController implements Initializable {
                 selectedItem.forEach(index ->{
                     i = index + 1;
                 });
+                refresh();
                 showNotification(i);
             }
         });
@@ -270,6 +273,7 @@ public class CustomerController implements Initializable {
                 selectedItem.forEach(index ->{
                     i = index + 1;
                 });
+                refresh();
                 showNotification(i);
             }
         });
@@ -307,6 +311,7 @@ public class CustomerController implements Initializable {
                 selectedItem.forEach(index ->{
                     i = index + 1;
                 });
+                refresh();
                 showNotification(i);
             }
         });
@@ -320,6 +325,8 @@ public class CustomerController implements Initializable {
         customerTable.setItems(customers);
 
     }
+
+
 
     public void showNotification(int ind){
         Stage toastStage = new Stage();
@@ -503,7 +510,7 @@ public class CustomerController implements Initializable {
             ex.printStackTrace();
         }
     }
-    public void openCustomerAudit(ActionEvent evet){
+    public void openCustomerAudit(ActionEvent event){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("customerAudit.fxml"));
             Parent root = (Parent) fxmlLoader.load();
@@ -513,6 +520,7 @@ public class CustomerController implements Initializable {
             stage.getIcons().add(icon);
             stage.setScene(new Scene(root));
             stage.show();
+            refresh();
         } catch (IOException ex){
             ex.printStackTrace();
         }
@@ -539,6 +547,7 @@ public class CustomerController implements Initializable {
 
         }
     }
+
     public void deleteCustomer(ActionEvent event){
         Alert alert3 = new Alert(Alert.AlertType.CONFIRMATION);
         dialog3 = alert3.getDialogPane();
@@ -577,6 +586,7 @@ public class CustomerController implements Initializable {
                 selectionModel.clearSelection(selectedItems[i].intValue());
                 customerTable.getItems().remove(selectedItems[i].intValue());
             }
+            refresh();
             showNotification2();
         }
         else{

@@ -5,9 +5,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.*;
@@ -64,6 +66,7 @@ public class CustomerLogFileController implements Initializable {
     ObservableList<CustomerAudit> customerAud = FXCollections.observableArrayList();
     @Override
     public void initialize(URL y, ResourceBundle resourceBundle) {
+
         System.out.println(url);
         System.out.println(user);
         System.out.println(password);
@@ -122,4 +125,33 @@ public class CustomerLogFileController implements Initializable {
         or.setCellValueFactory(new PropertyValueFactory<CustomerAudit, Integer>("old_rating"));
         table1.setItems(customerAud);
     }
+    public void refresh(){
+        customerAud.clear();
+        try{
+            String selectString = "SELECT * FROM getCustomerAudit()";
+            getAudit = dbConnection.prepareStatement(selectString);
+            ResultSet rs = getAudit.executeQuery();
+            while(rs.next()){
+                String ope = rs.getString(1);
+                String time = rs.getString(2);
+                String use = rs.getString(3);
+                int id = rs.getInt(4);
+                String nfn = rs.getString(5);
+                String ofn = rs.getString(6);
+                String nln = rs.getString(7);
+                String oln = rs.getString(8);
+                String na = rs.getString(9);
+                String oa = rs.getString(10);
+                String np = rs.getString(11);
+                String op = rs.getString(12);
+                int nr = rs.getInt(13);
+                int or = rs.getInt(14);
+                CustomerAudit ad = new CustomerAudit(ope,time,use,id,nfn,ofn,nln,oln,na,oa,np,op,nr,or);
+                customerAud.add(ad);
+            }
+        } catch (SQLException ex){
+
+        }
+    }
+
 }
