@@ -69,6 +69,8 @@ public class CustomerController implements Initializable {
     ComboBox<Object> textfield4;
     @FXML
     Button resetAllButton;
+    @FXML
+    Label rowResult;
 
 
     ObservableList<Customer> customers = FXCollections.observableArrayList();
@@ -80,6 +82,8 @@ public class CustomerController implements Initializable {
     PreparedStatement getPhone;
     PreparedStatement getRating;
     PreparedStatement getFname;
+    PreparedStatement getCountCustomer;
+    PreparedStatement getCountOfTable;
 
     int i = 0;
     private DialogPane dialog;
@@ -186,9 +190,17 @@ public class CustomerController implements Initializable {
         }
         try{
             String selectString = "SELECT * FROM getTable()";
+            String selectString2 = "SELECT COUNT(*) FROM getTable()";
+
             fillTable = dbConnection.prepareStatement(selectString);
+            getCountOfTable = dbConnection.prepareStatement(selectString2);
+
+            getCountOfTable.executeQuery();
             fillTable.executeQuery();
+
             ResultSet rs = fillTable.getResultSet();
+            ResultSet rs2 = getCountOfTable.getResultSet();
+
             ResultSetMetaData rsmd = rs.getMetaData();
             while(rs.next()){
                 int id = rs.getInt(1);
@@ -199,6 +211,10 @@ public class CustomerController implements Initializable {
                 int rating = rs.getInt(6);
                 Customer customer1 = new Customer(id,firstName,lastName,homeAddress,phone,rating);
                 customers.add(customer1);
+            }
+            if(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
             }
         }catch (SQLException ex){
             System.out.println("SQL error");
@@ -684,10 +700,17 @@ public class CustomerController implements Initializable {
             String selected3 = textfield3.getSelectionModel().getSelectedItem();
             Object selected4 = textfield4.getSelectionModel().getSelectedItem();
             String selectString = "SELECT * FROM filterCustomer(?,?,?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterCustomer(?,?,?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
             getFname = dbConnection.prepareStatement(selectString);
             getFname.setString(1, selected);
             getFname.setString(2, selected2);
             getFname.setString(3, selected3);
+
+            getCountCustomer.setString(1,selected);
+            getCountCustomer.setString(2, selected2);
+            getCountCustomer.setString(3, selected3);
+
             if (selected4 instanceof Integer) {
                 getFname.setInt(4, (Integer) selected4);
             } else if ("Any Rating".equals(selected4)) {
@@ -695,7 +718,16 @@ public class CustomerController implements Initializable {
             } else {
                 getFname.setNull(4, Types.INTEGER);
             }
+
+            if (selected4 instanceof Integer) {
+                getCountCustomer.setInt(4, (Integer) selected4);
+            } else if ("Any Rating".equals(selected4)) {
+                getCountCustomer.setNull(4, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(4, Types.INTEGER);
+            }
             ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
             while(rs.next()){
                 id = rs.getInt(1);
                 firstName = rs.getString(2);
@@ -705,6 +737,10 @@ public class CustomerController implements Initializable {
                 rating = rs.getInt(6);
                 Customer customer1 = new Customer(id,firstName,lastname,address,phone,rating);
                 customers.add(customer1);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.getMessage();
