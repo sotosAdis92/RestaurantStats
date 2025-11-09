@@ -8,6 +8,13 @@ public class Customer {
     private String number;
     private int rating;
     public Customer(){}
+    public Customer(String firstName, String lastName, String homeAddress, String number, int rating) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.homeAddress = homeAddress;
+        this.number = number;
+        this.rating = rating;
+    }
     public Customer(int id, String firstName, String lastName, String homeAddress, String number, int rating) {
         this.id = id;
         this.firstName = firstName;

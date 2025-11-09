@@ -56,12 +56,31 @@ public class CustomerController implements Initializable {
     TableColumn<Customer, String> numberColumn;
     @FXML
     TableColumn<Customer, Integer> ratingColumn;
+    @FXML
+    ComboBox<String> textfield;
+
+    @FXML
+    ComboBox<String> textfield2;
+
+    @FXML
+    ComboBox<String> textfield3;
+
+    @FXML
+    ComboBox<Object> textfield4;
+    @FXML
+    Button resetAllButton;
 
 
     ObservableList<Customer> customers = FXCollections.observableArrayList();
     PreparedStatement fillTable;
     PreparedStatement delete;
     PreparedStatement update;
+    PreparedStatement getFirstName;
+    PreparedStatement getLastName;
+    PreparedStatement getPhone;
+    PreparedStatement getRating;
+    PreparedStatement getFname;
+
     int i = 0;
     private DialogPane dialog;
     DialogPane dialog3;
@@ -73,6 +92,10 @@ public class CustomerController implements Initializable {
     static Connection dbConnection;
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
+        textfield.setValue("all");
+        textfield2.setValue("all");
+        textfield3.setValue("all");
+        textfield4.setValue("all");
         System.out.println(url);
         System.out.println(user);
         System.out.println(password);
@@ -105,8 +128,61 @@ public class CustomerController implements Initializable {
             Image image = new Image(getClass().getResourceAsStream("g.png"));
             ImageView imageview = new ImageView(image);
             tooltipexit.setGraphic(imageview);
-        } catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println("Image not found");
+        }
+        //Γεμισμα των Combobox
+        try{
+            textfield.getItems().add("all");
+            String selectString = "SELECT * FROM getFn()";
+            getFirstName = dbConnection.prepareStatement(selectString);
+            getFirstName.executeQuery();
+            ResultSet rs = getFirstName.getResultSet();
+            while(rs.next()){
+                String firstname = rs.getString("getfn");
+                textfield.getItems().addAll(firstname);
+            }
+        } catch (SQLException ex){
+
+        }
+        try{
+            textfield2.getItems().add("all");
+            String selectString = "SELECT * FROM getLn()";
+            getLastName = dbConnection.prepareStatement(selectString);
+            getLastName.executeQuery();
+            ResultSet rs = getLastName.getResultSet();
+            while(rs.next()){
+                String lastname = rs.getString("getln");
+                textfield2.getItems().addAll(lastname);
+            }
+        } catch (SQLException ex){
+
+        }
+        try{
+            textfield3.getItems().add("all");
+            String selectString = "SELECT * FROM getP()";
+            getPhone = dbConnection.prepareStatement(selectString);
+            getPhone.executeQuery();
+            ResultSet rs = getPhone.getResultSet();
+            while(rs.next()){
+                String phone = rs.getString("getp");
+                textfield3.getItems().addAll(phone);
+            }
+        } catch (SQLException ex){
+
+        }
+        try{
+            textfield4.getItems().add("all");
+            String selectString = "SELECT * FROM getR();";
+            getRating = dbConnection.prepareStatement(selectString);
+            getRating.executeQuery();
+            ResultSet rs = getRating.getResultSet();
+            while(rs.next()){
+                int rating = rs.getInt("getr");
+                textfield4.getItems().addAll(rating);
+            }
+        } catch (SQLException ex){
+
         }
         try{
             String selectString = "SELECT * FROM getTable()";
@@ -592,5 +668,53 @@ public class CustomerController implements Initializable {
         else{
             return;
         }
+    }
+
+    public void select(ActionEvent event){
+        try{
+            String firstName = null;
+            String lastname = null;
+            String address = null;
+            String phone = null;
+            int rating = 0;
+            int id = 0;
+            customers.clear();
+            String selected = textfield.getSelectionModel().getSelectedItem();
+            String selected2 = textfield2.getSelectionModel().getSelectedItem();
+            String selected3 = textfield3.getSelectionModel().getSelectedItem();
+            Object selected4 = textfield4.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterCustomer(?,?,?,?)";
+            getFname = dbConnection.prepareStatement(selectString);
+            getFname.setString(1, selected);
+            getFname.setString(2, selected2);
+            getFname.setString(3, selected3);
+            if (selected4 instanceof Integer) {
+                getFname.setInt(4, (Integer) selected4);
+            } else if ("Any Rating".equals(selected4)) {
+                getFname.setNull(4, Types.INTEGER);
+            } else {
+                getFname.setNull(4, Types.INTEGER);
+            }
+            ResultSet rs = getFname.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getString(2);
+                lastname = rs.getString(3);
+                address = rs.getString(4);
+                phone = rs.getString(5);
+                rating = rs.getInt(6);
+                Customer customer1 = new Customer(id,firstName,lastname,address,phone,rating);
+                customers.add(customer1);
+            }
+        } catch (SQLException ex){
+            ex.getMessage();
+        }
+    }
+    public void resetAll(ActionEvent evet){
+        textfield.setValue("all");
+        textfield2.setValue("all");
+        textfield3.setValue("all");
+        textfield4.setValue("all");
+        refresh();
     }
 }
