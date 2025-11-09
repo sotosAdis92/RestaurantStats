@@ -172,10 +172,10 @@
                   <Image url="@f.png" />
                </image>
             </ImageView>
-            <ComboBox layoutX="28.0" layoutY="119.0" prefHeight="25.0" prefWidth="180.0" />
-            <ComboBox layoutX="266.0" layoutY="120.0" prefHeight="25.0" prefWidth="180.0" />
-            <ComboBox layoutX="524.0" layoutY="119.0" prefWidth="180.0" />
-            <ComboBox layoutX="779.0" layoutY="119.0" prefHeight="26.0" prefWidth="175.0" />
+            <ComboBox fx:id="textfield" layoutX="28.0" layoutY="119.0" prefHeight="25.0" prefWidth="180.0" />
+            <ComboBox fx:id="textfield2" layoutX="266.0" layoutY="120.0" prefHeight="25.0" prefWidth="180.0" />
+            <ComboBox fx:id="textfield3" layoutX="524.0" layoutY="119.0" prefWidth="180.0" />
+            <ComboBox fx:id="textfield4" layoutX="779.0" layoutY="119.0" prefHeight="26.0" prefWidth="175.0" />
             <Label fx:id="firstLabel" layoutX="34.0" layoutY="101.0" text="First Name Filter" />
             <Label fx:id="secondLabel" layoutX="274.0" layoutY="101.0" text="Last Name Filter" />
             <Label fx:id="thirdLabel" layoutX="554.0" layoutY="101.0" text="Phone Filter" />
