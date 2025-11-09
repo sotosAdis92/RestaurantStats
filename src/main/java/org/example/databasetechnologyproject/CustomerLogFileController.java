@@ -3,9 +3,12 @@ package org.example.databasetechnologyproject;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -56,6 +59,10 @@ public class CustomerLogFileController implements Initializable {
      TableColumn<CustomerAudit, String> use;
     @FXML
      TableView<CustomerAudit> table1;
+    @FXML
+    ComboBox<String> textfield;
+    @FXML
+    Label rowResult;
     static String driverClassName = "org.postgresql.Driver";
     static Dotenv dotenv = Dotenv.load();
     static String url = dotenv.get("DB_URL");
@@ -63,10 +70,13 @@ public class CustomerLogFileController implements Initializable {
     static String password = dotenv.get("DB_PASSWORD");
     static Connection dbConnection;
     PreparedStatement getAudit;
+    PreparedStatement getFiltered;
+    PreparedStatement getaudit;
+    PreparedStatement getCountOfTable;
     ObservableList<CustomerAudit> customerAud = FXCollections.observableArrayList();
     @Override
     public void initialize(URL y, ResourceBundle resourceBundle) {
-
+        textfield.setValue("all");
         System.out.println(url);
         System.out.println(user);
         System.out.println(password);
@@ -86,9 +96,14 @@ public class CustomerLogFileController implements Initializable {
             ex.printStackTrace();
         }
         try{
+            textfield.getItems().addAll("all");
             String selectString = "SELECT * FROM getCustomerAudit()";
+            String selectString2 = "SELECT COUNT(*) FROM getCustomerAudit()";
             getAudit = dbConnection.prepareStatement(selectString);
+            getCountOfTable = dbConnection.prepareStatement(selectString2);
+            getCountOfTable.executeQuery();
             ResultSet rs = getAudit.executeQuery();
+            ResultSet rs2 = getCountOfTable.getResultSet();
             while(rs.next()){
                 String ope = rs.getString(1);
                 String time = rs.getString(2);
@@ -106,6 +121,21 @@ public class CustomerLogFileController implements Initializable {
                 int or = rs.getInt(14);
                 CustomerAudit ad = new CustomerAudit(ope,time,use,id,nfn,ofn,nln,oln,na,oa,np,op,nr,or);
                 customerAud.add(ad);
+            }
+            if(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+
+        }
+        try{
+            String selectString = "SELECT * FROM getOp()";
+            getaudit = dbConnection.prepareStatement(selectString);
+            ResultSet rs = getaudit.executeQuery();
+            while(rs.next()){
+                String ope = rs.getString(1);
+                textfield.getItems().addAll(ope);
             }
         } catch (SQLException ex){
 
@@ -151,6 +181,44 @@ public class CustomerLogFileController implements Initializable {
             }
         } catch (SQLException ex){
 
+        }
+    }
+    public void select(ActionEvent event){
+        try{
+            customerAud.clear();
+            String operation = textfield.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM getCustomerAuditFilter(?)";
+            String selectString2 = "SELECT COUNT(*) FROM getCustomerAuditFilter(?)";
+            getCountOfTable = dbConnection.prepareStatement(selectString2);
+            getFiltered = dbConnection.prepareStatement(selectString);
+            getFiltered.setString(1, operation);
+            getCountOfTable.setString(1, operation);
+            ResultSet rs = getFiltered.executeQuery();
+            ResultSet rs2 = getCountOfTable.executeQuery();
+            while(rs.next()){
+                String op = rs.getString(1);
+                String time = rs.getString(2);
+                String user = rs.getString(3);
+                int id = rs.getInt(4);
+                String nfn = rs.getString(5);
+                String ofn = rs.getString(6);
+                String nln = rs.getString(7);
+                String oln = rs.getString(8);
+                String na = rs.getString(9);
+                String oa = rs.getString(10);
+                String np = rs.getString(11);
+                String ope = rs.getString(12);
+                int nr = rs.getInt(13);
+                int or = rs.getInt(14);
+                CustomerAudit ca = new CustomerAudit(op,time,user,id,nfn,ofn,nln,oln,na,oa,np,ope,nr,or);
+                customerAud.add(ca);
+            }
+            if(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch(SQLException ex){
+            ex.printStackTrace();
         }
     }
 

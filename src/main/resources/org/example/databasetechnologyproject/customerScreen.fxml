@@ -167,7 +167,7 @@
                </graphic>
             </Button>
             <Label fx:id="filterLabel" layoutX="53.0" layoutY="59.0" text="Table Filters:" />
-            <ImageView fitHeight="40.0" fitWidth="45.0" layoutX="14.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="40.0" fitWidth="45.0" layoutX="15.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@f.png" />
                </image>
