@@ -76,6 +76,7 @@ public class CustomerLogFileController implements Initializable {
     ObservableList<CustomerAudit> customerAud = FXCollections.observableArrayList();
     @Override
     public void initialize(URL y, ResourceBundle resourceBundle) {
+        customerServiceClass.getInstance().setRefreshCallback(v -> refresh());
         textfield.setValue("all");
         System.out.println(url);
         System.out.println(user);

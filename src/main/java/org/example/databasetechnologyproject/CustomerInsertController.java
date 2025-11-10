@@ -382,6 +382,7 @@ public class CustomerInsertController implements Initializable {
         textField3.setText("");
         textField4.setText("");
         textField5.setText("");
+        customerServiceClass.getInstance().triggerRefresh();
         showNotification();
         mainController.refresh();
     }

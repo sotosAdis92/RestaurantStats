@@ -258,6 +258,7 @@ public class CustomerController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
+                customerServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -294,6 +295,7 @@ public class CustomerController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
+                customerServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -330,6 +332,7 @@ public class CustomerController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
+                customerServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -366,6 +369,7 @@ public class CustomerController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
+                customerServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -404,6 +408,7 @@ public class CustomerController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
+                customerServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -678,6 +683,7 @@ public class CustomerController implements Initializable {
                 selectionModel.clearSelection(selectedItems[i].intValue());
                 customerTable.getItems().remove(selectedItems[i].intValue());
             }
+            customerServiceClass.getInstance().triggerRefresh();
             refresh();
             showNotification2();
         }
