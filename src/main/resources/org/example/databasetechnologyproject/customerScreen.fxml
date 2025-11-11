@@ -153,10 +153,22 @@
                      </image>
                   </ImageView>
                   <Label fx:id="filterLabel" layoutX="57.0" layoutY="17.0" text="Table Filters:" />
-                  <ComboBox fx:id="textfield" layoutX="358.0" layoutY="223.0" onAction="#select" prefHeight="25.0" prefWidth="180.0" />
-                  <ComboBox fx:id="textfield2" layoutX="35.0" layoutY="223.0" onAction="#select" prefHeight="25.0" prefWidth="180.0" />
-                  <ComboBox fx:id="textfield3" layoutX="358.0" layoutY="93.0" onAction="#select" prefWidth="180.0" />
-                  <ComboBox fx:id="textfield4" layoutX="37.0" layoutY="93.0" onAction="#select" prefHeight="26.0" prefWidth="175.0" />
+                  <ComboBox fx:id="textfield" layoutX="35.0" layoutY="93.0" onAction="#select" prefHeight="25.0" prefWidth="180.0">
+                     <tooltip>
+                        <Tooltip text="Filter By Rating" />
+                     </tooltip></ComboBox>
+                  <ComboBox fx:id="textfield2" layoutX="358.0" layoutY="93.0" onAction="#select" prefHeight="25.0" prefWidth="180.0">
+                     <tooltip>
+                        <Tooltip text="Filter By Phone" />
+                     </tooltip></ComboBox>
+                  <ComboBox fx:id="textfield3" layoutX="35.0" layoutY="223.0" onAction="#select" prefWidth="180.0">
+                     <tooltip>
+                        <Tooltip text="Filter by last name" />
+                     </tooltip></ComboBox>
+                  <ComboBox fx:id="textfield4" layoutX="361.0" layoutY="223.0" onAction="#select" prefHeight="26.0" prefWidth="175.0">
+                     <tooltip>
+                        <Tooltip text="Filter by first name" />
+                     </tooltip></ComboBox>
                   <Label fx:id="firstLabel" layoutX="40.0" layoutY="74.0" text="First Name Filter" />
                   <Label fx:id="secondLabel" layoutX="366.0" layoutY="74.0" text="Last Name Filter" />
                   <Label fx:id="thirdLabel" layoutX="64.0" layoutY="204.0" text="Phone Filter" />
@@ -174,6 +186,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <tooltip>
+                        <Tooltip text="Insert A new Customer" />
+                     </tooltip>
                   </Button>
                   <Button fx:id="deleteCustomerButton" layoutX="340.0" layoutY="214.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="60.0" prefWidth="212.0" text="Delete Customer">
                      <graphic>
@@ -183,6 +198,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <tooltip>
+                        <Tooltip text="Delete an existing Customer" />
+                     </tooltip>
                   </Button>
                   <Button fx:id="openLogCustomer" layoutX="341.0" layoutY="82.0" mnemonicParsing="false" onAction="#openCustomerAudit" prefHeight="60.0" prefWidth="209.0" text="Open Log Table">
                      <graphic>
@@ -192,6 +210,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <tooltip>
+                        <Tooltip text="Open Audit Table" />
+                     </tooltip>
                   </Button>
                   <Button fx:id="resertAllButton" layoutX="51.0" layoutY="215.0" mnemonicParsing="false" onAction="#resetAll" prefHeight="57.0" prefWidth="210.0" text="Reset All Filters">
                      <graphic>
@@ -201,6 +222,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <tooltip>
+                        <Tooltip text="Reset All Filters to defautl" />
+                     </tooltip>
                   </Button>
                   <ImageView fitHeight="36.0" fitWidth="44.0" layoutX="20.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -387,3 +387,31 @@
     -fx-font-weight: 600;
     -fx-text-fill: #5CABF5;
 }
+.tooltip {
+    -fx-background-color: rgba(40, 40, 40, 0.95);
+    -fx-background-radius: 6;
+    -fx-padding: 8 12;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: 400;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.2, 0, 2);
+}
+
+.tooltip > .text {
+    -fx-text-fill: white;
+}
+.tooltip.arrow-top {
+    -fx-background-color: rgba(40, 40, 40, 0.95);
+    -fx-background-radius: 6;
+    -fx-padding: 8 12;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.2, 0, 2);
+}
+
+.tooltip.arrow-bottom {
+    -fx-background-color: rgba(40, 40, 40, 0.95);
+    -fx-background-radius: 6;
+    -fx-padding: 8 12;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.2, 0, 2);
+}

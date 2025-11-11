@@ -177,7 +177,7 @@
                     </image>
                 </ImageView>
                 <Label fx:id="rowResult" layoutX="238.0" layoutY="214.0" prefHeight="17.0" prefWidth="48.0" />
-                <Button fx:id="resertAllButton" layoutX="1118.0" layoutY="117.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="197.0" text="Reset All Filters">
+                <Button fx:id="resertAllButton" layoutX="428.0" layoutY="310.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="197.0" text="Reset All Filters">
                     <graphic>
                         <ImageView fitHeight="36.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                             <image>
