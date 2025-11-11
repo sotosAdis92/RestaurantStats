@@ -525,6 +525,7 @@ public class CustomerController implements Initializable {
             stage1.show();
         } catch (IOException ex){
             System.out.println("Cannot change scenes");
+            ex.printStackTrace();
         }
     }
     public void switchToEmployeesScene(ActionEvent event){

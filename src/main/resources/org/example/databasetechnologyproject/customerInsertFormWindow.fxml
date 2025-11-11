@@ -7,46 +7,46 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" stylesheets="@styleInsertCustomer.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.CustomerInsertController">
+<AnchorPane fx:id="center2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" stylesheets="@styleInsertCustomer.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.CustomerInsertController">
    <children>
-      <TextField fx:id="textField1" layoutX="113.0" layoutY="187.0" prefHeight="34.0" prefWidth="366.0" />
-      <TextField fx:id="textField2" layoutX="112.0" layoutY="285.0" prefHeight="34.0" prefWidth="366.0" />
-      <TextField fx:id="textField3" layoutX="113.0" layoutY="385.0" prefHeight="34.0" prefWidth="366.0" />
-      <TextField fx:id="textField4" layoutX="115.0" layoutY="491.0" prefHeight="34.0" prefWidth="366.0" />
-      <TextField fx:id="textField5" layoutX="116.0" layoutY="604.0" prefHeight="34.0" prefWidth="366.0" />
-      <Label fx:id="firstNameLabel" layoutX="112.0" layoutY="168.0" text="First Name" AnchorPane.bottomAnchor="613.0" />
-      <Label fx:id="lastNameLabel" layoutX="113.0" layoutY="266.0" text="Last Name" />
-      <Label fx:id="homeLabel" layoutX="116.0" layoutY="366.0" text="Home Address" />
-      <Label fx:id="phoneLabel" layoutX="113.0" layoutY="472.0" text="Phone Number" />
-      <Label fx:id="emailLabel" layoutX="116.0" layoutY="585.0" text="Customer Rating" />
-      <Label fx:id="firstNameError" layoutX="115.0" layoutY="227.0" prefHeight="17.0" prefWidth="366.0" />
-      <Label fx:id="lastNameError" layoutX="113.0" layoutY="325.0" prefHeight="17.0" prefWidth="366.0" />
-      <Label fx:id="addressError" layoutX="112.0" layoutY="425.0" prefHeight="17.0" prefWidth="366.0" />
-      <Label fx:id="phoneError" layoutX="116.0" layoutY="531.0" prefHeight="17.0" prefWidth="366.0" />
-      <Label fx:id="emailError" layoutX="116.0" layoutY="644.0" prefHeight="17.0" prefWidth="366.0" />
-      <Button fx:id="submitButton" layoutX="120.0" layoutY="689.0" mnemonicParsing="false" onAction="#Submit" prefHeight="43.0" prefWidth="139.0" text="Submit" AnchorPane.leftAnchor="115.0">
-         <graphic>
-            <ImageView fitHeight="31.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@33281-removebg-preview.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button fx:id="CancelButton" layoutX="346.0" layoutY="688.0" mnemonicParsing="false" onAction="#cancelInput" prefHeight="46.0" prefWidth="140.0" text="Reset">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images-removebg-preview.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <AnchorPane fx:id="titleBackground" prefHeight="102.0" prefWidth="600.0">
+      <AnchorPane fx:id="center" layoutX="55.0" layoutY="110.0" prefHeight="666.0" prefWidth="497.0">
          <children>
-            <Label fx:id="title" layoutX="12.0" layoutY="17.0" text="Insert a new customer" />
-            <Label fx:id="undertitle" layoutX="12.0" layoutY="63.0" text="In this Form you can fill out the text fields and insert a new customer" />
+            <Label fx:id="firstNameError" layoutX="55.0" layoutY="115.0" prefHeight="17.0" prefWidth="366.0" />
+            <TextField fx:id="textField1" layoutX="55.0" layoutY="81.0" prefHeight="34.0" prefWidth="405.0" />
+            <TextField fx:id="textField2" layoutX="55.0" layoutY="187.0" prefHeight="34.0" prefWidth="405.0" />
+            <TextField fx:id="textField3" layoutX="55.0" layoutY="289.0" prefHeight="34.0" prefWidth="405.0" />
+            <TextField fx:id="textField4" layoutX="55.0" layoutY="387.0" prefHeight="34.0" prefWidth="405.0" />
+            <TextField fx:id="textField5" layoutX="50.0" layoutY="500.0" prefHeight="34.0" prefWidth="414.0" />
+            <Label fx:id="firstNameLabel" layoutX="55.0" layoutY="62.0" text="First Name" AnchorPane.bottomAnchor="585.0" />
+            <Label fx:id="lastNameLabel" layoutX="57.0" layoutY="168.0" text="Last Name" />
+            <Label fx:id="homeLabel" layoutX="54.0" layoutY="270.0" text="Home Address" />
+            <Label fx:id="phoneLabel" layoutX="51.0" layoutY="368.0" text="Phone Number" />
+            <Label fx:id="emailLabel" layoutX="50.0" layoutY="475.0" text="Customer Rating" />
+            <Label fx:id="lastNameError" layoutX="61.0" layoutY="421.0" prefHeight="17.0" prefWidth="366.0" />
+            <Label fx:id="addressError" layoutX="61.0" layoutY="325.0" prefHeight="17.0" prefWidth="366.0" />
+            <Label fx:id="phoneError" layoutX="55.0" layoutY="421.0" prefHeight="17.0" prefWidth="366.0" />
+            <Label fx:id="emailError" layoutX="50.0" layoutY="534.0" prefHeight="17.0" prefWidth="366.0" />
+            <Button fx:id="submitButton" layoutX="53.0" layoutY="579.0" mnemonicParsing="false" onAction="#Submit" prefHeight="43.0" prefWidth="139.0" text="Submit" AnchorPane.leftAnchor="53.0">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@33281-removebg-preview.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="CancelButton" layoutX="320.0" layoutY="581.0" mnemonicParsing="false" onAction="#cancelInput" prefHeight="46.0" prefWidth="140.0" text="Reset">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images-removebg-preview.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
+      <Label fx:id="title" layoutX="164.0" layoutY="27.0" text="Insert a new customer" />
+      <Label fx:id="undertitle" layoutX="60.0" layoutY="61.0" text="In this Form you can fill out the text fields and insert a new customer" />
    </children>
 </AnchorPane>
