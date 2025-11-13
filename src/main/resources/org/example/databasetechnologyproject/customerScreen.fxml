@@ -16,7 +16,7 @@
     <top>
         <AnchorPane fx:id="stage" prefHeight="74.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fitHeight="83.0" fitWidth="76.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="1510.0" AnchorPane.topAnchor="0.0">
+                <ImageView fitHeight="75.0" fitWidth="79.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="1507.0" AnchorPane.topAnchor="0.0">
                     <image>
                         <Image url="@../../../logos.png" />
                     </image>
@@ -38,7 +38,7 @@
         </AnchorPane>
     </top>
     <left>
-        <AnchorPane fx:id="menuSideBar" prefHeight="805.0" prefWidth="271.0" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="menuSideBar" prefHeight="858.0" prefWidth="271.0" BorderPane.alignment="CENTER">
             <children>
                 <Button fx:id="HomeButton" layoutX="26.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToHomeScene" prefHeight="55.0" prefWidth="220.0" text="Home Page">
                     <graphic>
