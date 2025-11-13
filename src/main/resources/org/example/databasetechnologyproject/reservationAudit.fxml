@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1650.0" stylesheets="@reservationAuditStyle.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.ReservationAuditController">
+   <top>
+      <AnchorPane fx:id="topLayer" prefHeight="100.0" prefWidth="1650.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="Title" layoutX="25.0" layoutY="14.0" text="Reservation Log File" />
+            <Label fx:id="subtitle" layoutX="25.0" layoutY="57.0" prefHeight="23.0" prefWidth="918.0" text="Here you can view all the operations and history of the reservationstable" />
+         </children>
+      </AnchorPane>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="490.0" prefWidth="1650.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="t" layoutX="444.0" layoutY="49.0" prefHeight="464.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <columns>
+                  <TableColumn fx:id="operationColumn" prefWidth="75.0" text="Operation" />
+                  <TableColumn fx:id="timeColumn" prefWidth="75.0" text="Time" />
+                  <TableColumn fx:id="userColumn" prefWidth="75.0" text="User" />
+                  <TableColumn fx:id="nc" prefWidth="75.0" text="New Customer " />
+                  <TableColumn fx:id="oc" prefWidth="75.0" text="Old Customer" />
+                  <TableColumn fx:id="nt" prefWidth="75.0" text="New Table" />
+                  <TableColumn fx:id="ot" prefWidth="75.0" text="Old Table" />
+                  <TableColumn fx:id="ntime" prefWidth="75.0" text="New Time" />
+                  <TableColumn fx:id="otime" prefWidth="75.0" text="Old Time" />
+                  <TableColumn fx:id="sizen" prefWidth="75.0" text="New Size" />
+                  <TableColumn fx:id="sizeo" prefWidth="75.0" text="Old Size" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </bottom>
+   <center>
+      <AnchorPane prefHeight="265.0" prefWidth="1650.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="40.0" fitWidth="45.0" layoutX="20.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@ff.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="rowsLabel" layoutX="57.0" layoutY="202.0" text="Rows Retured:" />
+            <ImageView fitHeight="40.0" fitWidth="45.0" layoutX="20.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@f.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="filterLabel" layoutX="64.0" layoutY="26.0" text="Table Filters:" />
+            <ComboBox fx:id="textfield" layoutX="69.0" layoutY="107.0" prefWidth="150.0" />
+            <Label fx:id="firstLabel" layoutX="91.0" layoutY="88.0" text="Operation" />
+            <Label fx:id="rowResult" layoutX="226.0" layoutY="202.0" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

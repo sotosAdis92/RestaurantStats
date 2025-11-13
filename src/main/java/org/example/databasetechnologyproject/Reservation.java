@@ -1,13 +1,15 @@
 package org.example.databasetechnologyproject;
 
+import java.sql.Timestamp;
+
 public class Reservation {
     private int reservationid;
     private int customerid;
     private int tableid;
-    private String reservationtime;
+    private Timestamp reservationtime;
     private int party_size;
 
-    public Reservation(int reservationid, int customerid, int tableid, String reservationtime, int party_size) {
+    public Reservation(int reservationid, int customerid, int tableid, Timestamp reservationtime, int party_size) {
         this.reservationid = reservationid;
         this.customerid = customerid;
         this.tableid = tableid;
@@ -27,7 +29,7 @@ public class Reservation {
         return tableid;
     }
 
-    public String getReservationtime() {
+    public Timestamp getReservationtime() {
         return reservationtime;
     }
 
@@ -47,7 +49,7 @@ public class Reservation {
         this.tableid = tableid;
     }
 
-    public void setReservationtime(String reservationtime) {
+    public void setReservationtime(Timestamp reservationtime) {
         this.reservationtime = reservationtime;
     }
 

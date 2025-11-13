@@ -13,10 +13,10 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,6 +45,8 @@ public class ReservationInsertController implements Initializable {
     Stage scene1;
     @FXML
     private ComboBox<String> text1;
+    @FXML
+    DatePicker h;
 
     @FXML
     private ComboBox<Integer> text2;
@@ -103,19 +105,19 @@ public class ReservationInsertController implements Initializable {
         } catch (SQLException ex){
             ex.printStackTrace();;
         }
-        text3.getItems().add("12:00");
-        text3.getItems().add("13:00");
-        text3.getItems().add("14:00");
-        text3.getItems().add("15:00");
-        text3.getItems().add("16:00");
-        text3.getItems().add("17:00");
-        text3.getItems().add("18:00");
-        text3.getItems().add("19:00");
-        text3.getItems().add("20:00");
-        text3.getItems().add("21:00");
-        text3.getItems().add("22:00");
-        text3.getItems().add("23:00");
-        text3.getItems().add("00:00");
+        text3.getItems().add("12:00:00");
+        text3.getItems().add("13:00:00");
+        text3.getItems().add("14:00:00");
+        text3.getItems().add("15:00:00");
+        text3.getItems().add("16:00:00");
+        text3.getItems().add("17:00:00");
+        text3.getItems().add("18:00:00");
+        text3.getItems().add("19:00:00");
+        text3.getItems().add("20:00:00");
+        text3.getItems().add("21:00:00");
+        text3.getItems().add("22:00:00");
+        text3.getItems().add("23:00:00");
+        text3.getItems().add("00:00:00");
     }
     public void setMainController(ReservationsController mainController){
         this.mainController = mainController;
@@ -196,13 +198,17 @@ public class ReservationInsertController implements Initializable {
         String time = text3.getSelectionModel().getSelectedItem();
         String text = textField1.getText();
         int party_size = Integer.parseInt(text);
+        LocalDate date = h.getValue();
+        LocalTime t = LocalTime.parse(text3.getValue());
+        LocalDateTime dateTime = LocalDateTime.of(date,t);
+        Timestamp timestamp = Timestamp.valueOf(dateTime);
         try{
             String selectString = "SELECT insertReserve(?,?,?,?)";
             setReservation = dbConnection.prepareStatement(selectString);
-            setReservation.setInt(1,id);
-            setReservation.setString(2,time);
-            setReservation.setInt(3,tableNumber);
-            setReservation.setInt(4,party_size);
+            setReservation.setInt(1, id);
+            setReservation.setInt(2, tableNumber);
+            setReservation.setTimestamp(3, timestamp);
+            setReservation.setInt(4, party_size);
             ResultSet rs = setReservation.executeQuery();
             while(rs.next()){
                 resid = rs.getInt(1);
@@ -210,7 +216,7 @@ public class ReservationInsertController implements Initializable {
         } catch (SQLException ex){
             ex.printStackTrace();
         }
-        Reservation reserve = new Reservation(resid,id,tableNumber,time,party_size);
+        Reservation reserve = new Reservation(resid,id,tableNumber,timestamp,party_size);
         reservationTable.getItems().add(reserve);
         textField1.setText("");
         text1.setValue("Pick a customer from the database");

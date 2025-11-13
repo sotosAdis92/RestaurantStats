@@ -188,7 +188,7 @@ public class ReservationsController implements Initializable {
                 int id = rs.getInt(1);
                 int cid = rs.getInt(2);
                 int tid = rs.getInt(3);
-                String d = rs.getString(4);
+                Timestamp d = rs.getTimestamp(4);
                 int ps = rs.getInt(5);
                 Reservation reserve = new Reservation(id,cid,tid,d,ps);
                 Reservations.add(reserve);
@@ -348,7 +348,7 @@ public class ReservationsController implements Initializable {
                 int id = rs.getInt(1);
                 int cid = rs.getInt(2);
                 int tid = rs.getInt(3);
-                String d = rs.getString(4);
+                Timestamp d = rs.getTimestamp(4);
                 int ps = rs.getInt(5);
                 Reservation reserve = new Reservation(id,cid,tid,d,ps);
                 Reservations.add(reserve);
@@ -433,6 +433,22 @@ public class ReservationsController implements Initializable {
         }
         else{
             return;
+        }
+    }
+    public void openReservationLog(ActionEvent event){
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reservationAudit.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Log File");
+            Image icon = new Image("logos.png");
+            stage.getIcons().add(icon);
+            stage.setScene(new Scene(root));
+            stage.show();
+            refresh();
+        }catch (IOException ex){
+            ex.printStackTrace();
         }
     }
 
