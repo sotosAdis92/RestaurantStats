@@ -2,9 +2,12 @@ package org.example.databasetechnologyproject;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.animation.PauseTransition;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +25,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +34,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -139,7 +146,7 @@ public class ReservationsController implements Initializable {
             Label la;
     @FXML
             Label la2;
-
+    int i = 0;
     ObservableList<Reservation> Reservations = FXCollections.observableArrayList();
     PreparedStatement fillTable;
     PreparedStatement delete;
@@ -267,6 +274,122 @@ public class ReservationsController implements Initializable {
 
         }
 
+        customerColumn.setCellValueFactory(cellData -> {
+            Reservation r = cellData.getValue();
+            return new SimpleIntegerProperty(r.getCustomerid()).asObject();
+        });
+        customerColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        customerColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Reservation, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Reservation, Integer> event) {
+                Reservation rev = event.getRowValue();
+                rev.setCustomerid(event.getNewValue());
+
+                int cid = rev.getCustomerid();
+                int tid = rev.getTableid();
+                Timestamp time = rev.getReservationtime();
+                int ps = rev.getParty_size();
+                int rid = rev.getReservationid();
+
+                try{
+                    String updateString = "SELECT updateReservatio(?,?,?,?,?)";
+                    update = dbConnection.prepareStatement(updateString);
+                    update.setInt(1, rid);
+                    update.setInt(2, cid);
+                    update.setTimestamp(3, time);
+                    update.setInt(4, tid);
+                    update.setInt(5, ps);
+                    update.executeQuery();
+
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
+
+                int selectedIndex = ReservationTable.getSelectionModel().getSelectedIndex();
+                i = selectedIndex + 1;
+                refresh();
+                customerServiceClass.getInstance().triggerRefresh();
+                showNotification(i);
+            }
+        });
+        tableColumn.setCellValueFactory(cellData -> {
+            Reservation r = cellData.getValue();
+            return new SimpleIntegerProperty(r.getTableid()).asObject();
+        });
+        tableColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        tableColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Reservation, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Reservation, Integer> event) {
+                Reservation rev = event.getRowValue();
+                rev.setTableid(event.getNewValue());
+
+                int cid = rev.getCustomerid();
+                int tid = rev.getTableid();
+                Timestamp time = rev.getReservationtime();
+                int ps = rev.getParty_size();
+                int rid = rev.getReservationid();
+
+                try{
+                    String updateString = "SELECT updateReservatio(?,?,?,?,?)";
+                    update = dbConnection.prepareStatement(updateString);
+                    update.setInt(1, rid);
+                    update.setInt(2, cid);
+                    update.setTimestamp(3, time);
+                    update.setInt(4, tid);
+                    update.setInt(5, ps);
+                    update.executeQuery();
+
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
+
+                int selectedIndex = ReservationTable.getSelectionModel().getSelectedIndex();
+                i = selectedIndex + 1;
+                refresh();
+                customerServiceClass.getInstance().triggerRefresh();
+                showNotification(i);
+            }
+        });
+
+        partySizeColumn.setCellValueFactory(cellData -> {
+            Reservation r = cellData.getValue();
+            return new SimpleIntegerProperty(r.getParty_size()).asObject();
+        });
+        partySizeColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        partySizeColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Reservation, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Reservation, Integer> event) {
+                Reservation rev = event.getRowValue();
+                rev.setParty_size(event.getNewValue());
+
+                int cid = rev.getCustomerid();
+                int tid = rev.getTableid();
+                Timestamp time = rev.getReservationtime();
+                int ps = rev.getParty_size();
+                int rid = rev.getReservationid();
+
+
+                try{
+                    String updateString = "SELECT updateReservatio(?,?,?,?,?)";
+                    update = dbConnection.prepareStatement(updateString);
+                    update.setInt(1, rid);
+                    update.setInt(2, cid);
+                    update.setTimestamp(3, time);
+                    update.setInt(4, tid);
+                    update.setInt(5, ps);
+                    update.executeQuery();
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
+
+                int selectedIndex = ReservationTable.getSelectionModel().getSelectedIndex();
+                i = selectedIndex + 1;
+                refresh();
+                customerServiceClass.getInstance().triggerRefresh();
+                showNotification(i);
+            }
+        });
+
         ReservationTable.setItems(Reservations);
 
         customerColumn.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("customerid"));
@@ -274,6 +397,38 @@ public class ReservationsController implements Initializable {
         timeColumn.setCellValueFactory(new PropertyValueFactory<Reservation, String>("reservationtime"));
         partySizeColumn.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("party_size"));
         ReservationTable.setItems(Reservations);
+    }
+
+    public void showNotification(int ind){
+        Stage toastStage = new Stage();
+        Stage currentStage = (Stage) scene1.getScene().getWindow();
+        toastStage.initOwner(currentStage);
+        toastStage.setResizable(false);
+        toastStage.initStyle(StageStyle.TRANSPARENT);
+
+        Label label = new Label("✔Operation Successful, Reservation Updated at Row: " + ind);
+        label.setStyle("-fx-font-size: 17px;\n" +
+                "-fx-text-fill: #001D00;\n" +
+                "-fx-background-color: #dcfce7;\n" +
+                "-fx-background-radius: 10px;\n" +
+                "-fx-border-color: #22c55e;\n" +
+                "-fx-border-width: 2px;\n" +
+                "-fx-border-radius: 10px;\n" +
+                "-fx-text-alignment: center;\n" +
+                "-fx-padding: 10px 15px;");
+
+        Scene scene = new Scene(label);
+        scene.setFill(Color.TRANSPARENT);
+        toastStage.setScene(scene);
+        toastStage.setWidth(450);
+        toastStage.setHeight(60);
+        toastStage.setX(currentStage.getX() + currentStage.getWidth() - 470);
+        toastStage.setY(currentStage.getY() + currentStage.getHeight() - 80);
+
+        toastStage.show();
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        delay.setOnFinished(e -> toastStage.close());
+        delay.play();
     }
 
     public void exitButton(ActionEvent event){
