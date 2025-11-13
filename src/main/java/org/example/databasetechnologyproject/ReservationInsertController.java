@@ -47,7 +47,26 @@ public class ReservationInsertController implements Initializable {
     private ComboBox<String> text1;
     @FXML
     DatePicker h;
-
+    @FXML
+    Label firstNameError;
+    @FXML
+    Label lastNameError;
+    @FXML
+    Label addressError;
+    @FXML
+    Label phoneError;
+    @FXML
+    Label emailError;
+    @FXML
+    Label firstNameLabel;
+    @FXML
+    Label lastNameLabel;
+    @FXML
+    Label homeLabel;
+    @FXML
+    Label d;
+    @FXML
+    Label phoneLabel;
     @FXML
     private ComboBox<Integer> text2;
 
@@ -118,6 +137,7 @@ public class ReservationInsertController implements Initializable {
         text3.getItems().add("22:00:00");
         text3.getItems().add("23:00:00");
         text3.getItems().add("00:00:00");
+        setupFocusListeners();
     }
     public void setMainController(ReservationsController mainController){
         this.mainController = mainController;
@@ -145,6 +165,168 @@ public class ReservationInsertController implements Initializable {
         text1.setValue("Pick a customer from the database");
         text2.setValue(0);
         text3.setValue("12:00");
+    }
+    private void setupFocusListeners() {
+        text1.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            firstNameError.setVisible(false);
+            if (newValue) {
+                firstNameLabel.setStyle("-fx-text-fill: #FF5C00");
+                text1.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #FF5C00;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            } else {
+                firstNameLabel.setStyle("");
+                text1.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #bdc3c7;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            }
+        });
+        text2.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            lastNameError.setVisible(false);
+            if (newValue) {
+                lastNameLabel.setStyle("-fx-text-fill: #FF5C00");
+                text2.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #FF5C00;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            } else {
+                lastNameLabel.setStyle("");
+                text2.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #bdc3c7;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            }
+        });
+        text3.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            addressError.setVisible(false);
+            if (newValue) {
+                homeLabel.setStyle("-fx-text-fill: #FF5C00");
+                text3.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #FF5C00;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            } else {
+                homeLabel.setStyle("");
+                text3.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #bdc3c7;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            }
+        });
+        h.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            phoneError.setVisible(false);
+            if (newValue) {
+                d.setStyle("-fx-text-fill: #FF5C00");
+                h.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #FF5C00;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            } else {
+                d.setStyle("");
+                h.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #bdc3c7;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            }
+        });
+        textField1.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            emailError.setVisible(false);
+            if (newValue) {
+                phoneLabel.setStyle("-fx-text-fill: #FF5C00");
+                textField1.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #FF5C00;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            } else {
+                phoneLabel.setStyle("");
+                textField1.setStyle("-fx-background-color: transparent;\n" +
+                        "    -fx-border-width: 0 0 1 0;\n" +
+                        "    -fx-border-color: #bdc3c7;\n" +
+                        "    -fx-padding: 8 0 8 0;\n" +
+                        "    -fx-background-radius: 0;\n" +
+                        "    -fx-border-radius: 0;");
+            }
+        });
+    }
+    public void firstNameInputError(){
+        firstNameError.setVisible(true);
+        firstNameError.setText("cannot be empty");
+        firstNameError.setStyle("-fx-text-fill: #D0342C");
+        firstNameLabel.setStyle("-fx-text-fill: #D0342C");
+        text1.setStyle("-fx-background-color: transparent;\n" +
+                "    -fx-border-width: 0 0 1 0;\n" +
+                "    -fx-border-color: #D0342C;\n" +
+                "    -fx-padding: 8 0 8 0;\n" +
+                "    -fx-background-radius: 0;\n" +
+                "    -fx-border-radius: 0;");
+    }
+    public void lastNameInputError(){
+        lastNameError.setVisible(true);
+        lastNameError.setText("cannot be empty");
+        lastNameError.setStyle("-fx-text-fill: #D0342C");
+        lastNameLabel.setStyle("-fx-text-fill: #D0342C");
+        text2.setStyle("-fx-background-color: transparent;\n" +
+                "    -fx-border-width: 0 0 1 0;\n" +
+                "    -fx-border-color: #D0342C;\n" +
+                "    -fx-padding: 8 0 8 0;\n" +
+                "    -fx-background-radius: 0;\n" +
+                "    -fx-border-radius: 0;");
+    }
+    public void homeAddressInputError(){
+        addressError.setVisible(true);
+        addressError.setText("annot be empty");
+        addressError.setStyle("-fx-text-fill: #D0342C");
+        homeLabel.setStyle("-fx-text-fill: #D0342C");
+        text3.setStyle("-fx-background-color: transparent;\n" +
+                "    -fx-border-width: 0 0 1 0;\n" +
+                "    -fx-border-color: #D0342C;\n" +
+                "    -fx-padding: 8 0 8 0;\n" +
+                "    -fx-background-radius: 0;\n" +
+                "    -fx-border-radius: 0;");
+    }
+    public void phoneNumberInputError(){
+        phoneError.setVisible(true);
+        phoneError.setText("cannot be empty");
+        phoneError.setStyle("-fx-text-fill: #D0342C");
+        phoneLabel.setStyle("-fx-text-fill: #D0342C");
+        h.setStyle("-fx-background-color: transparent;\n" +
+                "    -fx-border-width: 0 0 1 0;\n" +
+                "    -fx-border-color: #D0342C;\n" +
+                "    -fx-padding: 8 0 8 0;\n" +
+                "    -fx-background-radius: 0;\n" +
+                "    -fx-border-radius: 0;");
+    }
+    public void emailInputError(){
+        emailError.setVisible(true);
+        emailError.setText("cannot be empty");
+        emailError.setStyle("-fx-text-fill: #D0342C");
+        d.setStyle("-fx-text-fill: #D0342C");
+        textField1.setStyle("-fx-background-color: transparent;\n" +
+                "    -fx-border-width: 0 0 1 0;\n" +
+                "    -fx-border-color: #D0342C;\n" +
+                "    -fx-padding: 8 0 8 0;\n" +
+                "    -fx-background-radius: 0;\n" +
+                "    -fx-border-radius: 0;");
     }
     public void showNotification(){
         Stage toastStage = new Stage();
@@ -178,16 +360,19 @@ public class ReservationInsertController implements Initializable {
     }
     public void sumbit(ActionEvent event){
         if(textField1.getText().isEmpty()){
-
+            firstNameInputError();
         }
         if(text1.getValue() == "Pick a customer from the database"){
-
+            lastNameInputError();
         }
         if(text2.getValue() == 0){
-
+            homeAddressInputError();
         }
         if(text3.getValue() == "12:00"){
-
+            phoneNumberInputError();
+        }
+        if(textField1.getText().isEmpty()){
+            emailInputError();
         }
         int resid = 0;
         int id = 0;
