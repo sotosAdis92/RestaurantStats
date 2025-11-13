@@ -164,6 +164,7 @@ public class ReservationsController implements Initializable {
     private DialogPane dialog;
     @Override
     public void initialize(URL y, ResourceBundle resourceBundle) {
+        boolean firstTimeFlag = true;
         select1.setValue("Any");
         select2.setValue("Any");
         select3.setValue("12:00:00");
@@ -239,6 +240,33 @@ public class ReservationsController implements Initializable {
         }catch (SQLException ex){
             System.out.println("SQL error");
         }
+        try{
+            select1.getItems().add("Any");
+            String selectString = "SELECT * FROM getTa()";
+            getFirstName = dbConnection.prepareStatement(selectString);
+            getFirstName.executeQuery();
+            ResultSet rs = getFirstName.getResultSet();
+            while(rs.next()){
+                int t = rs.getInt(1);
+                select1.getItems().add(t);
+            }
+        } catch (SQLException ex){
+
+        }
+        try{
+            select2.getItems().add("Any");
+            String selectString = "SELECT * FROM getSize()";
+            getFname = dbConnection.prepareStatement(selectString);
+            getFname.executeQuery();
+            ResultSet rs = getFname.getResultSet();
+            while(rs.next()){
+                int t = rs.getInt(1);
+                select2.getItems().add(t);
+            }
+        } catch (SQLException ex){
+
+        }
+
         ReservationTable.setItems(Reservations);
 
         customerColumn.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("customerid"));
@@ -520,22 +548,40 @@ public class ReservationsController implements Initializable {
             Timestamp t2 = Timestamp.valueOf(removeddigits2);
 
             String selectString = "SELECT * FROM getFilteredRes(?,?,?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM getFilteredRes(?,?,?,?)";
+            getRating = dbConnection.prepareStatement(selectString2);
             selector = dbConnection.prepareStatement(selectString);
 
             if (tableValue instanceof Integer) {
                 selector.setInt(1, (Integer) tableValue);
+                getRating.setInt(1, (Integer) tableValue);
+            } else if ("Any".equals(tableValue)) {
+                selector.setNull(1, Types.INTEGER);
+                getRating.setNull(1, Types.INTEGER);
             } else {
                 selector.setNull(1, Types.INTEGER);
+                getRating.setNull(1, Types.INTEGER);
             }
-            if(tableValue instanceof Integer){
+
+
+            if (partySizeValue instanceof Integer) {
                 selector.setInt(2, (Integer) partySizeValue);
-            } else{
+                getRating.setInt(2, (Integer) partySizeValue);
+            } else if ("Any".equals(partySizeValue)) {
                 selector.setNull(2, Types.INTEGER);
+                getRating.setNull(2, Types.INTEGER);
+            } else {
+                selector.setNull(2, Types.INTEGER);
+                getRating.setNull(2, Types.INTEGER);
             }
             selector.setTimestamp(3, t1);
             selector.setTimestamp(4, t2);
 
+            getRating.setTimestamp(3, t1);
+            getRating.setTimestamp(4, t2);
+
             ResultSet rs = selector.executeQuery();
+            ResultSet rs2 = getRating.executeQuery();
             while(rs.next()){
                 int id = rs.getInt(1);
                 int cid = rs.getInt(2);
@@ -545,8 +591,12 @@ public class ReservationsController implements Initializable {
                 Reservation r = new Reservation(id,cid,tid,rv,pt);
                 Reservations.add(r);
             }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
         } catch (SQLException ex){
-
+            ex.printStackTrace();
         }
     }
     public void resetAll(ActionEvent event){

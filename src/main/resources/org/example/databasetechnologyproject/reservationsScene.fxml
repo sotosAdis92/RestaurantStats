@@ -145,7 +145,6 @@
                         <Image url="@ff.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="rowResult" layoutX="238.0" layoutY="214.0" prefHeight="17.0" prefWidth="48.0" />
             <AnchorPane fx:id="filterPane" layoutX="50.0" layoutY="54.0" prefHeight="322.0" prefWidth="602.0">
                <children>
                       <Label fx:id="filterLabel" layoutX="68.0" layoutY="22.0" text="Table Filters:" />
@@ -214,6 +213,7 @@
                   <Label fx:id="utilityLabel" layoutX="65.0" layoutY="19.0" text="Table Actions:" />
                </children>
             </AnchorPane>
+                <Label fx:id="rowResult" layoutX="281.0" layoutY="400.0" prefHeight="17.0" prefWidth="48.0" />
             </children>
         </AnchorPane>
    </center>

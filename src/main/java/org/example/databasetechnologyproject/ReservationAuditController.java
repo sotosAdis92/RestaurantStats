@@ -3,6 +3,7 @@ package org.example.databasetechnologyproject;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -85,6 +86,7 @@ public class ReservationAuditController implements Initializable {
     PreparedStatement getFiltered;
     PreparedStatement getaudit;
     PreparedStatement getCountOfTable;
+    PreparedStatement getF;
     ObservableList<ReservationAudit> reservationAudit = FXCollections.observableArrayList();
 
     @Override
@@ -161,5 +163,43 @@ public class ReservationAuditController implements Initializable {
         sizen.setCellValueFactory(new PropertyValueFactory<ReservationAudit, Integer>("newps"));
         sizeo.setCellValueFactory(new PropertyValueFactory<ReservationAudit, Integer>("oldps"));
         t.setItems(reservationAudit);
+    }
+    public void select(ActionEvent ev){
+        try{
+            reservationAudit.clear();
+            String SelectString = "SELECT * FROM getFilteredResAudit(?)";
+            String ses = "SELECT COUNT(*) FROM getFilteredResAudit(?)";
+            getFiltered = dbConnection.prepareStatement(SelectString);
+            getF = dbConnection.prepareStatement(ses);
+            String ope = textfield.getValue();
+            getFiltered.setString(1, ope);
+            getF.setString(1,ope);
+            getFiltered.executeQuery();
+            getF.executeQuery();
+            ResultSet rs = getFiltered.getResultSet();
+            ResultSet r2 = getF.getResultSet();
+            while(rs.next()){
+                String oper = rs.getString(1);
+                String time = rs.getString(2);
+                String use = rs.getString(3);
+                int id = rs.getInt(4);
+                int nfn = rs.getInt(5);
+                int ofn = rs.getInt(6);
+                int nln = rs.getInt(7);
+                int oln = rs.getInt(8);
+                Timestamp na = rs.getTimestamp(9);
+                Timestamp oa = rs.getTimestamp(10);
+                int np = rs.getInt(11);
+                int op = rs.getInt(12);
+                ReservationAudit reserv = new ReservationAudit(oper,time,use,id,nfn,ofn,nln,oln,na,oa,np,op);
+                reservationAudit.add(reserv);
+            }
+            while(r2.next()){
+                int result = r2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+
+        }
     }
 }
