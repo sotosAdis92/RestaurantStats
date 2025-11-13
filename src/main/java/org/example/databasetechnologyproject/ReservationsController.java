@@ -25,6 +25,9 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -118,6 +121,24 @@ public class ReservationsController implements Initializable {
 
     @FXML
     private Tooltip tooltipexit;
+    @FXML
+    private ComboBox<Object> select1;
+
+    @FXML
+    private ComboBox<Object> select2;
+
+    @FXML
+    private ComboBox<String> select3;
+
+    @FXML
+    private DatePicker select4;
+
+    @FXML
+    private DatePicker select5;
+    @FXML
+            Label la;
+    @FXML
+            Label la2;
 
     ObservableList<Reservation> Reservations = FXCollections.observableArrayList();
     PreparedStatement fillTable;
@@ -130,6 +151,7 @@ public class ReservationsController implements Initializable {
     PreparedStatement getFname;
     PreparedStatement getCountCustomer;
     PreparedStatement getCountOfTable;
+    PreparedStatement selector;
     Stage stage1;
     Scene scene;
     Parent root;
@@ -142,6 +164,11 @@ public class ReservationsController implements Initializable {
     private DialogPane dialog;
     @Override
     public void initialize(URL y, ResourceBundle resourceBundle) {
+        select1.setValue("Any");
+        select2.setValue("Any");
+        select3.setValue("12:00:00");
+        select4.setValue(LocalDate.now());
+        select5.setValue(LocalDate.now());
         System.out.println(url);
         System.out.println(user);
         System.out.println(password);
@@ -160,7 +187,19 @@ public class ReservationsController implements Initializable {
             System.err.println("Failed to connect to database: " + ex.getMessage());
             ex.printStackTrace();
         }
-
+        select3.getItems().add("12:00:00");
+        select3.getItems().add("13:00:00");
+        select3.getItems().add("14:00:00");
+        select3.getItems().add("15:00:00");
+        select3.getItems().add("16:00:00");
+        select3.getItems().add("17:00:00");
+        select3.getItems().add("18:00:00");
+        select3.getItems().add("19:00:00");
+        select3.getItems().add("20:00:00");
+        select3.getItems().add("21:00:00");
+        select3.getItems().add("22:00:00");
+        select3.getItems().add("23:00:00");
+        select3.getItems().add("00:00:00");
 
         int reservations = 3;
         if (reservations == 3){
@@ -451,6 +490,106 @@ public class ReservationsController implements Initializable {
             ex.printStackTrace();
         }
     }
+    public void select(ActionEvent event){
+        try{
+            Reservations.clear();
+            LocalDate date1 = select4.getValue();
+            LocalDate date2 = select5.getValue();
+            LocalTime t = LocalTime.parse(select3.getValue());
 
+            LocalDateTime dateTime1 = LocalDateTime.of(date1,t);
+            LocalDateTime dateTime2 = LocalDateTime.of(date2,t);
+
+            Timestamp timestamp1 = Timestamp.valueOf(dateTime1);
+            Timestamp timestamp2 = Timestamp.valueOf(dateTime2);
+
+            if (!validateDatesForQuery(date1, date2)) {
+                return;
+            }
+
+            Object tableValue = select1.getValue();
+            Object partySizeValue = select2.getValue();
+
+            String digits1 = timestamp1.toString();
+            String digits2 = timestamp2.toString();
+
+            String removeddigits = digits1.replace(".0","");
+            String removeddigits2 = digits2.replace(".0","");
+
+            Timestamp t1 = Timestamp.valueOf(removeddigits);
+            Timestamp t2 = Timestamp.valueOf(removeddigits2);
+
+            String selectString = "SELECT * FROM getFilteredRes(?,?,?,?)";
+            selector = dbConnection.prepareStatement(selectString);
+
+            if (tableValue instanceof Integer) {
+                selector.setInt(1, (Integer) tableValue);
+            } else {
+                selector.setNull(1, Types.INTEGER);
+            }
+            if(tableValue instanceof Integer){
+                selector.setInt(2, (Integer) partySizeValue);
+            } else{
+                selector.setNull(2, Types.INTEGER);
+            }
+            selector.setTimestamp(3, t1);
+            selector.setTimestamp(4, t2);
+
+            ResultSet rs = selector.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt(1);
+                int cid = rs.getInt(2);
+                int tid = rs.getInt(3);
+                Timestamp rv = rs.getTimestamp(4);
+                int pt = rs.getInt(5);
+                Reservation r = new Reservation(id,cid,tid,rv,pt);
+                Reservations.add(r);
+            }
+        } catch (SQLException ex){
+
+        }
+    }
+    public void resetAll(ActionEvent event){
+        select1.setValue("Any");
+        select2.setValue("Any");
+        select3.setValue("12:00:00");
+        select4.setValue(LocalDate.now());
+        select5.setValue(LocalDate.now());
+        refresh();
+    }
+    private boolean validateDatesForQuery(LocalDate fromDate, LocalDate toDate) {
+        resetDateValidationStyles();
+
+        if (fromDate == null || toDate == null) {
+            showDateError("Please select both dates");
+            return false;
+        }
+
+        if (toDate.isBefore(fromDate)) {
+            showDateError("End date cannot be before start date");
+            return false;
+        }
+
+        if (fromDate.isBefore(LocalDate.now())) {
+            showDateError("Start date cannot be in the past");
+            return false;
+        }
+
+        if (toDate.isBefore(LocalDate.now())) {
+            showDateError("End date cannot be in the past");
+            return false;
+        }
+
+        resetDateValidationStyles();
+        return true;
+    }
+    private void showDateError(String message) {
+        la.setStyle("-fx-text-fill: red; -fx-opacity: 1;");
+        la2.setStyle("-fx-text-fill: red; -fx-opacity: 1;");
+    }
+    private void resetDateValidationStyles() {
+        la.setStyle("-fx-text-fill: transparent;");
+        la2.setStyle("-fx-text-fill: transparent;");
+    }
 
 }

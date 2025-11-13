@@ -192,16 +192,27 @@ public class ReservationInsertController implements Initializable {
         int resid = 0;
         int id = 0;
         String customer = text1.getValue();
+
         String digitsOnly = customer.replaceAll("\\D", "");
+
         id = Integer.parseInt(digitsOnly);
+
         int tableNumber = text2.getSelectionModel().getSelectedItem();
+
         String time = text3.getSelectionModel().getSelectedItem();
+
         String text = textField1.getText();
+
         int party_size = Integer.parseInt(text);
+
         LocalDate date = h.getValue();
+
         LocalTime t = LocalTime.parse(text3.getValue());
+
         LocalDateTime dateTime = LocalDateTime.of(date,t);
+
         Timestamp timestamp = Timestamp.valueOf(dateTime);
+
         try{
             String selectString = "SELECT insertReserve(?,?,?,?)";
             setReservation = dbConnection.prepareStatement(selectString);
