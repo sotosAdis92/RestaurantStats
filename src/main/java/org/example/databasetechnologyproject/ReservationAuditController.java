@@ -91,6 +91,7 @@ public class ReservationAuditController implements Initializable {
 
     @Override
     public void initialize(URL y, ResourceBundle resourceBundle) {
+        ReservationServiceClass.getInstance().setRefreshCallback(v -> refresh());
         textfield.setValue("all");
         try {
             Class.forName(driverClassName);
@@ -200,6 +201,41 @@ public class ReservationAuditController implements Initializable {
             }
         } catch (SQLException ex){
 
+        }
+    }
+    public void refresh(){
+        try{
+            reservationAudit.clear();
+            textfield.getItems().addAll("all");
+            String selectString = "SELECT * FROM getReservationAudit()";
+            String selectString2 = "SELECT COUNT(*) FROM getReservationAudit()";
+            getAudit = dbConnection.prepareStatement(selectString);
+            getCountOfTable = dbConnection.prepareStatement(selectString2);
+            getCountOfTable.executeQuery();
+            ResultSet rs = getAudit.executeQuery();
+            ResultSet rs2 = getCountOfTable.getResultSet();
+            while(rs.next()) {
+                String ope = rs.getString(1);
+                String time = rs.getString(2);
+                String use = rs.getString(3);
+                int id = rs.getInt(4);
+                int nfn = rs.getInt(5);
+                int ofn = rs.getInt(6);
+                int nln = rs.getInt(7);
+                int oln = rs.getInt(8);
+                Timestamp na = rs.getTimestamp(9);
+                Timestamp oa = rs.getTimestamp(10);
+                int np = rs.getInt(11);
+                int op = rs.getInt(12);
+                ReservationAudit reserv = new ReservationAudit(ope,time,use,id,nfn,ofn,nln,oln,na,oa,np,op);
+                reservationAudit.add(reserv);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
         }
     }
 }

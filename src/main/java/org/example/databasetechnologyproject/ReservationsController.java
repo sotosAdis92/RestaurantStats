@@ -308,7 +308,7 @@ public class ReservationsController implements Initializable {
                 int selectedIndex = ReservationTable.getSelectionModel().getSelectedIndex();
                 i = selectedIndex + 1;
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                ReservationServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -346,7 +346,7 @@ public class ReservationsController implements Initializable {
                 int selectedIndex = ReservationTable.getSelectionModel().getSelectedIndex();
                 i = selectedIndex + 1;
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                ReservationServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -385,7 +385,7 @@ public class ReservationsController implements Initializable {
                 int selectedIndex = ReservationTable.getSelectionModel().getSelectedIndex();
                 i = selectedIndex + 1;
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                ReservationServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -649,7 +649,7 @@ public class ReservationsController implements Initializable {
                 selectionModel.clearSelection(selectedItems[i].intValue());
                 ReservationTable.getItems().remove(selectedItems[i].intValue());
             }
-            customerServiceClass.getInstance().triggerRefresh();
+            ReservationServiceClass.getInstance().triggerRefresh();
             refresh();
             showNotification2();
         }

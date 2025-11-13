@@ -419,6 +419,7 @@ public class ReservationInsertController implements Initializable {
         text2.setValue(0);
         text3.setValue("12:00");
         showNotification();
+        ReservationServiceClass.getInstance().triggerRefresh();
         mainController.refresh();
     }
 
