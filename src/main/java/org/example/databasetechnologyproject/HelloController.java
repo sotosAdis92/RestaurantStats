@@ -124,12 +124,13 @@ public class HelloController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex){
+            ex.printStackTrace();
             System.out.println("Cannot change scenes");
         }
     }
     public void switchToMenuScreen(ActionEvent event){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("employeesScreen.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(".fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -151,7 +152,7 @@ public class HelloController implements Initializable {
     }
     public void switchToOrdersScene(ActionEvent event){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("tablesScene.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(".fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
