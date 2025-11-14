@@ -632,4 +632,19 @@ public class EmployeesController implements Initializable {
             ex.printStackTrace();
         }
     }
+    public void openEmployeeAudit(ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EmployeeAudit.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Log File");
+            Image icon = new Image("logos.png");
+            stage.getIcons().add(icon);
+            stage.setScene(new Scene(root));
+            stage.show();
+            refresh();
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
 }

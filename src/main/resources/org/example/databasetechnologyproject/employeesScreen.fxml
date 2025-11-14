@@ -181,7 +181,7 @@
                         <Tooltip text="Delete an existing Customer" />
                      </tooltip>
                   </Button>
-                  <Button fx:id="openLogCustomer" layoutX="341.0" layoutY="82.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="209.0" text="Open Log Table">
+                  <Button fx:id="openLogCustomer" layoutX="341.0" layoutY="82.0" mnemonicParsing="false" onAction="#openEmployeeAudit" prefHeight="60.0" prefWidth="209.0" text="Open Log Table">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                            <image>
