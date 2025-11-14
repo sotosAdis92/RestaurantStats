@@ -4,14 +4,11 @@ public class Employee {
     private int empid;
     private String firstName;
     private String lastName;
-    private Position position;
     private int salary;
     private String email;
-    public enum Position{
-        Waiter,Cook,Cashier;
-    }
+    private String position;
 
-    public Employee(int empid, String firstName, String lastName, Position position, int salary, String email) {
+    public Employee(int empid, String firstName, String lastName, String position, int salary, String email) {
         this.empid = empid;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -36,7 +33,7 @@ public class Employee {
         return lastName;
     }
 
-    public Position getPosition() {
+    public String getPosition() {
         return position;
     }
 
@@ -56,7 +53,7 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 

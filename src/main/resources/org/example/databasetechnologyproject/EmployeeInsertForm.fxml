@@ -8,8 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane fx:id="center2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="650.0" stylesheets="@EmployeeInsertFormStyle.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="center2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="650.0" stylesheets="@EmployeeInsertFormStyle.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.EmployeeInsertController">
    <children>
       <AnchorPane fx:id="center" layoutX="50.0" layoutY="122.0" prefHeight="628.0" prefWidth="550.0">
          <children>
@@ -18,7 +17,7 @@
             <Label fx:id="homeLabel" layoutX="50.0" layoutY="234.0" text="Position" />
             <Label fx:id="phoneLabel" layoutX="49.0" layoutY="326.0" text="Salary" />
             <Label fx:id="emailLabel" layoutX="46.0" layoutY="420.0" text="Email" />
-            <Button fx:id="submitButton" layoutX="46.0" layoutY="537.0" mnemonicParsing="false" text="Submit">
+            <Button fx:id="submitButton" layoutX="46.0" layoutY="537.0" mnemonicParsing="false" onAction="#Submit" text="Submit">
                <graphic>
                   <ImageView fitHeight="29.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -27,7 +26,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="CancelButton" layoutX="384.0" layoutY="537.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="121.0" text="Cancel">
+            <Button fx:id="CancelButton" layoutX="384.0" layoutY="537.0" mnemonicParsing="false" onAction="#cancelInput" prefHeight="47.0" prefWidth="121.0" text="Cancel">
                <graphic>
                   <ImageView fitHeight="29.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -40,12 +39,12 @@
             <TextField fx:id="textField2" layoutX="47.0" layoutY="160.0" prefHeight="34.0" prefWidth="457.0" />
             <TextField fx:id="textField4" layoutX="49.0" layoutY="439.0" prefHeight="34.0" prefWidth="457.0" />
             <TextField fx:id="textField3" layoutX="49.0" layoutY="345.0" prefHeight="34.0" prefWidth="457.0" />
-            <ComboBox layoutX="49.0" layoutY="253.0" prefHeight="39.0" prefWidth="457.0" />
-            <Label layoutX="46.0" layoutY="101.0" prefHeight="17.0" prefWidth="457.0" text="Label" />
-            <Label layoutX="46.0" layoutY="202.0" prefHeight="17.0" prefWidth="457.0" text="Label" />
-            <Label layoutX="46.0" layoutY="306.0" prefHeight="17.0" prefWidth="457.0" text="Label" />
-            <Label layoutX="50.0" layoutY="390.0" prefHeight="17.0" prefWidth="457.0" text="Label" />
-            <Label layoutX="50.0" layoutY="482.0" prefHeight="17.0" prefWidth="457.0" text="Label" />
+            <ComboBox fx:id="combo" layoutX="49.0" layoutY="253.0" prefHeight="39.0" prefWidth="457.0" />
+            <Label fx:id="firstNameError" layoutX="46.0" layoutY="101.0" prefHeight="17.0" prefWidth="457.0" />
+            <Label fx:id="lastNameError" layoutX="46.0" layoutY="202.0" prefHeight="17.0" prefWidth="457.0" />
+            <Label fx:id="addressError" layoutX="46.0" layoutY="306.0" prefHeight="17.0" prefWidth="457.0" />
+            <Label fx:id="addressError" layoutX="50.0" layoutY="390.0" prefHeight="17.0" prefWidth="457.0" />
+            <Label fx:id="phoneError" layoutX="50.0" layoutY="482.0" prefHeight="17.0" prefWidth="457.0" />
          </children>
       </AnchorPane>
       <Label fx:id="title" layoutX="201.0" layoutY="14.0" text="Insert a New Employee" />

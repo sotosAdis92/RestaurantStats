@@ -2,9 +2,12 @@ package org.example.databasetechnologyproject;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.animation.PauseTransition;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -160,7 +165,7 @@ public class EmployeesController implements Initializable {
                 int id = rs.getInt(1);
                 String fname = rs.getString(2);
                 String lname = rs.getString(3);
-                Employee.Position pos = Employee.Position.valueOf(rs.getString(4));
+                String pos = rs.getString(4);
                 int sal = rs.getInt(5);
                 String email = rs.getString(6);
                 Employee emp1 = new Employee(id,fname,lname,pos,sal,email);
@@ -173,6 +178,194 @@ public class EmployeesController implements Initializable {
         }catch (SQLException ex){
             System.out.println("SQL error");
         }
+        firstNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
+        firstNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        firstNameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employee, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Employee, String> event) {
+                Employee customer1 = event.getRowValue();
+                customer1.setFirstName(event.getNewValue());
+                String firstName = customer1.getFirstName();
+                int id = customer1.getEmpid();
+                String lastName = null;
+                String pos = null;
+                String email = null;
+                int salary = customer1.getSalary();
+                try{
+                    String selectString = "SELECT updateEmployee(?,?,?,?,?,?)";
+                    update = dbConnection.prepareStatement(selectString);
+                    update.setInt(1,id);
+                    update.setString(2,firstName);
+                    update.setString(3, lastName);
+                    update.setString(4, pos);
+                    update.setString(5, email);
+                    update.setInt(6, salary);
+                    update.executeQuery();
+
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+                ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
+                selectedItem.forEach(index ->{
+                    i = index + 1;
+                });
+                refresh();
+                customerServiceClass.getInstance().triggerRefresh();
+                showNotification(i);
+            }
+        });
+
+        lastNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
+        lastNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        lastNameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employee, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Employee, String> event) {
+                Employee customer1 = event.getRowValue();
+                customer1.setLastName(event.getNewValue());
+                String firstName = null;
+                int id = customer1.getEmpid();
+                String lastName = customer1.getLastName();
+                String pos = null;
+                String email = null;
+                int salary = customer1.getSalary();
+                try{
+                    String selectString = "SELECT updateEmployee(?,?,?,?,?,?)";
+                    update = dbConnection.prepareStatement(selectString);
+                    update.setInt(1,id);
+                    update.setString(2,firstName);
+                    update.setString(3, lastName);
+                    update.setString(4, pos);
+                    update.setString(5, email);
+                    update.setInt(6, salary);
+                    update.executeQuery();
+
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+                ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
+                selectedItem.forEach(index ->{
+                    i = index + 1;
+                });
+                refresh();
+                customerServiceClass.getInstance().triggerRefresh();
+                showNotification(i);
+            }
+        });
+
+        posColoumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
+        posColoumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        posColoumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employee, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Employee, String> event) {
+                Employee customer1 = event.getRowValue();
+                customer1.setPosition(event.getNewValue());
+                String firstName = null;
+                int id = customer1.getEmpid();
+                String lastName = null;
+                String pos = customer1.getPosition();
+                String email = null;
+                int salary = customer1.getSalary();
+                try{
+                    String selectString = "SELECT updateEmployee(?,?,?,?,?,?)";
+                    update = dbConnection.prepareStatement(selectString);
+                    update.setInt(1,id);
+                    update.setString(2,firstName);
+                    update.setString(3, lastName);
+                    update.setString(4, pos);
+                    update.setString(5, email);
+                    update.setInt(6, salary);
+                    update.executeQuery();
+
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+                ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
+                selectedItem.forEach(index ->{
+                    i = index + 1;
+                });
+                refresh();
+                customerServiceClass.getInstance().triggerRefresh();
+                showNotification(i);
+            }
+        });
+
+        emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
+        emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        emailColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employee, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Employee, String> event) {
+                Employee customer1 = event.getRowValue();
+                customer1.setEmail(event.getNewValue());
+                String firstName = null;
+                int id = customer1.getEmpid();
+                String lastName = null;
+                String pos = null;
+                String email = customer1.getEmail();
+                int salary = customer1.getSalary();
+                try{
+                    String selectString = "SELECT updateEmployee(?,?,?,?,?,?)";
+                    update = dbConnection.prepareStatement(selectString);
+                    update.setInt(1,id);
+                    update.setString(2,firstName);
+                    update.setString(3, lastName);
+                    update.setString(4, pos);
+                    update.setString(5, email);
+                    update.setInt(6, salary);
+                    update.executeQuery();
+
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+                ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
+                selectedItem.forEach(index ->{
+                    i = index + 1;
+                });
+                refresh();
+                customerServiceClass.getInstance().triggerRefresh();
+                showNotification(i);
+            }
+        });
+
+        numberColumn.setCellValueFactory(cellData -> {
+            Employee customer = cellData.getValue();
+            return new SimpleIntegerProperty(customer.getSalary()).asObject();
+        });
+        numberColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        numberColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employee, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Employee, Integer> event) {
+                Employee customer1 = event.getRowValue();
+                customer1.setSalary(event.getNewValue());
+                String firstName = null;
+                int id = customer1.getEmpid();
+                String lastName = null;
+                String pos = null;
+                String email = null;
+                int salary = customer1.getSalary();
+                try{
+                    String selectString = "SELECT updateEmployee(?,?,?,?,?,?)";
+                    update = dbConnection.prepareStatement(selectString);
+                    update.setInt(1,id);
+                    update.setString(2,firstName);
+                    update.setString(3, lastName);
+                    update.setString(4, pos);
+                    update.setString(5, email);
+                    update.setInt(6, salary);
+                    update.executeQuery();
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+                ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
+                selectedItem.forEach(index ->{
+                    i = index + 1;
+                });
+                refresh();
+                customerServiceClass.getInstance().triggerRefresh();
+                showNotification(i);
+            }
+        });
+
+
         customerTable.setItems(empl);
 
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstName"));
@@ -182,6 +375,39 @@ public class EmployeesController implements Initializable {
         emailColumn.setCellValueFactory(new PropertyValueFactory<Employee, String>("email"));
         customerTable.setItems(empl);
     }
+
+    public void showNotification(int ind){
+        Stage toastStage = new Stage();
+        Stage currentStage = (Stage) scene1.getScene().getWindow();
+        toastStage.initOwner(currentStage);
+        toastStage.setResizable(false);
+        toastStage.initStyle(StageStyle.TRANSPARENT);
+
+        Label label = new Label("✔Operation Successful, Customer Updated at Row: " + ind);
+        label.setStyle("-fx-font-size: 17px;\n" +
+                "-fx-text-fill: #001D00;\n" +
+                "-fx-background-color: #dcfce7;\n" +
+                "-fx-background-radius: 10px;\n" +
+                "-fx-border-color: #22c55e;\n" +
+                "-fx-border-width: 2px;\n" +
+                "-fx-border-radius: 10px;\n" +
+                "-fx-text-alignment: center;\n" +
+                "-fx-padding: 10px 15px;");
+
+        Scene scene = new Scene(label);
+        scene.setFill(Color.TRANSPARENT);
+        toastStage.setScene(scene);
+        toastStage.setWidth(450);
+        toastStage.setHeight(60);
+        toastStage.setX(currentStage.getX() + currentStage.getWidth() - 470);
+        toastStage.setY(currentStage.getY() + currentStage.getHeight() - 80);
+
+        toastStage.show();
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        delay.setOnFinished(e -> toastStage.close());
+        delay.play();
+    }
+
 
     public void exitButton(ActionEvent event){
         Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
@@ -294,7 +520,7 @@ public class EmployeesController implements Initializable {
                 int id = rs.getInt(1);
                 String fname = rs.getString(2);
                 String lname = rs.getString(3);
-                Employee.Position pos = Employee.Position.valueOf(rs.getString(4));
+                String pos = rs.getString(4);
                 int sal = rs.getInt(5);
                 String email = rs.getString(6);
                 Employee emp1 = new Employee(id,fname,lname,pos,sal,email);
@@ -390,6 +616,17 @@ public class EmployeesController implements Initializable {
             stage.getIcons().add(icon);
             stage.setScene(new Scene(root));
             stage.show();
+            EmployeeInsertController employeeInsertcontroller = fxmlLoader.getController();
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            employeeInsertcontroller.setStage(currentStage);
+            employeeInsertcontroller.setMainController(this);
+            employeeInsertcontroller.setTableView(customerTable);
+            employeeInsertcontroller.setFirstNameColumn(firstNameColumn);
+            employeeInsertcontroller.setLastNameColumn(lastNameColumn);
+            employeeInsertcontroller.setHomeAddressColoumn(posColoumn);
+            employeeInsertcontroller.setNumberColumn(emailColumn);
+            employeeInsertcontroller.setRatingColumn(numberColumn);
+
         } catch (IOException ex) {
             System.out.println("This window could not load");
             ex.printStackTrace();
