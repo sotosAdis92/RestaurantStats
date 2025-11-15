@@ -156,12 +156,12 @@
                   <Label fx:id="filterLabel" layoutX="57.0" layoutY="17.0" text="Table Filters:" />
                   <ComboBox fx:id="combo1" layoutX="67.0" layoutY="73.0" onAction="#select2" prefWidth="180.0" />
                   <ComboBox fx:id="combo2" layoutX="367.0" layoutY="73.0" onAction="#select2" prefWidth="180.0" />
-                  <ComboBox layoutX="66.0" layoutY="153.0" onAction="#select2" prefWidth="180.0" />
-                  <ComboBox layoutX="368.0" layoutY="153.0" onAction="#select2" prefWidth="180.0" />
-                  <ComboBox layoutX="66.0" layoutY="238.0" onAction="#select2" prefWidth="180.0" />
-                  <CheckBox fx:id="c1" layoutX="212.0" layoutY="18.0" mnemonicParsing="false" text="Name Filter" />
-                  <CheckBox fx:id="c2" layoutX="319.0" layoutY="18.0" mnemonicParsing="false" text="Position Filter" />
-                  <CheckBox fx:id="c3" layoutX="448.0" layoutY="18.0" mnemonicParsing="false" text="Email Filter" />
+                  <ComboBox fx:id="combo3" layoutX="66.0" layoutY="153.0" onAction="#select2" prefWidth="180.0" />
+                  <ComboBox fx:id="combo4" layoutX="368.0" layoutY="153.0" onAction="#select2" prefWidth="180.0" />
+                  <ComboBox fx:id="combo5" layoutX="66.0" layoutY="238.0" onAction="#select2" prefWidth="180.0" />
+                  <CheckBox fx:id="c1" layoutX="212.0" layoutY="18.0" mnemonicParsing="false" onAction="#check" text="Name Filter" />
+                  <CheckBox fx:id="c2" layoutX="319.0" layoutY="18.0" mnemonicParsing="false" onAction="#check" text="Position Filter" />
+                  <CheckBox fx:id="c3" layoutX="448.0" layoutY="18.0" mnemonicParsing="false" onAction="#check" text="Email Filter" />
                   <Label fx:id="firstLabel" layoutX="72.0" layoutY="55.0" text="First Name Filter" />
                   <Label fx:id="secondLabel" layoutX="375.0" layoutY="55.0" text="Last Name Filter" />
                   <Label fx:id="thirdLabel" layoutX="95.0" layoutY="135.0" text="Salary Filter" />
@@ -208,7 +208,7 @@
                         <Tooltip text="Open Audit Table" />
                      </tooltip>
                   </Button>
-                  <Button fx:id="resertAllButton" layoutX="51.0" layoutY="215.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="210.0" text="Reset All Filters">
+                  <Button fx:id="resertAllButton" layoutX="51.0" layoutY="215.0" mnemonicParsing="false" onAction="#resetAll" prefHeight="57.0" prefWidth="210.0" text="Reset All Filters">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                            <image>

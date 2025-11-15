@@ -366,7 +366,7 @@ public class EmployeeInsertController implements Initializable {
         textField2.setText("");
         textField3.setText("");
         textField4.setText("");
-        customerServiceClass.getInstance().triggerRefresh();
+        EmployeeServiceClass.getInstance().triggerRefresh();
         showNotification();
         mainController.refresh();
     }

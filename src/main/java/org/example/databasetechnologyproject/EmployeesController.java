@@ -309,7 +309,7 @@ public class EmployeesController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                EmployeeServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -346,7 +346,7 @@ public class EmployeesController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                EmployeeServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -383,7 +383,7 @@ public class EmployeesController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                EmployeeServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -420,7 +420,7 @@ public class EmployeesController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                EmployeeServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -459,7 +459,7 @@ public class EmployeesController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                EmployeeServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });

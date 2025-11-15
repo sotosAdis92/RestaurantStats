@@ -76,6 +76,8 @@ public class EmployeeAuditController implements Initializable {
     ObservableList<EmployeeAudit> empaud = FXCollections.observableArrayList();
     @Override
     public void initialize(URL d, ResourceBundle resourceBundle) {
+        EmployeeServiceClass.getInstance().setRefreshCallback(v -> refresh());
+        textfield.setValue("all");
         try {
             Class.forName(driverClassName);
             System.out.println("JDBC driver loaded successfully");
@@ -92,6 +94,7 @@ public class EmployeeAuditController implements Initializable {
             ex.printStackTrace();
         }
         try{
+            textfield.getItems().add("all");
             String selectString = "SELECT * FROM getOperationEmployee()";
             getaudit = dbConnection.prepareStatement(selectString);
             ResultSet rs = getaudit.executeQuery();
