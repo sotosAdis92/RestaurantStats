@@ -99,6 +99,27 @@ public class EmployeesController implements Initializable {
      Button settingsButton;
     @FXML
      Label utilityLabel;
+    @FXML
+            CheckBox c1;
+    @FXML
+    CheckBox c2;
+    @FXML
+    CheckBox c3;
+
+    @FXML
+    private ComboBox<String> combo1;
+
+    @FXML
+    private ComboBox<String> combo2;
+
+    @FXML
+    private ComboBox<Object> combo3;
+
+    @FXML
+    private ComboBox<String> combo4;
+
+    @FXML
+    private ComboBox<String> combo5;
     int i = 0;
     private DialogPane dialog;
     DialogPane dialog3;
@@ -122,6 +143,19 @@ public class EmployeesController implements Initializable {
     PreparedStatement getCountOfTable;
     @Override
     public void initialize(URL l, ResourceBundle resourceBundle) {
+        combo1.setValue("all");
+        combo2.setValue("all");
+        combo3.setValue("all");
+        combo4.setValue("all");
+        combo5.setValue("all");
+        combo3.setDisable(true);
+        combo4.setDisable(true);
+        combo1.setDisable(false);
+        combo2.setDisable(false);
+        combo5.setDisable(true);
+        c1.setSelected(true);
+        c2.setSelected(false);
+        c3.setSelected(false);
         try {
             Class.forName(driverClassName);
             System.out.println("JDBC driver loaded successfully");
@@ -151,6 +185,71 @@ public class EmployeesController implements Initializable {
             tooltipexit.setGraphic(imageview);
         } catch (Exception ex) {
             System.out.println("Image not found");
+        }
+        try{
+            combo1.getItems().add("all");
+            String selectString = "SELECT * FROM getFnameEmp()";
+            fillTable = dbConnection.prepareStatement(selectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            while(rs.next()){
+                String phone = rs.getString(1);
+                combo1.getItems().addAll(phone);
+            }
+        }catch (SQLException ex){
+
+        }
+        try{
+            combo2.getItems().add("all");
+            String selectString = "SELECT * FROM getLnameEmp()";
+            fillTable = dbConnection.prepareStatement(selectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            while(rs.next()){
+                String phone = rs.getString(1);
+                combo2.getItems().addAll(phone);
+            }
+        }catch (SQLException ex){
+
+        }
+        try{
+            combo4.getItems().add("all");
+            String selectString = "SELECT * FROM getposEmp()";
+            fillTable = dbConnection.prepareStatement(selectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            while(rs.next()){
+                String phone = rs.getString(1);
+                combo4.getItems().addAll(phone);
+            }
+        }catch (SQLException ex){
+
+        }
+        try{
+            combo5.getItems().add("all");
+            String selectString = "SELECT * FROM getEmailEmp()";
+            fillTable = dbConnection.prepareStatement(selectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            while(rs.next()){
+                String phone = rs.getString(1);
+                combo5.getItems().addAll(phone);
+            }
+        }catch (SQLException ex){
+
+        }
+        try{
+            combo3.getItems().add("all");
+            String selectString = "SELECT * FROM getSalEmp()";
+            fillTable = dbConnection.prepareStatement(selectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            while(rs.next()){
+                int phone = rs.getInt(1);
+                combo3.getItems().addAll(phone);
+            }
+        }catch (SQLException ex){
+
         }
         try{
             String selectString = "SELECT * FROM getEmployees()";
@@ -646,5 +745,452 @@ public class EmployeesController implements Initializable {
         } catch (IOException ex){
             ex.printStackTrace();
         }
+    }
+    public void check(ActionEvent event){
+        if(c1.isSelected()){
+            combo3.setDisable(true);
+            combo4.setDisable( true);
+            combo1.setDisable(false);
+            combo2.setDisable(false);
+            combo5.setDisable(true);
+        }
+        if(c2.isSelected()){
+            combo3.setDisable(false);
+            combo4.setDisable(false);
+            combo1.setDisable(true);
+            combo2.setDisable(true);
+            combo5.setDisable(true);
+        }
+        if(c3.isSelected()){
+            combo3.setDisable(true);
+            combo4.setDisable(true);
+            combo1.setDisable(true);
+            combo2.setDisable(true);
+            combo5.setDisable(false);
+        }
+        if(c1.isSelected() && c2.isSelected()){
+            combo3.setDisable(false);
+            combo4.setDisable(false);
+            combo1.setDisable(false);
+            combo2.setDisable(false);
+            combo5.setDisable(true);
+        }
+        if(c1.isSelected() && c3.isSelected()){
+            combo3.setDisable(true);
+            combo4.setDisable(true);
+            combo1.setDisable(false);
+            combo2.setDisable(false);
+            combo5.setDisable(false);
+        }
+        if(c2.isSelected() && c3.isSelected()){
+            combo3.setDisable(false);
+            combo4.setDisable(false);
+            combo1.setDisable(true);
+            combo2.setDisable(true);
+            combo5.setDisable(false);
+        }
+        if(c1.isSelected() && c2.isSelected() && c3.isSelected()){
+            combo3.setDisable(false);
+            combo4.setDisable(false);
+            combo1.setDisable(false);
+            combo2.setDisable(false);
+            combo5.setDisable(false);
+        }
+        if(!c1.isSelected() && !c2.isSelected() && !c3.isSelected()){
+            combo3.setDisable(true);
+            combo4.setDisable(true);
+            combo1.setDisable(true);
+            combo2.setDisable(true);
+            combo5.setDisable(true);
+        }
+    }
+    public void executeAllFilters(){
+        try{
+            String firstName = null;
+            String lastname = null;
+            String postion = null;
+            String email = null;
+            int salary = 0;
+            int id = 0;
+            empl.clear();
+            String sel1 = combo1.getSelectionModel().getSelectedItem();
+            String sel2 = combo2.getSelectionModel().getSelectedItem();
+            Object selected = combo3.getSelectionModel().getSelectedItem();
+            String selected2 = combo4.getSelectionModel().getSelectedItem();
+            String selected3 = combo5.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM allTheFilters(?,?,?,?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM allTheFilters(?,?,?,?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Integer) {
+                getFname.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.INTEGER);
+            } else {
+                getFname.setNull(1, Types.INTEGER);
+            }
+            getFname.setString(2, selected2);
+            getFname.setString(3, selected3);
+            getFname.setString(4, sel1);
+            getFname.setString(5, sel2);
+
+            if (selected instanceof Integer) {
+                getCountCustomer.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            }
+            getCountCustomer.setString(2, selected2);
+            getCountCustomer.setString(3, selected3);
+            getCountCustomer.setString(4, sel1);
+            getCountCustomer.setString(5, sel2);
+
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getString(2);
+                lastname = rs.getString(3);
+                postion = rs.getString(4);
+                email = rs.getString(6);
+                salary = rs.getInt(5);
+                Employee emp = new Employee(id,firstName,lastname,postion,salary,email);
+                empl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executeNameAndPositionFilter(){
+        try{
+            String firstName = null;
+            String lastname = null;
+            String postion = null;
+            String email = null;
+            int salary = 0;
+            int id = 0;
+            empl.clear();
+            String selected = combo1.getSelectionModel().getSelectedItem();
+            String selected2 = combo2.getSelectionModel().getSelectedItem();
+            Object selected3 = combo3.getSelectionModel().getSelectedItem();
+            String selected4 = combo4.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterByNameAndPosition(?,?,?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterByNameAndPosition(?,?,?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            getFname.setString(1, selected);
+            getFname.setString(2, selected2);
+            if (selected3 instanceof Integer) {
+                getFname.setInt(3, (Integer) selected3);
+            } else if ("all".equals(selected4)) {
+                getFname.setNull(3, Types.INTEGER);
+            } else {
+                getFname.setNull(3, Types.INTEGER);
+            }
+            getFname.setString(4, selected4);
+
+            getCountCustomer.setString(1, selected);
+            getCountCustomer.setString(2, selected2);
+            if (selected3 instanceof Integer) {
+                getCountCustomer.setInt(3, (Integer) selected3);
+            } else if ("all".equals(selected4)) {
+                getCountCustomer.setNull(3, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(3, Types.INTEGER);
+            }
+            getCountCustomer.setString(4, selected4);
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getString(2);
+                lastname = rs.getString(3);
+                postion = rs.getString(4);
+                email = rs.getString(6);
+                salary = rs.getInt(5);
+                Employee emp = new Employee(id,firstName,lastname,postion,salary,email);
+                empl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executeNameAndEmailFilter(){
+        try{
+            String firstName = null;
+            String lastname = null;
+            String postion = null;
+            String email = null;
+            int salary = 0;
+            int id = 0;
+            empl.clear();
+            String selected = combo1.getSelectionModel().getSelectedItem();
+            String selected2 = combo2.getSelectionModel().getSelectedItem();
+            String selected3 = combo5.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterByNameAndMail(?,?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterByNameAndMail(?,?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            getFname.setString(1, selected);
+            getFname.setString(2, selected2);
+            getFname.setString(3, selected3);
+
+            getCountCustomer.setString(1, selected);
+            getCountCustomer.setString(2, selected2);
+            getCountCustomer.setString(3, selected3);
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getString(2);
+                lastname = rs.getString(3);
+                postion = rs.getString(4);
+                email = rs.getString(6);
+                salary = rs.getInt(5);
+                Employee emp = new Employee(id,firstName,lastname,postion,salary,email);
+                empl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executePositionAndEmailFilter(){
+        try{
+            String firstName = null;
+            String lastname = null;
+            String postion = null;
+            String email = null;
+            int salary = 0;
+            int id = 0;
+            empl.clear();
+            Object selected = combo3.getSelectionModel().getSelectedItem();
+            String selected2 = combo4.getSelectionModel().getSelectedItem();
+            String selected3 = combo5.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterByPositonAndMail(?,?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterByPositonAndMail(?,?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Integer) {
+                getFname.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.INTEGER);
+            } else {
+                getFname.setNull(1, Types.INTEGER);
+            }
+
+            if (selected instanceof Integer) {
+                getCountCustomer.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            }
+            getFname.setString(2, selected2);
+            getFname.setString(3, selected3);
+
+            getCountCustomer.setString(2, selected2);
+            getCountCustomer.setString(3, selected3);
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getString(2);
+                lastname = rs.getString(3);
+                postion = rs.getString(4);
+                email = rs.getString(6);
+                salary = rs.getInt(5);
+                Employee emp = new Employee(id,firstName,lastname,postion,salary,email);
+                empl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void executeNameFilter(){
+        try{
+            String firstName;
+            String lastname;
+            String postion;
+            String email;
+            int salary;
+            int id ;
+            empl.clear();
+            String selected = combo1.getSelectionModel().getSelectedItem();
+            String selected2 = combo2.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterByEmpName(?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterByEmpName(?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            getFname.setString(1, selected);
+            getFname.setString(2, selected2);
+            getCountCustomer.setString(1,selected);
+            getCountCustomer.setString(2,selected2);
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getString(2);
+                lastname = rs.getString(3);
+                postion = rs.getString(4);
+                email = rs.getString(6);
+                salary = rs.getInt(5);
+                Employee emp = new Employee(id,firstName,lastname,postion,salary,email);
+                empl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executePositionFilter(){
+        try{
+            String firstName = null;
+            String lastname = null;
+            String postion = null;
+            String email = null;
+            int salary = 0;
+            int id = 0;
+            empl.clear();
+            Object selected = combo3.getSelectionModel().getSelectedItem();
+            String selected2 = combo4.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterByPosition(?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterByPosition(?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Integer) {
+                getFname.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.INTEGER);
+            } else {
+                getFname.setNull(1, Types.INTEGER);
+            }
+            getFname.setString(2, selected2);
+
+            if (selected instanceof Integer) {
+                getCountCustomer.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            }
+            getCountCustomer.setString(2, selected2);
+
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getString(2);
+                lastname = rs.getString(3);
+                postion = rs.getString(4);
+                email = rs.getString(6);
+                salary = rs.getInt(5);
+                Employee emp = new Employee(id,firstName,lastname,postion,salary,email);
+                empl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executeEmailFilter(){
+        try{
+            String firstName = null;
+            String lastname = null;
+            String postion = null;
+            String email = null;
+            int salary = 0;
+            int id = 0;
+            empl.clear();
+            String selected2 = combo5.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterByEmail(?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterByEmail(?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            getFname.setString(1, selected2);
+
+            getCountCustomer = dbConnection.prepareStatement(selectString);
+            getCountCustomer.setString(1, selected2);
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getString(2);
+                lastname = rs.getString(3);
+                postion = rs.getString(4);
+                email = rs.getString(6);
+                salary = rs.getInt(5);
+                Employee emp = new Employee(id,firstName,lastname,postion,salary,email);
+                empl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void select2(ActionEvent event){
+        boolean c1sel = c1.isSelected();
+        boolean c2sel = c2.isSelected();
+        boolean c3sel = c3.isSelected();
+        if (c1sel && c2sel && c3sel) {
+            executeAllFilters();
+        } else if (c1sel && c2sel) {
+            executeNameAndPositionFilter();
+        } else if (c1sel && c3sel) {
+            executeNameAndEmailFilter();
+        } else if (c2sel && c3sel) {
+            executePositionAndEmailFilter();
+        } else if (c1sel) {
+            executeNameFilter();
+        } else if (c2sel) {
+            executePositionFilter();
+        } else if (c3sel) {
+            executeEmailFilter();
+        } else {
+            return;
+        }
+    }
+    public void resetAll(ActionEvent evet){
+        combo1.setValue("all");
+        combo2.setValue("all");
+        combo3.setValue("all");
+        combo4.setValue("all");
+        combo5.setValue("all");
+        combo3.setDisable(true);
+        combo4.setDisable(true);
+        combo1.setDisable(false);
+        combo2.setDisable(false);
+        combo5.setDisable(true);
+        c1.setSelected(true);
+        c2.setSelected(false);
+        c3.setSelected(false);
+        refresh();
     }
 }

@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1650.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.EmployeeAuditController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1650.0" stylesheets="@employeeAuditStyle.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.EmployeeAuditController">
    <top>
-      <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="topLayer" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="Title" layoutX="30.0" layoutY="14.0" text="Employee Log File" />
+            <Label fx:id="subtitle" layoutX="30.0" layoutY="59.0" text="Here you can view all the operations and history of the Employee table" />
+         </children></AnchorPane>
    </top>
    <bottom>
       <AnchorPane prefHeight="464.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -40,7 +46,21 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="rowResult" layoutX="71.0" layoutY="246.0" />
+            <Label fx:id="rowResult" layoutX="180.0" layoutY="211.0" prefHeight="17.0" prefWidth="79.0" />
+            <Label fx:id="filterLabel" layoutX="60.0" layoutY="40.0" text="Table Filters" />
+            <Label fx:id="rowsLabel" layoutX="60.0" layoutY="211.0" text="Rows Returned" />
+            <ComboBox fx:id="textfield" layoutX="68.0" layoutY="109.0" onAction="#select" prefWidth="150.0" />
+            <ImageView fitHeight="40.0" fitWidth="45.0" layoutX="15.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@f.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="45.0" layoutX="20.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@ff.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="firstLabel" layoutX="68.0" layoutY="88.0" text="Operation Filter" />
          </children>
       </AnchorPane>
    </center>

@@ -148,7 +148,7 @@
             <AnchorPane fx:id="filterPane" layoutX="50.0" layoutY="54.0" prefHeight="322.0" prefWidth="602.0">
                <children>
                       <Label fx:id="filterLabel" layoutX="68.0" layoutY="22.0" text="Table Filters:" />
-                      <ImageView fitHeight="40.0" fitWidth="45.0" layoutX="22.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                      <ImageView fitHeight="36.0" fitWidth="34.0" layoutX="34.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                           <image>
                               <Image url="@f.png" />
                           </image>

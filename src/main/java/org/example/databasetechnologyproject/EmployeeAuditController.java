@@ -3,6 +3,7 @@ package org.example.databasetechnologyproject;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -90,9 +91,20 @@ public class EmployeeAuditController implements Initializable {
             System.err.println("Failed to connect to database: " + ex.getMessage());
             ex.printStackTrace();
         }
+        try{
+            String selectString = "SELECT * FROM getOperationEmployee()";
+            getaudit = dbConnection.prepareStatement(selectString);
+            ResultSet rs = getaudit.executeQuery();
+            while(rs.next()){
+                String ope = rs.getString(1);
+                textfield.getItems().addAll(ope);
+            }
+        } catch (SQLException ex){
+
+        }
         try {
-            String selectString = "";
-            String selectString2 = "";
+            String selectString = "SELECT * FROM getEmployeeAudit()";
+            String selectString2 = "SELECT COUNT(*) FROM getEmployeeAudit()";
             getAudit = dbConnection.prepareStatement(selectString);
             getCountOfTable = dbConnection.prepareStatement(selectString2);
             getCountOfTable.executeQuery();
@@ -130,12 +142,86 @@ public class EmployeeAuditController implements Initializable {
         ofn.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, String>("old_first_name"));
         nln.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, String>("new_last_name"));
         oln.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, String>("old_last_name"));
-        na.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, String>("new_address"));
-        oa.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, String>("old_address"));
-        np.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, String>("new_phone"));
-        op.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, String>("old_phone"));
-        nr.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, Integer>("new_rating"));
-        or.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, Integer>("old_rating"));
+        na.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, String>("new_email"));
+        oa.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, String>("old_email"));
+        np.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, String>("new_pos"));
+        op.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, String>("old_pos"));
+        nr.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, Integer>("new_salary"));
+        or.setCellValueFactory(new PropertyValueFactory<EmployeeAudit, Integer>("old_salary"));
         table1.setItems(empaud);
+    }
+    public void refresh(){
+        empaud.clear();
+        try {
+            String selectString = "SELECT * FROM getEmployeeAudit()";
+            String selectString2 = "SELECT COUNT(*) FROM getEmployeeAudit()";
+            getAudit = dbConnection.prepareStatement(selectString);
+            getCountOfTable = dbConnection.prepareStatement(selectString2);
+            getCountOfTable.executeQuery();
+            ResultSet rs = getAudit.executeQuery();
+            ResultSet rs2 = getCountOfTable.getResultSet();
+            while (rs.next()) {
+                String ope = rs.getString(1);
+                String time = rs.getString(2);
+                String use = rs.getString(3);
+                int id = rs.getInt(4);
+                String nfn = rs.getString(5);
+                String ofn = rs.getString(6);
+                String nln = rs.getString(7);
+                String oln = rs.getString(8);
+                String na = rs.getString(9);
+                String oa = rs.getString(10);
+                String np = rs.getString(11);
+                String op = rs.getString(12);
+                int nr = rs.getInt(13);
+                int or = rs.getInt(14);
+                EmployeeAudit ad = new EmployeeAudit(ope, time, use, id, nfn, ofn, nln, oln, na, oa, np, op, nr, or);
+                empaud.add(ad);
+            }
+            if (rs2.next()) {
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        }catch (SQLException ex){
+
+        }
+    }
+    public void select(ActionEvent event){
+        try{
+            empaud.clear();
+            String operation = textfield.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM getFilteredAuditEmployee(?)";
+            String selectString2 = "SELECT COUNT(*) FROM getFilteredAuditEmployee(?)";
+            getCountOfTable = dbConnection.prepareStatement(selectString2);
+            getFiltered = dbConnection.prepareStatement(selectString);
+            getFiltered.setString(1, operation);
+            getCountOfTable.setString(1, operation);
+            ResultSet rs = getFiltered.executeQuery();
+            ResultSet rs2 = getCountOfTable.executeQuery();
+            while(rs.next()){
+                String op = rs.getString(1);
+                String time = rs.getString(2);
+                String user = rs.getString(3);
+                int id = rs.getInt(4);
+                String nfn = rs.getString(5);
+                String ofn = rs.getString(6);
+                String nln = rs.getString(7);
+                String oln = rs.getString(8);
+                String na = rs.getString(9);
+                String oa = rs.getString(10);
+                String np = rs.getString(11);
+                String ope = rs.getString(12);
+                int nr = rs.getInt(13);
+                int or = rs.getInt(14);
+                EmployeeAudit ca = new EmployeeAudit(op,time,user,id,nfn,ofn,nln,oln,na,oa,np,ope,nr,or);
+                empaud.add(ca);
+            }
+            if(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
     }
 }

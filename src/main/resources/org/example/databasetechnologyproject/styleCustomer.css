@@ -278,6 +278,11 @@
     -fx-font-size: 15px;
     -fx-font-weight: 600;
 }
+#forth{
+    -fx-font-family: "Lexend Giga";
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+}
 #rowsLabel{
     -fx-font-family: "Lexend Giga";
     -fx-font-size: 18px;
@@ -414,4 +419,42 @@
     -fx-padding: 8 12;
     -fx-text-fill: white;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.2, 0, 2);
+}
+
+/* Modern JavaFX Checkbox Styling */
+.check-box {
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-font-size: 14px;
+    -fx-text-fill: #2d3748;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #cbd5e0;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-border-width: 2px;
+    -fx-padding: 2px;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #3b82f6;
+    -fx-border-color: #2563eb;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:hover .box {
+    -fx-border-color: #3b82f6;
+}
+
+.check-box:focused .box {
+    -fx-border-color: #3b82f6;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.5), 10, 0.5, 0, 0);
+}
+
+.check-box:disabled {
+    -fx-opacity: 0.5;
 }

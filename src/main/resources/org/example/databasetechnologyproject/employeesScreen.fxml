@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -152,6 +154,19 @@
                      </image>
                   </ImageView>
                   <Label fx:id="filterLabel" layoutX="57.0" layoutY="17.0" text="Table Filters:" />
+                  <ComboBox fx:id="combo1" layoutX="67.0" layoutY="73.0" onAction="#select2" prefWidth="180.0" />
+                  <ComboBox fx:id="combo2" layoutX="367.0" layoutY="73.0" onAction="#select2" prefWidth="180.0" />
+                  <ComboBox layoutX="66.0" layoutY="153.0" onAction="#select2" prefWidth="180.0" />
+                  <ComboBox layoutX="368.0" layoutY="153.0" onAction="#select2" prefWidth="180.0" />
+                  <ComboBox layoutX="66.0" layoutY="238.0" onAction="#select2" prefWidth="180.0" />
+                  <CheckBox fx:id="c1" layoutX="212.0" layoutY="18.0" mnemonicParsing="false" text="Name Filter" />
+                  <CheckBox fx:id="c2" layoutX="319.0" layoutY="18.0" mnemonicParsing="false" text="Position Filter" />
+                  <CheckBox fx:id="c3" layoutX="448.0" layoutY="18.0" mnemonicParsing="false" text="Email Filter" />
+                  <Label fx:id="firstLabel" layoutX="72.0" layoutY="55.0" text="First Name Filter" />
+                  <Label fx:id="secondLabel" layoutX="375.0" layoutY="55.0" text="Last Name Filter" />
+                  <Label fx:id="thirdLabel" layoutX="95.0" layoutY="135.0" text="Salary Filter" />
+                  <Label fx:id="forthLabel" layoutX="388.0" layoutY="135.0" text="Position Filter" />
+                  <Label fx:id="forth" layoutX="100.0" layoutY="219.0" text="Email Filter" />
                </children>
             </AnchorPane>
             <Label fx:id="rowsLabel" layoutX="102.0" layoutY="402.0" text="Rows Returned:" />
