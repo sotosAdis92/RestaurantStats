@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="center2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" stylesheets="@styleInsertCustomer.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.CustomerInsertController">
    <children>
-      <AnchorPane fx:id="center" layoutX="55.0" layoutY="110.0" prefHeight="666.0" prefWidth="497.0">
+      <AnchorPane fx:id="center" layoutX="55.0" layoutY="110.0" prefHeight="667.0" prefWidth="497.0">
          <children>
             <Label fx:id="firstNameError" layoutX="55.0" layoutY="115.0" prefHeight="17.0" prefWidth="366.0" />
             <TextField fx:id="textField1" layoutX="55.0" layoutY="81.0" prefHeight="34.0" prefWidth="405.0" />
