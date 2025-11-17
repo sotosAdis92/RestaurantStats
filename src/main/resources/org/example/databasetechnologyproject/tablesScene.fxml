@@ -151,26 +151,16 @@
                             </image>
                         </ImageView>
                         <Label fx:id="filterLabel" layoutX="57.0" layoutY="17.0" text="Table Filters:" />
-                        <ComboBox fx:id="textfield" layoutX="35.0" layoutY="93.0" onAction="#select" prefHeight="25.0" prefWidth="180.0">
+                        <ComboBox fx:id="textfield" layoutX="57.0" layoutY="139.0" onAction="#select" prefHeight="25.0" prefWidth="180.0">
                             <tooltip>
                                 <Tooltip text="Filter By Rating" />
                             </tooltip></ComboBox>
-                        <ComboBox fx:id="textfield2" layoutX="358.0" layoutY="93.0" onAction="#select" prefHeight="25.0" prefWidth="180.0">
+                        <ComboBox fx:id="textfield2" layoutX="359.0" layoutY="139.0" onAction="#select" prefHeight="25.0" prefWidth="180.0">
                             <tooltip>
                                 <Tooltip text="Filter By Phone" />
                             </tooltip></ComboBox>
-                        <ComboBox fx:id="textfield3" layoutX="35.0" layoutY="223.0" onAction="#select" prefWidth="180.0">
-                            <tooltip>
-                                <Tooltip text="Filter by last name" />
-                            </tooltip></ComboBox>
-                        <ComboBox fx:id="textfield4" layoutX="361.0" layoutY="223.0" onAction="#select" prefHeight="26.0" prefWidth="175.0">
-                            <tooltip>
-                                <Tooltip text="Filter by first name" />
-                            </tooltip></ComboBox>
-                        <Label fx:id="firstLabel" layoutX="56.0" layoutY="74.0" text="Table Number" />
-                        <Label fx:id="secondLabel" layoutX="404.0" layoutY="74.0" text="Capacity" />
-                        <Label fx:id="thirdLabel" layoutX="31.0" layoutY="204.0" text="Reservation Name" />
-                        <Label fx:id="forthLabel" layoutX="362.0" layoutY="204.0" text="Reservation Date" />
+                        <Label fx:id="firstLabel" layoutX="78.0" layoutY="120.0" text="Table Number" />
+                        <Label fx:id="secondLabel" layoutX="405.0" layoutY="120.0" text="Capacity" />
                     </children>
                 </AnchorPane>
                 <Label fx:id="rowsLabel" layoutX="102.0" layoutY="402.0" text="Rows Returned:" />
@@ -200,7 +190,7 @@
                                 <Tooltip text="Delete an existing Customer" />
                             </tooltip>
                         </Button>
-                        <Button fx:id="openLogCustomer" layoutX="341.0" layoutY="82.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="209.0" text="Open Log Table">
+                        <Button fx:id="openLogCustomer" layoutX="341.0" layoutY="82.0" mnemonicParsing="false" onAction="#openTablesAudit" prefHeight="60.0" prefWidth="209.0" text="Open Log Table">
                             <graphic>
                                 <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                                     <image>

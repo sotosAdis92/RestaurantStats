@@ -2,9 +2,12 @@ package org.example.databasetechnologyproject;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.animation.PauseTransition;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -21,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,11 +50,12 @@ public class tablesController implements Initializable {
     @FXML
     TableView<Tables> customerTable;
     @FXML
-     TableColumn<Tables, Object> status;
+     TableColumn<Tables, String> status;
     @FXML
-     TableColumn<Tables, Object> tnumber;
+     TableColumn<Tables, Integer> tnumber;
     @FXML
-     TableColumn<Tables, Object> capacity;
+     TableColumn<Tables, Integer> capacity;
+    PreparedStatement update;
 
     static String driverClassName = "org.postgresql.Driver";
     static Dotenv dotenv = Dotenv.load();
@@ -141,10 +147,115 @@ public class tablesController implements Initializable {
         }catch (SQLException ex){
             ex.printStackTrace();
         }
+        tnumber.setCellValueFactory(cellData -> {
+            Tables customer = cellData.getValue();
+            return new SimpleIntegerProperty(customer.getTnumber()).asObject();
+        });
+        tnumber.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        tnumber.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Tables, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Tables, Integer> event) {
+                Tables customer1 = event.getRowValue();
+                customer1.setTnumber(event.getNewValue());
+                int id = customer1.getTid();
+                String status = customer1.getStatus();
+                int ca = customer1.getCapacity();
+                int num = customer1.getTnumber();
+                try{
+                    String selectString = "SELECT updateTables(?,?,?,?)";
+                    update = dbConnection.prepareStatement(selectString);
+                    update.setInt(1,id);
+                    update.setInt(2,num);
+                    update.setInt(3, ca);
+                    update.setString(4, status);
+                    update.executeQuery();
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+                ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
+                selectedItem.forEach(index ->{
+                    i = index + 1;
+                });
+                refresh();
+                customerServiceClass.getInstance().triggerRefresh();
+                showNotification(i);
+            }
+        });
+
+
+        capacity.setCellValueFactory(cellData -> {
+            Tables customer = cellData.getValue();
+            return new SimpleIntegerProperty(customer.getCapacity()).asObject();
+        });
+        capacity.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        capacity.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Tables, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Tables, Integer> event) {
+                Tables customer1 = event.getRowValue();
+                customer1.setCapacity(event.getNewValue());
+                int id = customer1.getTid();
+                String status = customer1.getStatus();
+                int ca = customer1.getCapacity();
+                int num = customer1.getTnumber();
+                try{
+                    String selectString = "SELECT updateTables(?,?,?,?)";
+                    update = dbConnection.prepareStatement(selectString);
+                    update.setInt(1,id);
+                    update.setInt(2,num);
+                    update.setInt(3, ca);
+                    update.setString(4, status);
+                    update.executeQuery();
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+                ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
+                selectedItem.forEach(index ->{
+                    i = index + 1;
+                });
+                refresh();
+                customerServiceClass.getInstance().triggerRefresh();
+                showNotification(i);
+            }
+        });
+
+        status.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
+        status.setCellFactory(TextFieldTableCell.forTableColumn());
+        status.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Tables, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Tables, String> event) {
+                Tables customer1 = event.getRowValue();
+                customer1.setStatus(event.getNewValue());
+                int id = customer1.getTid();
+                String status = customer1.getStatus();
+                int ca = customer1.getCapacity();
+                int num = customer1.getTnumber();
+                try{
+                    String selectString = "SELECT updateTables(?,?,?,?)";
+                    update = dbConnection.prepareStatement(selectString);
+                    update.setInt(1,id);
+                    update.setInt(2,num);
+                    update.setInt(3, ca);
+                    update.setString(4, status);
+                    update.executeQuery();
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+                ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
+                selectedItem.forEach(index ->{
+                    i = index + 1;
+                });
+                refresh();
+                customerServiceClass.getInstance().triggerRefresh();
+                showNotification(i);
+            }
+        });
+
+
+
         customerTable.setItems(tabl);
-        tnumber.setCellValueFactory(new PropertyValueFactory<Tables, Object>("tnumber"));
-        capacity.setCellValueFactory(new PropertyValueFactory<Tables, Object>("capacity"));
-        status.setCellValueFactory(new PropertyValueFactory<Tables, Object>("status"));
+        tnumber.setCellValueFactory(new PropertyValueFactory<Tables, Integer>("tnumber"));
+        capacity.setCellValueFactory(new PropertyValueFactory<Tables, Integer>("capacity"));
+        status.setCellValueFactory(new PropertyValueFactory<Tables, String>("status"));
         customerTable.setItems(tabl);
     }
     public void reset(ActionEvent event){
@@ -327,6 +438,14 @@ public class tablesController implements Initializable {
             stage.getIcons().add(icon);
             stage.setScene(new Scene(root));
             stage.show();
+            tablesInsertController customerinsetcontroller = fxmlLoader.getController();
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            customerinsetcontroller.setStage(currentStage);
+            customerinsetcontroller.setMainController(this);
+            customerinsetcontroller.setTableView(customerTable);
+            customerinsetcontroller.setFirstNameColumn(status);
+            customerinsetcontroller.setLastNameColumn(tnumber);
+            customerinsetcontroller.setHomeAddressColoumn(capacity);
         } catch (IOException ex) {
             System.out.println("This window could not load");
             ex.printStackTrace();
@@ -393,6 +512,21 @@ public class tablesController implements Initializable {
         }
         else{
             return;
+        }
+    }
+    public void openTablesAudit(ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("tablesAudit.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Log File");
+            Image icon = new Image("logos.png");
+            stage.getIcons().add(icon);
+            stage.setScene(new Scene(root));
+            stage.show();
+            refresh();
+        } catch (IOException ex){
+            ex.printStackTrace();
         }
     }
 }

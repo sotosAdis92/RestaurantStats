@@ -72,7 +72,9 @@ public class tablesInsertController implements Initializable {
         spin2.setValueFactory(valueFactory2);
         int currentValue = spin1.getValue();
         int currentValue2 = spin2.getValue();
-        textfield1.setValue("all");
+        textfield1.setValue("available");
+        textfield1.getItems().add("available");
+        textfield1.getItems().add("reserved");
     }
 
     public void setMainController(tablesController mainController){
@@ -164,7 +166,7 @@ public class tablesInsertController implements Initializable {
         spin2.setValueFactory(valueFactory2);
         int currentValue = spin1.getValue();
         int currentValue2 = spin2.getValue();
-        textfield1.setValue("all");
+        textfield1.setValue("available");
         customerTable.getItems().add(ta);
         showNotification();
         mainController.refresh();
