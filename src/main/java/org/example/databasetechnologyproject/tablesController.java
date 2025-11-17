@@ -66,6 +66,8 @@ public class tablesController implements Initializable {
     DialogPane dialog3;
     @Override
     public void initialize(URL d, ResourceBundle resourceBundle) {
+        textfield.setValue("all");
+        textfield2.setValue("all");
         try {
             Class.forName(driverClassName);
             System.out.println("JDBC driver loaded successfully");
