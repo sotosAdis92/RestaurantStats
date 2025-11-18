@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -151,16 +152,21 @@
                             </image>
                         </ImageView>
                         <Label fx:id="filterLabel" layoutX="57.0" layoutY="17.0" text="Table Filters:" />
-                        <ComboBox fx:id="textfield" layoutX="57.0" layoutY="139.0" onAction="#select" prefHeight="25.0" prefWidth="180.0">
+                        <ComboBox fx:id="textfield" layoutX="57.0" layoutY="91.0" onAction="#select" prefHeight="25.0" prefWidth="180.0">
                             <tooltip>
                                 <Tooltip text="Filter By Rating" />
                             </tooltip></ComboBox>
-                        <ComboBox fx:id="textfield2" layoutX="359.0" layoutY="139.0" onAction="#select" prefHeight="25.0" prefWidth="180.0">
+                        <ComboBox fx:id="textfield2" layoutX="360.0" layoutY="91.0" onAction="#select" prefHeight="25.0" prefWidth="180.0">
                             <tooltip>
                                 <Tooltip text="Filter By Phone" />
                             </tooltip></ComboBox>
-                        <Label fx:id="firstLabel" layoutX="78.0" layoutY="120.0" text="Table Number" />
-                        <Label fx:id="secondLabel" layoutX="405.0" layoutY="120.0" text="Capacity" />
+                        <Label fx:id="firstLabel" layoutX="78.0" layoutY="72.0" text="Table Number" />
+                        <Label fx:id="secondLabel" layoutX="405.0" layoutY="72.0" text="Capacity" />
+                  <CheckBox fx:id="c1" layoutX="237.0" layoutY="20.0" mnemonicParsing="false" onAction="#check" text="Number Filter" />
+                  <CheckBox fx:id="c2" layoutX="365.0" layoutY="20.0" mnemonicParsing="false" onAction="#check" text="Capacity Filter" />
+                  <CheckBox fx:id="c3" layoutX="494.0" layoutY="20.0" mnemonicParsing="false" onAction="#check" text="Status Filter" />
+                  <ComboBox fx:id="textfield3" layoutX="57.0" layoutY="207.0" onAction="#select" prefHeight="45.0" prefWidth="180.0" />
+                  <Label fx:id="thirdLabel" layoutX="115.0" layoutY="188.0" text="Status" />
                     </children>
                 </AnchorPane>
                 <Label fx:id="rowsLabel" layoutX="102.0" layoutY="402.0" text="Rows Returned:" />
@@ -222,6 +228,7 @@
                         <Label fx:id="utilityLabel" layoutX="61.0" layoutY="17.0" text="Table Actions:" />
                     </children>
                 </AnchorPane>
+            <Label fx:id="rowResult" layoutX="286.0" layoutY="403.0" />
             </children>
         </AnchorPane>
     </right>

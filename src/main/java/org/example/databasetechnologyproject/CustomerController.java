@@ -73,6 +73,7 @@ public class CustomerController implements Initializable {
     Label rowResult;
 
 
+
     ObservableList<Customer> customers = FXCollections.observableArrayList();
     PreparedStatement fillTable;
     PreparedStatement delete;
@@ -100,6 +101,8 @@ public class CustomerController implements Initializable {
         textfield2.setValue("all");
         textfield3.setValue("all");
         textfield4.setValue("all");
+
+
         System.out.println(url);
         System.out.println(user);
         System.out.println(password);

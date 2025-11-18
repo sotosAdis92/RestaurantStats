@@ -56,6 +56,16 @@ public class tablesController implements Initializable {
     @FXML
      TableColumn<Tables, Integer> capacity;
     PreparedStatement update;
+    @FXML
+    ComboBox<String> textfield3;
+    @FXML
+    CheckBox c1;
+    @FXML
+    CheckBox c2;
+    @FXML
+    CheckBox c3;
+    @FXML
+    Label rowResult;
 
     static String driverClassName = "org.postgresql.Driver";
     static Dotenv dotenv = Dotenv.load();
@@ -66,6 +76,12 @@ public class tablesController implements Initializable {
     PreparedStatement getCountOfTable;
     PreparedStatement delete;
     static Connection dbConnection;
+    PreparedStatement fillTable;
+    PreparedStatement getLastName;
+    PreparedStatement getPhone;
+    PreparedStatement getRating;
+    PreparedStatement getFname;
+    PreparedStatement getCountCustomer;
     ObservableList<Tables> tabl = FXCollections.observableArrayList();
     int i = 0;
     private DialogPane dialog;
@@ -74,6 +90,13 @@ public class tablesController implements Initializable {
     public void initialize(URL d, ResourceBundle resourceBundle) {
         textfield.setValue("all");
         textfield2.setValue("all");
+        textfield3.setValue("all");
+        textfield.setDisable(false);
+        textfield2.setDisable(true);
+        textfield3.setDisable(true);
+        c1.setSelected(true);
+        c2.setSelected(false);
+        c3.setSelected(false);
         try {
             Class.forName(driverClassName);
             System.out.println("JDBC driver loaded successfully");
@@ -127,6 +150,19 @@ public class tablesController implements Initializable {
             while(rs.next()){
                 int num = rs.getInt(1);
                 textfield2.getItems().add(num);
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        try{
+            textfield3.getItems().add("all");
+            String selectString = "SELECT * FROM getStatus()";
+            getFirstName = dbConnection.prepareStatement(selectString);
+            getFirstName.executeQuery();
+            ResultSet rs = getFirstName.getResultSet();
+            while(rs.next()){
+                String num = rs.getString(1);
+                textfield3.getItems().add(num);
             }
         } catch (SQLException ex){
             ex.printStackTrace();
@@ -257,9 +293,6 @@ public class tablesController implements Initializable {
         capacity.setCellValueFactory(new PropertyValueFactory<Tables, Integer>("capacity"));
         status.setCellValueFactory(new PropertyValueFactory<Tables, String>("status"));
         customerTable.setItems(tabl);
-    }
-    public void reset(ActionEvent event){
-
     }
     public void showNotification(int ind){
         Stage toastStage = new Stage();
@@ -527,6 +560,436 @@ public class tablesController implements Initializable {
             refresh();
         } catch (IOException ex){
             ex.printStackTrace();
+        }
+    }
+
+    public void executeAllFilters(){
+        try{
+            int firstName = 0;
+            int lastname = 0;
+            String postion = null;
+            int id = 0;
+            tabl.clear();
+            Object selected = textfield.getSelectionModel().getSelectedItem();
+            Object selected1 = textfield2.getSelectionModel().getSelectedItem();
+            String selected2 = textfield3.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterByNumberAndStatusandCapacity(?,?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterByNumberAndStatusandCapacity(?,?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Integer) {
+                getFname.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.INTEGER);
+            } else {
+                getFname.setNull(1, Types.INTEGER);
+            }
+
+            if (selected1 instanceof Integer) {
+                getFname.setInt(3, (Integer) selected1);
+            } else if ("all".equals(selected1)) {
+                getFname.setNull(3, Types.INTEGER);
+            } else {
+                getFname.setNull(3, Types.INTEGER);
+            }
+
+            getFname.setString(2, selected2);
+
+            if (selected instanceof Integer) {
+                getCountCustomer.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            }
+            getCountCustomer.setString(2, selected2);
+
+            if (selected1 instanceof Integer) {
+                getCountCustomer.setInt(3, (Integer) selected1);
+            } else if ("all".equals(selected1)) {
+                getCountCustomer.setNull(3, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(3, Types.INTEGER);
+            }
+
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getInt(2);
+                lastname = rs.getInt(3);
+                postion = rs.getString(4);
+                Tables emp = new Tables(id,firstName,lastname,postion);
+                tabl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executeNameAndPositionFilter(){
+        try{
+            int firstName = 0;
+            int lastname = 0;
+            String postion = null;
+            int id = 0;
+            tabl.clear();
+            Object selected = textfield2.getSelectionModel().getSelectedItem();
+            Object selected2 = textfield.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterCapacityAndNumber(?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterCapacityAndNumber(?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Integer) {
+                getFname.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.INTEGER);
+            } else {
+                getFname.setNull(1, Types.INTEGER);
+            }
+
+            if (selected2 instanceof Integer) {
+                getFname.setInt(2, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(2, Types.INTEGER);
+            } else {
+                getFname.setNull(2, Types.INTEGER);
+            }
+
+            if (selected instanceof Integer) {
+                getCountCustomer.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            }
+
+            if (selected2 instanceof Integer) {
+                getCountCustomer.setInt(2, (Integer) selected);
+            } else if ("all".equals(selected2)) {
+                getCountCustomer.setNull(2, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(2, Types.INTEGER);
+            }
+
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getInt(2);
+                lastname = rs.getInt(3);
+                postion = rs.getString(4);
+                Tables emp = new Tables(id,firstName,lastname,postion);
+                tabl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executePositionAndEmailFilter(){
+        try{
+            int firstName = 0;
+            int lastname = 0;
+            String postion = null;
+            int id = 0;
+            tabl.clear();
+            Object selected = textfield2.getSelectionModel().getSelectedItem();
+            String selected2 = textfield3.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterCapacityAndStatus(?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterCapacityAndStatus(?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Integer) {
+                getFname.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.INTEGER);
+            } else {
+                getFname.setNull(1, Types.INTEGER);
+            }
+
+            getFname.setString(2, selected2);
+            if (selected instanceof Integer) {
+                getCountCustomer.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            }
+            getCountCustomer.setString(2, selected2);
+
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getInt(2);
+                lastname = rs.getInt(3);
+                postion = rs.getString(4);
+                Tables emp = new Tables(id,firstName,lastname,postion);
+                tabl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executeNameAndEmailFilter(){
+        try{
+            int firstName = 0;
+            int lastname = 0;
+            String postion = null;
+            int id = 0;
+            tabl.clear();
+            Object selected = textfield.getSelectionModel().getSelectedItem();
+            String selected2 = textfield3.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterByNumberAndStatus(?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterByNumberAndStatus(?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Integer) {
+                getFname.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.INTEGER);
+            } else {
+                getFname.setNull(1, Types.INTEGER);
+            }
+
+            getFname.setString(2, selected2);
+            if (selected instanceof Integer) {
+                getCountCustomer.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            }
+            getCountCustomer.setString(2, selected2);
+
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getInt(2);
+                lastname = rs.getInt(3);
+                postion = rs.getString(4);
+                Tables emp = new Tables(id,firstName,lastname,postion);
+                tabl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executeNameFilter(){
+        try{
+            int firstName = 0;
+            int lastname = 0;
+            String postion = null;
+            int id = 0;
+            tabl.clear();
+            Object selected = textfield.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterByTableNumber(?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterByTableNumber(?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Integer) {
+                getFname.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.INTEGER);
+            } else {
+                getFname.setNull(1, Types.INTEGER);
+            }
+
+            if (selected instanceof Integer) {
+                getCountCustomer.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            }
+
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getInt(2);
+                lastname = rs.getInt(3);
+                postion = rs.getString(4);
+                Tables emp = new Tables(id,firstName,lastname,postion);
+                tabl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executePositionFilter(){
+        try{
+            int firstName = 0;
+            int lastname = 0;
+            String postion = null;
+            int id = 0;
+            tabl.clear();
+            Object selected = textfield2.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterByTableCapacity(?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterByTableCapacity(?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Integer) {
+                getFname.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.INTEGER);
+            } else {
+                getFname.setNull(1, Types.INTEGER);
+            }
+
+            if (selected instanceof Integer) {
+                getCountCustomer.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            }
+
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getInt(2);
+                lastname = rs.getInt(3);
+                postion = rs.getString(4);
+                Tables emp = new Tables(id,firstName,lastname,postion);
+                tabl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executeEmailFilter(){
+        try{
+            int firstName = 0;
+            int lastname = 0;
+            String postion = null;
+            int id = 0;
+            tabl.clear();
+            String selected = textfield3.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterByStatus(?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterByStatus(?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            getFname.setString(1, selected);
+            getCountCustomer.setString(1,selected);
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                firstName = rs.getInt(2);
+                lastname = rs.getInt(3);
+                postion = rs.getString(4);
+                Tables emp = new Tables(id,firstName,lastname,postion);
+                tabl.add(emp);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void select(ActionEvent event){
+        boolean c1sel = c1.isSelected();
+        boolean c2sel = c2.isSelected();
+        boolean c3sel = c3.isSelected();
+        if (c1sel && c2sel && c3sel) {
+            executeAllFilters();
+        } else if (c1sel && c2sel) {
+            executeNameAndPositionFilter();
+        } else if (c1sel && c3sel) {
+            executeNameAndEmailFilter();
+        } else if (c2sel && c3sel) {
+            executePositionAndEmailFilter();
+        } else if (c1sel) {
+            executeNameFilter();
+        } else if (c2sel) {
+            executePositionFilter();
+        } else if (c3sel) {
+            executeEmailFilter();
+        } else {
+            return;
+        }
+    }
+    public void reset(ActionEvent evet){
+        textfield.setValue("all");
+        textfield2.setValue("all");
+        textfield3.setValue("all");
+        textfield3.setDisable(true);
+        textfield2.setDisable(true);
+        textfield.setDisable(false);
+        c1.setSelected(true);
+        c2.setSelected(false);
+        c3.setSelected(false);
+        refresh();
+    }
+
+    public void check(ActionEvent event){
+        if(c1.isSelected()){
+            textfield3.setDisable(true);
+            textfield.setDisable(false);
+            textfield2.setDisable(true);
+        }
+        if(c2.isSelected()){
+            textfield3.setDisable(true);
+            textfield.setDisable(true);
+            textfield2.setDisable(false);
+        }
+        if(c3.isSelected()){
+            textfield3.setDisable(false);
+            textfield.setDisable(true);
+            textfield2.setDisable(true);
+        }
+        if(c1.isSelected() && c2.isSelected()){
+            textfield3.setDisable(true);
+            textfield.setDisable(false);
+            textfield2.setDisable(false);
+        }
+        if(c1.isSelected() && c3.isSelected()){
+            textfield3.setDisable(false);
+            textfield.setDisable(false);
+            textfield2.setDisable(true);
+        }
+        if(c2.isSelected() && c3.isSelected()){
+            textfield3.setDisable(false);
+            textfield.setDisable(true);
+            textfield2.setDisable(false);
+        }
+        if(c1.isSelected() && c2.isSelected() && c3.isSelected()){
+            textfield3.setDisable(false);
+            textfield.setDisable(false);
+            textfield2.setDisable(false);
+        }
+        if(!c1.isSelected() && !c2.isSelected() && !c3.isSelected()){
+            textfield3.setDisable(true);
+            textfield.setDisable(true);
+            textfield2.setDisable(true);
         }
     }
 }
