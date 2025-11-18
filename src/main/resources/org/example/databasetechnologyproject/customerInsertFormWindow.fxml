@@ -46,7 +46,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <Label fx:id="title" layoutX="164.0" layoutY="27.0" text="Insert a new customer" />
+      <Label fx:id="title" layoutX="181.0" layoutY="27.0" text="Insert a new customer" />
       <Label fx:id="undertitle" layoutX="60.0" layoutY="61.0" text="In this Form you can fill out the text fields and insert a new customer" />
    </children>
 </AnchorPane>
