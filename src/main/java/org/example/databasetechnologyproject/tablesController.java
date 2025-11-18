@@ -213,7 +213,7 @@ public class tablesController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                TablesServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -249,7 +249,7 @@ public class tablesController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                TablesServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -281,7 +281,7 @@ public class tablesController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                TablesServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -539,7 +539,7 @@ public class tablesController implements Initializable {
                 selectionModel.clearSelection(selectedItems[i].intValue());
                 customerTable.getItems().remove(selectedItems[i].intValue());
             }
-            customerServiceClass.getInstance().triggerRefresh();
+            TablesServiceClass.getInstance().triggerRefresh();
             refresh();
             showNotification2();
         }

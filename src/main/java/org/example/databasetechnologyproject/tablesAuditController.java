@@ -74,7 +74,7 @@ public class tablesAuditController implements Initializable {
     ObservableList<TablesAudit> customerAud = FXCollections.observableArrayList();
     @Override
     public void initialize(URL d, ResourceBundle resourceBundle) {
-
+        TablesServiceClass.getInstance().setRefreshCallback(v -> refresh());
         textfield.setValue("all");
         try {
             Class.forName(driverClassName);

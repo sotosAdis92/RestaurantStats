@@ -169,6 +169,7 @@ public class tablesInsertController implements Initializable {
         textfield1.setValue("available");
         customerTable.getItems().add(ta);
         showNotification();
+        TablesServiceClass.getInstance().triggerRefresh();
         mainController.refresh();
     }
 }
