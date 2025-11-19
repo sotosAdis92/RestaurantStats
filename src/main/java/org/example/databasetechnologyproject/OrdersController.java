@@ -1,6 +1,7 @@
 package org.example.databasetechnologyproject;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,17 +12,19 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class OrdersController implements Initializable {
@@ -47,7 +50,7 @@ public class OrdersController implements Initializable {
     @FXML
     TableColumn<Order, Float> amm;
     @FXML
-    TableColumn<Order, String> da;
+    TableColumn<Order, Timestamp> da;
     @FXML
     ComboBox<String> textfield;
 
@@ -110,6 +113,47 @@ public class OrdersController implements Initializable {
         } catch (Exception ex) {
             System.out.println("Image not found");
         }
+        try{
+            String selectString = "SELECT * FROM getOrdersTable()";
+            String selectString2 = "SELECT COUNT(*) FROM getOrdersTable()";
+
+            fillTable = dbConnection.prepareStatement(selectString);
+            getCountOfTable = dbConnection.prepareStatement(selectString2);
+
+            getCountOfTable.executeQuery();
+            fillTable.executeQuery();
+
+            ResultSet rs = fillTable.getResultSet();
+            ResultSet rs2 = getCountOfTable.getResultSet();
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            while(rs.next()){
+                int id = rs.getInt(1);
+                int cid = rs.getInt(2);
+                int empid = rs.getInt(3);
+                int taid = rs.getInt(4);
+                float amm = rs.getFloat(5);
+                Timestamp da = rs.getTimestamp(6);
+                Order or1 = new Order(id,cid,empid,taid,amm,da);
+                orders.add(or1);
+            }
+            if(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        }catch (SQLException ex){
+            System.out.println("SQL error");
+        }
+
+        customerTable.setItems(orders);
+
+        on.setCellValueFactory(new PropertyValueFactory<Order, Integer>("orderid"));
+        cu.setCellValueFactory(new PropertyValueFactory<Order, String>("customerid"));
+        emp.setCellValueFactory(new PropertyValueFactory<Order, String>("employeeid"));
+        ta.setCellValueFactory(new PropertyValueFactory<Order, Integer>("tableid"));
+        amm.setCellValueFactory(new PropertyValueFactory<Order, Float>("total"));
+        da.setCellValueFactory(new PropertyValueFactory<Order, Timestamp>("date"));
+        customerTable.setItems(orders);
     }
     public void exitButton(ActionEvent event){
         Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
@@ -206,6 +250,128 @@ public class OrdersController implements Initializable {
             stage1.show();
         } catch (IOException ex){
             System.out.println("Cannot change scenes");
+        }
+    }
+    public void refresh(){
+        try{
+            String selectString = "SELECT * FROM getOrdersTable()";
+            String selectString2 = "SELECT COUNT(*) FROM getOrdersTable()";
+
+            fillTable = dbConnection.prepareStatement(selectString);
+            getCountOfTable = dbConnection.prepareStatement(selectString2);
+
+            getCountOfTable.executeQuery();
+            fillTable.executeQuery();
+
+            ResultSet rs = fillTable.getResultSet();
+            ResultSet rs2 = getCountOfTable.getResultSet();
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            while(rs.next()){
+                int id = rs.getInt(1);
+                int cid = rs.getInt(2);
+                int empid = rs.getInt(3);
+                int taid = rs.getInt(4);
+                float amm = rs.getFloat(5);
+                Timestamp da = rs.getTimestamp(6);
+                Order or1 = new Order(id,cid,empid,taid,amm,da);
+                orders.add(or1);
+            }
+            if(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        }catch (SQLException ex){
+            System.out.println("SQL error");
+        }
+    }
+    public void deleteOrder(ActionEvent event){
+        Alert alert3 = new Alert(Alert.AlertType.CONFIRMATION);
+        dialog3 = alert3.getDialogPane();
+        alert3.setGraphic(new ImageView(this.getClass().getResource("kk.png").toString()));
+        Image icon = new Image("logos.png");
+        dialog3.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        alert3.setTitle("Delete Order");
+        dialog3.getStyleClass().add("dialog2");
+        alert3.setHeaderText("You are about to delete an order");
+        alert3.setContentText("This Action is permanent, do you wish to continue?");
+        Stage alertstage = (Stage) dialog3.getScene().getWindow();
+        alertstage.getIcons().add(icon);
+        if (alert3.showAndWait().get() == ButtonType.OK) {
+            Order selectedOrder = customerTable.getSelectionModel().getSelectedItem();
+            if(selectedOrder!=null){
+                try{
+                    int id = selectedOrder.getOrderid();
+                    String selectString = "SELECT deleteOrder(?)";
+                    delete = dbConnection.prepareStatement(selectString);
+                    delete.setInt(1, id);
+                    delete.executeQuery();
+                } catch (SQLException exception){
+                    exception.printStackTrace();
+                    System.out.println("Database error: " + exception.getMessage());
+                }
+            }
+            TableView.TableViewSelectionModel<Order> selectionModel = customerTable.getSelectionModel();
+            if(selectionModel.isEmpty()){
+                System.out.println("Table is empty");
+            }
+            ObservableList<Integer> list = selectionModel.getSelectedIndices();
+            Integer[] selectedItems = new Integer[list.size()];
+            selectedItems = list.toArray(selectedItems);
+            Arrays.sort(selectedItems);
+            for(int i=selectedItems.length - 1;i>=0;i--){
+                selectionModel.clearSelection(selectedItems[i].intValue());
+                customerTable.getItems().remove(selectedItems[i].intValue());
+            }
+            customerServiceClass.getInstance().triggerRefresh();
+            refresh();
+            showNotification2();
+        }
+        else{
+            return;
+        }
+    }
+    public void showNotification2(){
+        Stage toastStage = new Stage();
+        Stage currentStage = (Stage) scene1.getScene().getWindow();
+        toastStage.initOwner(currentStage);
+        toastStage.setResizable(false);
+        toastStage.initStyle(StageStyle.TRANSPARENT);
+        Label label = new Label("✔Operation Successful, Customer Deleted");
+        label.setStyle("-fx-font-size: 17px;\n" +
+                "-fx-text-fill: #001D00;\n" +
+                "-fx-background-color: #dcfce7;\n" +
+                "-fx-background-radius: 10px;\n" +
+                "-fx-border-color: #22c55e;\n" +
+                "-fx-border-width: 2px;\n" +
+                "-fx-border-radius: 10px;\n" +
+                "-fx-text-alignment: center;\n" +
+                "-fx-padding: 10px 15px;");
+        Scene scene = new Scene(label);
+        scene.setFill(Color.TRANSPARENT);
+        toastStage.setScene(scene);
+        toastStage.setWidth(370);
+        toastStage.setHeight(60);
+        toastStage.setX(currentStage.getX() + currentStage.getWidth() - 400);
+        toastStage.setY(currentStage.getY() + currentStage.getHeight() - 80);
+        toastStage.show();
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        delay.setOnFinished(e -> toastStage.close());
+        delay.play();
+    }
+    public void openCustomerAudit(ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(".fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Log File");
+            Image icon = new Image("logos.png");
+            stage.getIcons().add(icon);
+            stage.setScene(new Scene(root));
+            stage.show();
+            refresh();
+        } catch (IOException ex){
+            ex.printStackTrace();
         }
     }
 }

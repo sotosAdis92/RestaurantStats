@@ -170,7 +170,7 @@
                                 <Tooltip text="Insert A new Customer" />
                             </tooltip>
                         </Button>
-                        <Button fx:id="deleteCustomerButton" layoutX="340.0" layoutY="214.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="212.0" text="Delete Order">
+                        <Button fx:id="deleteCustomerButton" layoutX="340.0" layoutY="214.0" mnemonicParsing="false" onAction="#deleteOrder" prefHeight="60.0" prefWidth="212.0" text="Delete Order">
                             <graphic>
                                 <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                                     <image>

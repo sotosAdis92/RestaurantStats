@@ -1,14 +1,16 @@
 package org.example.databasetechnologyproject;
 
+import java.sql.Timestamp;
+
 public class Order {
     private int orderid;
     private int customerid;
     private int employeeid;
     private int tableid;
     private float total;
-    private String date;
+    private Timestamp date;
 
-    public Order(int orderid, int customerid, int employeeid, int tableid, float total, String date) {
+    public Order(int orderid, int customerid, int employeeid, int tableid, float total, Timestamp date) {
         this.orderid = orderid;
         this.customerid = customerid;
         this.employeeid = employeeid;
@@ -37,7 +39,7 @@ public class Order {
         return total;
     }
 
-    public String getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
@@ -61,7 +63,7 @@ public class Order {
         this.total = total;
     }
 
-    public void setDate(String date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 }
