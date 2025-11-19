@@ -544,7 +544,7 @@ public class CustomerController implements Initializable {
     }
     public void switchToMenuScreen(ActionEvent event){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("employeesScreen.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("menuScreen.fxml"));
             stage1 = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage1.setScene(scene);
