@@ -129,8 +129,8 @@ public class OrdersController implements Initializable {
             ResultSetMetaData rsmd = rs.getMetaData();
             while(rs.next()){
                 int id = rs.getInt(1);
-                int cid = rs.getInt(2);
-                int empid = rs.getInt(3);
+                String cid = rs.getString(2);
+                String empid = rs.getString(3);
                 int taid = rs.getInt(4);
                 float amm = rs.getFloat(5);
                 Timestamp da = rs.getTimestamp(6);
@@ -148,7 +148,7 @@ public class OrdersController implements Initializable {
         customerTable.setItems(orders);
 
         on.setCellValueFactory(new PropertyValueFactory<Order, Integer>("orderid"));
-        cu.setCellValueFactory(new PropertyValueFactory<Order, String>("customerid"));
+        cu.setCellValueFactory(new PropertyValueFactory<Order, String>("customer"));
         emp.setCellValueFactory(new PropertyValueFactory<Order, String>("employeeid"));
         ta.setCellValueFactory(new PropertyValueFactory<Order, Integer>("tableid"));
         amm.setCellValueFactory(new PropertyValueFactory<Order, Float>("total"));
@@ -269,8 +269,8 @@ public class OrdersController implements Initializable {
             ResultSetMetaData rsmd = rs.getMetaData();
             while(rs.next()){
                 int id = rs.getInt(1);
-                int cid = rs.getInt(2);
-                int empid = rs.getInt(3);
+                String cid = rs.getString(2);
+                String empid = rs.getString(3);
                 int taid = rs.getInt(4);
                 float amm = rs.getFloat(5);
                 Timestamp da = rs.getTimestamp(6);
@@ -359,7 +359,7 @@ public class OrdersController implements Initializable {
         delay.setOnFinished(e -> toastStage.close());
         delay.play();
     }
-    public void openCustomerAudit(ActionEvent event){
+    public void openOrderAudit(ActionEvent event){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(".fxml"));
             Parent root = (Parent) fxmlLoader.load();
@@ -371,6 +371,33 @@ public class OrdersController implements Initializable {
             stage.show();
             refresh();
         } catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void openCustomerInsertForm(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("orderCreationForm.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Insert Form");
+            Image icon = new Image("logos.png");
+            stage.getIcons().add(icon);
+            stage.setScene(new Scene(root));
+            stage.show();
+            OrdersCreateController od = fxmlLoader.getController();
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            od.setStage(currentStage);
+            od.setMainController(this);
+            od.setTableView(customerTable);
+            od.setFirstNameColumn(on);
+            od.setLastNameColumn(cu);
+            od.setHomeAddressColoumn(emp);
+            od.setNumberColumn(ta);
+            od.setRatingColumn(amm);
+            od.setNew(da);
+        } catch (IOException ex) {
+            System.out.println("This window could not load");
             ex.printStackTrace();
         }
     }

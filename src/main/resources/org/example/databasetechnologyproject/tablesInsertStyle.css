@@ -234,3 +234,18 @@
 .spinner .decrement-arrow-button:hover .decrement-arrow {
     -fx-background-color: white;
 }
+
+#addbutton{
+    -fx-font-size: 17px;
+    -fx-text-fill: #001D00;
+    -fx-background-color: #dcfce7;
+    -fx-border-color: #22c55e;
+    -fx-border-width: 1px;
+}
+#remove{
+    -fx-font-size: 17px;
+    -fx-text-fill: #991b1b;
+    -fx-background-color: #fecaca;
+    -fx-border-color: #ef4444;
+    -fx-border-width: 1px;
+}
