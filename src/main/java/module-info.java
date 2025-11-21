@@ -16,5 +16,6 @@ module org.example.databasetechnologyproject {
     requires java.dotenv;
     requires java.sql;
     requires atlantafx.base;
+    requires java.desktop;
     exports org.example.databasetechnologyproject;
 }

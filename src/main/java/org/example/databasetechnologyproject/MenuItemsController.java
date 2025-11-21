@@ -26,6 +26,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javafx.util.converter.FloatStringConverter;
 
+import javax.swing.plaf.MenuItemUI;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -53,6 +54,18 @@ public class MenuItemsController implements Initializable {
     @FXML
     Tooltip tooltipexit;
     @FXML
+    CheckBox c1;
+    @FXML
+    CheckBox c2;
+    @FXML
+    CheckBox c3;
+    @FXML
+    ComboBox<String> textfield3;
+    @FXML
+    ComboBox<Object> textfield;
+    @FXML
+    ComboBox<String> textfield2;
+    @FXML
     Label rowResult;
     ObservableList<MenuItem> items = FXCollections.observableArrayList();
     PreparedStatement fillTable;
@@ -77,6 +90,15 @@ public class MenuItemsController implements Initializable {
     static Connection dbConnection;
     @Override
     public void initialize(URL n, ResourceBundle resourceBundle) {
+        textfield.setValue("all");
+        textfield2.setValue("all");
+        textfield3.setValue("all");
+        textfield.setDisable(false);
+        textfield2.setDisable(true);
+        textfield3.setDisable(true);
+        c1.setSelected(true);
+        c2.setSelected(false);
+        c3.setSelected(false);
         try {
             dbConnection = DriverManager.getConnection(url, user, password);
             System.out.println("Database connection established successfully");
@@ -100,6 +122,48 @@ public class MenuItemsController implements Initializable {
             tooltipexit.setGraphic(imageview);
         } catch (Exception ex) {
             System.out.println("Image not found");
+        }
+        try{
+            textfield.getItems().add("all");
+            String selectString = "SELECT * FROM getItemPrice()";
+            getFirstName = dbConnection.prepareStatement(selectString);
+            getFirstName.executeQuery();
+            ResultSet rs = getFirstName.getResultSet();
+            while(rs.next()){
+                float num = rs.getFloat(1);
+                textfield.getItems().add(num);
+
+            }
+        } catch (SQLException ex){
+
+        }
+        try{
+            textfield2.getItems().add("all");
+            String selectString = "SELECT * FROM getItemCategory()";
+            getFirstName = dbConnection.prepareStatement(selectString);
+            getFirstName.executeQuery();
+            ResultSet rs = getFirstName.getResultSet();
+            while(rs.next()){
+                String num = rs.getString(1);
+                textfield2.getItems().add(num);
+
+            }
+        } catch (SQLException ex){
+
+        }
+        try{
+            textfield3.getItems().add("all");
+            String selectString = "SELECT * FROM getItemAvailable()";
+            getFirstName = dbConnection.prepareStatement(selectString);
+            getFirstName.executeQuery();
+            ResultSet rs = getFirstName.getResultSet();
+            while(rs.next()){
+                String num = rs.getString(1);
+                textfield3.getItems().add(num);
+
+            }
+        } catch (SQLException ex){
+
         }
         try{
             String selectString = "SELECT * FROM getMenuItems()";
@@ -570,5 +634,404 @@ public class MenuItemsController implements Initializable {
             System.out.println("This window could not load");
             ex.printStackTrace();
         }
+    }
+
+    public void select(ActionEvent event){
+        boolean c1sel = c1.isSelected();
+        boolean c2sel = c2.isSelected();
+        boolean c3sel = c3.isSelected();
+        if (c1sel && c2sel && c3sel) {
+            executeAllFilters();
+        } else if (c1sel && c2sel) {
+            executeNameAndPositionFilter();
+        } else if (c1sel && c3sel) {
+            executeNameAndEmailFilter();
+        } else if (c2sel && c3sel) {
+            executePositionAndEmailFilter();
+        } else if (c1sel) {
+            executeNameFilter();
+        } else if (c2sel) {
+            executePositionFilter();
+        } else if (c3sel) {
+            executeEmailFilter();
+        } else {
+            return;
+        }
+    }
+    public void check(ActionEvent event){
+        if(c1.isSelected()){
+            textfield3.setDisable(true);
+            textfield.setDisable(false);
+            textfield2.setDisable(true);
+        }
+        if(c2.isSelected()){
+            textfield3.setDisable(true);
+            textfield.setDisable(true);
+            textfield2.setDisable(false);
+        }
+        if(c3.isSelected()){
+            textfield3.setDisable(false);
+            textfield.setDisable(true);
+            textfield2.setDisable(true);
+        }
+        if(c1.isSelected() && c2.isSelected()){
+            textfield3.setDisable(true);
+            textfield.setDisable(false);
+            textfield2.setDisable(false);
+        }
+        if(c1.isSelected() && c3.isSelected()){
+            textfield3.setDisable(false);
+            textfield.setDisable(false);
+            textfield2.setDisable(true);
+        }
+        if(c2.isSelected() && c3.isSelected()){
+            textfield3.setDisable(false);
+            textfield.setDisable(true);
+            textfield2.setDisable(false);
+        }
+        if(c1.isSelected() && c2.isSelected() && c3.isSelected()){
+            textfield3.setDisable(false);
+            textfield.setDisable(false);
+            textfield2.setDisable(false);
+        }
+        if(!c1.isSelected() && !c2.isSelected() && !c3.isSelected()){
+            textfield3.setDisable(true);
+            textfield.setDisable(true);
+            textfield2.setDisable(true);
+        }
+    }
+
+
+
+    public void executeAllFilters(){
+        try{
+            int id = 0;
+            float price = 0.0f;
+            String name;
+            String category;
+            String state;
+            items.clear();
+            Object selected = textfield.getSelectionModel().getSelectedItem();
+            String selected1 = textfield2.getSelectionModel().getSelectedItem();
+            String selected2 = textfield3.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM allTheItemFilters(?,?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM allTheItemFilters(?,?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Float) {
+                getFname.setFloat(1, (Float) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.REAL);
+            } else {
+                getFname.setNull(1, Types.REAL);
+            }
+            getFname.setString(2, selected1);
+            getFname.setString(3,selected2);
+            if (selected instanceof Float) {
+                getCountCustomer.setFloat(1, (Float) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.REAL);
+            } else {
+                getCountCustomer.setNull(1, Types.REAL);
+            }
+            getCountCustomer.setString(2, selected2);
+
+            getCountCustomer.setString(3,selected2);
+
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                String names = rs.getString(2);
+                float prices = rs.getFloat(3);
+                String ca = rs.getString(4);
+                String av = rs.getString(5);
+                MenuItem m1 = new MenuItem(id,names,prices,ca,av);
+                items.add(m1);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void executeNameAndPositionFilter(){
+        try{
+            int id = 0;
+            float price = 0.0f;
+            String name;
+            String category;
+            String state;
+            items.clear();
+            Object selected = textfield.getSelectionModel().getSelectedItem();
+            String selected1 = textfield2.getSelectionModel().getSelectedItem();
+
+            String selectString = "SELECT * FROM filterItemsByPriceCategory(?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterItemsByPriceCategory(?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Float) {
+                getFname.setFloat(1, (Float) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.REAL);
+            } else {
+                getFname.setNull(1, Types.REAL);
+            }
+            getFname.setString(2, selected1);
+
+            if (selected instanceof Float) {
+                getCountCustomer.setFloat(1, (Float) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.REAL);
+            } else {
+                getCountCustomer.setNull(1, Types.REAL);
+            }
+            getCountCustomer.setString(2,selected1);
+
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                String names = rs.getString(2);
+                float prices = rs.getFloat(3);
+                String ca = rs.getString(4);
+                String av = rs.getString(5);
+                MenuItem m1 = new MenuItem(id,names,prices,ca,av);
+                items.add(m1);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void executeNameAndEmailFilter(){
+        try{
+            int id = 0;
+            float price = 0.0f;
+            String name;
+            String category;
+            String state;
+            items.clear();
+            Object selected = textfield.getSelectionModel().getSelectedItem();
+            String selected1 = textfield3.getSelectionModel().getSelectedItem();
+
+            String selectString = "SELECT * FROM filterItemsByPriceStatus(?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterItemsByPriceStatus(?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Float) {
+                getFname.setFloat(1, (Float) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.REAL);
+            } else {
+                getFname.setNull(1, Types.REAL);
+            }
+            getFname.setString(2, selected1);
+
+            if (selected instanceof Float) {
+                getCountCustomer.setFloat(1, (Float) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.REAL);
+            } else {
+                getCountCustomer.setNull(1, Types.REAL);
+            }
+            getCountCustomer.setString(2,selected1);
+
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                String names = rs.getString(2);
+                float prices = rs.getFloat(3);
+                String ca = rs.getString(4);
+                String av = rs.getString(5);
+                MenuItem m1 = new MenuItem(id,names,prices,ca,av);
+                items.add(m1);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void executePositionAndEmailFilter(){
+        try{
+            int id = 0;
+            float price = 0.0f;
+            String name;
+            String category;
+            String state;
+            items.clear();
+            String selected = textfield2.getSelectionModel().getSelectedItem();
+            String selected1 = textfield3.getSelectionModel().getSelectedItem();
+
+            String selectString = "SELECT * FROM filterItemsByCategoryStatus(?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterItemsByCategoryStatus(?,?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            getFname.setString(1, selected);
+            getFname.setString(2, selected1);
+
+            getCountCustomer.setString(1,selected);
+            getCountCustomer.setString(2,selected1);
+
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                String names = rs.getString(2);
+                float prices = rs.getFloat(3);
+                String ca = rs.getString(4);
+                String av = rs.getString(5);
+                MenuItem m1 = new MenuItem(id,names,prices,ca,av);
+                items.add(m1);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void executeNameFilter(){
+        try{
+            int id = 0;
+            float price = 0.0f;
+            String name;
+            String category;
+            String state;
+            items.clear();
+            Object selected = textfield.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterItemsByPrice(?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterItemsByPrice(?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Float) {
+                getFname.setFloat(1, (Float) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.REAL);
+            } else {
+                getFname.setNull(1, Types.REAL);
+            }
+            if (selected instanceof Float) {
+                getCountCustomer.setFloat(1, (Float) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.REAL);
+            } else {
+                getCountCustomer.setNull(1, Types.REAL);
+            }
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                String names = rs.getString(2);
+                float prices = rs.getFloat(3);
+                String ca = rs.getString(4);
+                String av = rs.getString(5);
+                MenuItem m1 = new MenuItem(id,names,prices,ca,av);
+                items.add(m1);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executePositionFilter(){
+        try{
+            int id = 0;
+            float price = 0.0f;
+            String name;
+            String category;
+            String state;
+            items.clear();
+
+            String selected2 = textfield2.getSelectionModel().getSelectedItem();
+
+            String selectString = "SELECT * FROM filterItemsByCategory(?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterItemsByCategory(?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            getFname.setString(1, selected2);
+            getCountCustomer.setString(1,selected2);
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                String names = rs.getString(2);
+                float prices = rs.getFloat(3);
+                String ca = rs.getString(4);
+                String av = rs.getString(5);
+                MenuItem m1 = new MenuItem(id,names,prices,ca,av);
+                items.add(m1);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executeEmailFilter(){
+        try{
+            int id = 0;
+            float price = 0.0f;
+            String name;
+            String category;
+            String state;
+            items.clear();
+            String selected2 = textfield3.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterItemsByStatus(?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterItemsByStatus(?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            getFname.setString(1, selected2);
+            getCountCustomer.setString(1,selected2);
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                String names = rs.getString(2);
+                float prices = rs.getFloat(3);
+                String ca = rs.getString(4);
+                String av = rs.getString(5);
+                MenuItem m1 = new MenuItem(id,names,prices,ca,av);
+                items.add(m1);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void reset(ActionEvent evet){
+        textfield.setValue("all");
+        textfield2.setValue("all");
+        textfield3.setValue("all");
+        textfield3.setDisable(true);
+        textfield2.setDisable(true);
+        textfield.setDisable(false);
+        c1.setSelected(true);
+        c2.setSelected(false);
+        c3.setSelected(false);
+        refresh();
     }
 }
