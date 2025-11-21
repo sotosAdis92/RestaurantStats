@@ -12,7 +12,7 @@
       <AnchorPane fx:id="center" layoutX="55.0" layoutY="110.0" prefHeight="667.0" prefWidth="497.0">
          <children>
             <Label fx:id="firstNameError" layoutX="55.0" layoutY="115.0" prefHeight="17.0" prefWidth="366.0" />
-            <TextField fx:id="textField1" layoutX="55.0" layoutY="81.0" prefHeight="34.0" prefWidth="405.0" />
+            <TextField fx:id="textField1" layoutX="55.0" layoutY="90.0" prefHeight="34.0" prefWidth="405.0" />
             <TextField fx:id="textField2" layoutX="55.0" layoutY="187.0" prefHeight="34.0" prefWidth="405.0" />
             <TextField fx:id="textField3" layoutX="55.0" layoutY="289.0" prefHeight="34.0" prefWidth="405.0" />
             <TextField fx:id="textField4" layoutX="55.0" layoutY="387.0" prefHeight="34.0" prefWidth="405.0" />

@@ -130,13 +130,14 @@ public class HelloController implements Initializable {
     }
     public void switchToMenuScreen(ActionEvent event){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(".fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("menuScreen.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex){
             System.out.println("Cannot change scenes");
+            ex.printStackTrace();
         }
     }
     public void switchToTableScene(ActionEvent event){
