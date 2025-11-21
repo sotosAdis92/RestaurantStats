@@ -61,6 +61,8 @@
             <artifactId>discord-rpc</artifactId>
             <version>1.6.2</version>
         </dependency>
+
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -145,6 +147,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>de.schlegel11</groupId>
+            <artifactId>jfxanimation</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>

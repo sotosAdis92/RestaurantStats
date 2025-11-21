@@ -188,6 +188,7 @@ public class InsertMenuItemController implements Initializable {
         valueFactory.setValue(1.0f);
         spin.setValueFactory(valueFactory);
         showNotification();
+        MenuItemsServiceClass.getInstance().triggerRefresh();
         mainController.refresh();
     }
 

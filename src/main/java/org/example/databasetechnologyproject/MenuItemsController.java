@@ -162,7 +162,7 @@ public class MenuItemsController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                MenuItemsServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -197,7 +197,7 @@ public class MenuItemsController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                MenuItemsServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -232,7 +232,7 @@ public class MenuItemsController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                MenuItemsServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -295,7 +295,7 @@ public class MenuItemsController implements Initializable {
                     i = index + 1;
                 });
                 refresh();
-                customerServiceClass.getInstance().triggerRefresh();
+                MenuItemsServiceClass.getInstance().triggerRefresh();
                 showNotification(i);
             }
         });
@@ -495,7 +495,7 @@ public class MenuItemsController implements Initializable {
                 selectionModel.clearSelection(selectedItems[i].intValue());
                 customerTable.getItems().remove(selectedItems[i].intValue());
             }
-            customerServiceClass.getInstance().triggerRefresh();
+            MenuItemsServiceClass.getInstance().triggerRefresh();
             refresh();
             showNotification2();
         }
@@ -533,7 +533,7 @@ public class MenuItemsController implements Initializable {
     }
     public void openOrderAudit(ActionEvent event){
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menuAudit.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menuItemsAudit.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("Log File");

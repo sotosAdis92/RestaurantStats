@@ -458,3 +458,16 @@
 .check-box:disabled {
     -fx-opacity: 0.5;
 }
+#filterPane3{
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 15, 0.3, 0, 4);
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-width: 1px;
+    -fx-background-insets: 0;
+}
+#customerTable{
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+}
