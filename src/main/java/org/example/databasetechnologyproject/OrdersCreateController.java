@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -74,7 +75,74 @@ public class OrdersCreateController implements Initializable {
     @FXML
     Label phoneError;
     Label phoneLabel;
+    @FXML
+    private AnchorPane center;
+
+    @FXML
+    private AnchorPane center2;
+
+    @FXML
+    private ComboBox<String> combo1;
+
+    @FXML
+    private ComboBox<String> combo2;
+
+    @FXML
+    private ComboBox<Integer> combo3;
+
+    @FXML
+    private ComboBox<String> combo4;
+
+    @FXML
+    private ComboBox<String> combo5;
+
+    @FXML
+    private Button deleteCustomerButton;
+
+    @FXML
+    private Button e;
+
+
+    @FXML
+    private Button insert1;
+
+    @FXML
+    private Button insertCustomerButton;
+
+    @FXML
+    private TableColumn<OrderItem, Object> price;
+
+    @FXML
+    private TableColumn<OrderItem, String> pro;
+
+    @FXML
+    private TableColumn<OrderItem, Object> quant;
+
+    @FXML
+    private Label rowsLabel;
+
+    @FXML
+    private Spinner<Integer> spin;
+
+    @FXML
+    private TableView<OrderItem> table1;
+
+    @FXML
+    private Label title;
+
+    @FXML
+    private Label undertitle;
     PreparedStatement insert;
+    PreparedStatement fillTable;
+    PreparedStatement delete;
+    PreparedStatement update;
+    PreparedStatement getFirstName;
+    PreparedStatement getLastName;
+    PreparedStatement getPhone;
+    PreparedStatement getRating;
+    PreparedStatement getFname;
+    PreparedStatement getCountCustomer;
+    PreparedStatement getCountOfTable;
     static Dotenv dotenv = Dotenv.load();
     static String url = dotenv.get("DB_URL");
     static String user = dotenv.get("DB_USER");
@@ -92,7 +160,95 @@ public class OrdersCreateController implements Initializable {
         } catch (SQLException ex){
 
         }
+        try{
+            String selectString = "SELECT * FROM getTableNumbers()";
+            getFirstName = dbConnection.prepareStatement(selectString);
+            getFirstName.executeQuery();
+            ResultSet rs = getFirstName.getResultSet();
+            while(rs.next()){
+                int num = rs.getInt(1);
+                combo3.getItems().add(num);
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+
+        try{
+            String selectString = "SELECT * FROM getEmployeesIdAndNames()";
+            getFirstName = dbConnection.prepareStatement(selectString);
+            getFirstName.executeQuery();
+            ResultSet rs = getFirstName.getResultSet();
+            while(rs.next()){
+                int num = rs.getInt(1);
+                String name =  rs.getString(2);
+                combo2.getItems().add(num + name);
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+
+        try{
+            combo4.getItems().add("all");
+            String selectString = "SELECT * FROM getItemCategory()";
+            getFirstName = dbConnection.prepareStatement(selectString);
+            getFirstName.executeQuery();
+            ResultSet rs = getFirstName.getResultSet();
+            while(rs.next()){
+                String num = rs.getString(1);
+                combo4.getItems().add(num);
+
+            }
+        } catch (SQLException ex){
+
+        }
+        if(combo4.getValue().equals("all")){
+            functionSelectAll();
+        }
+        else if(combo4.getValue().equals("Main") || combo4.getValue().equals("Side") || combo4.getValue().equals("Desert") || combo4.getValue().equals("Appetizer")){
+            String c = combo4.getValue();
+            getItemsByCategory(c);
+        }
+
     }
+    public void functionSelectAll(){
+        try{
+            String selectString = "SELECT * FROM getMenuItemNames()";
+            getFirstName = dbConnection.prepareStatement(selectString);
+            getFirstName.executeQuery();
+            ResultSet rs = getFirstName.getResultSet();
+            while(rs.next()){
+                String num = rs.getString(1);
+                combo5.getItems().add(num);
+            }
+        } catch (SQLException ex){
+
+        }
+    }
+    public void getItemsByCategory(String c){
+        try{
+            String selectString = "SELECT * FROM filterItemsByCategory(?)";
+            getFname = dbConnection.prepareStatement(selectString);
+            getFname.setString(1, c);
+            ResultSet rs = getFname.executeQuery();
+            while(rs.next()){
+                String num = rs.getString(1);
+                combo5.getItems().add(num);
+            }
+        } catch (SQLException ex){
+
+        }
+    }
+    public void Select(ActionEvent event){
+        if(combo4.getValue().equals("all")){
+            functionSelectAll();
+        }
+        else if(combo4.getValue().equals("Main") || combo4.getValue().equals("Side") || combo4.getValue().equals("Desert") || combo4.getValue().equals("Appetizer")){
+            String c = combo4.getValue();
+            getItemsByCategory(c);
+        }
+    }
+
+
     public void setMainController(OrdersController mainController){
         this.mainController = mainController;
     }
@@ -130,46 +286,34 @@ public class OrdersCreateController implements Initializable {
         if(textField5.getText().isEmpty()){
            // emailInputError();
         }
-        int id = 0;
-        String firstName = textField1.getText();
-        String lastName = textField2.getText();
-        int homeAddress = textField3.getValue();
-        Timestamp sqlTimestamp = new Timestamp(System.currentTimeMillis());
-        float number = 0;
-        System.out.println("SQL Timestamp: " + sqlTimestamp);
-        int rating = 0;
         try{
-            try{
-                rating = Integer.parseInt(textField5.getText().trim());
-            } catch (NumberFormatException e){
-                return;
-            }
-            String selectString = "SELECT insertOrder(?,?,?,?,?)";
+            int id =0;
+            String employee = combo2.getValue();
+            int table = combo3.getValue();
+            int qu = spin.getValue();
+            Timestamp date = Timestamp.valueOf(java.time.LocalDateTime.now());
+            float totalprice = 0;
+            String selectString = "SELECT insertOrder(?,?,?,?)";
             insert = dbConnection.prepareStatement(selectString);
-            insert.setString(1, firstName);
-            insert.setString(2, lastName);
-            insert.setInt(3, homeAddress);
-            insert.setFloat(4, number);
-            insert.setInt(5, rating);
+
             ResultSet rs = insert.executeQuery();
             while(rs.next()){
                 id = rs.getInt(1);
             }
+
+            String selectString2 = "SELECT insertOrderItem(?,?,?)";
+            insert = dbConnection.prepareStatement(selectString2);
+            insert.setInt(1,id);
+            insert.setInt(2, );
+            insert.setInt(3, qu);
+            ResultSet rs2 = insert.executeQuery();
+            while(rs2.next()){
+
+            }
         } catch (SQLException ex){
-            System.out.println("SqlException");
+
         }
-        Order or2 = new Order(id,firstName,lastName,homeAddress,number,sqlTimestamp);
-        if(customerTable.getItems() == null){
-            customerTable.setItems(FXCollections.observableArrayList());
-        }
-        customerTable.getItems().add(or2);
-        textField1.setText("");
-        textField2.setText("");
-        textField3.setValue(0);
-        textField5.setText("");
-        customerServiceClass.getInstance().triggerRefresh();
-        showNotification();
-        mainController.refresh();
+
     }
     public void showNotification(){
         Stage toastStage = new Stage();

@@ -4,15 +4,13 @@ import java.sql.Timestamp;
 
 public class Order {
     private int orderid;
-    private String customer;
     private String employeeid;
     private int tableid;
     private float total;
     private Timestamp date;
 
-    public Order(int orderid, String customer, String employeeid, int tableid, float total, Timestamp date) {
+    public Order(int orderid, String employeeid, int tableid, float total, Timestamp date) {
         this.orderid = orderid;
-        this.customer = customer;
         this.employeeid = employeeid;
         this.tableid = tableid;
         this.total = total;
@@ -23,9 +21,7 @@ public class Order {
         return orderid;
     }
 
-    public String getCustomer() {
-        return customer;
-    }
+
 
     public String getEmployeeid() {
         return employeeid;
@@ -45,10 +41,6 @@ public class Order {
 
     public void setOrderid(int orderid) {
         this.orderid = orderid;
-    }
-
-    public void setCustomer(String customer) {
-        this.customer = customer;
     }
 
     public void setEmployeeid(String employeeid) {

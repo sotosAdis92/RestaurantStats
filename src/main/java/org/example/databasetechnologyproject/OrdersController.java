@@ -129,12 +129,11 @@ public class OrdersController implements Initializable {
             ResultSetMetaData rsmd = rs.getMetaData();
             while(rs.next()){
                 int id = rs.getInt(1);
-                String cid = rs.getString(2);
-                String empid = rs.getString(3);
-                int taid = rs.getInt(4);
-                float amm = rs.getFloat(5);
-                Timestamp da = rs.getTimestamp(6);
-                Order or1 = new Order(id,cid,empid,taid,amm,da);
+                String empid = rs.getString(2);
+                int taid = rs.getInt(3);
+                float amm = rs.getFloat(4);
+                Timestamp da = rs.getTimestamp(5);
+                Order or1 = new Order(id,empid,taid,amm,da);
                 orders.add(or1);
             }
             if(rs2.next()){
@@ -269,12 +268,11 @@ public class OrdersController implements Initializable {
             ResultSetMetaData rsmd = rs.getMetaData();
             while(rs.next()){
                 int id = rs.getInt(1);
-                String cid = rs.getString(2);
-                String empid = rs.getString(3);
-                int taid = rs.getInt(4);
-                float amm = rs.getFloat(5);
-                Timestamp da = rs.getTimestamp(6);
-                Order or1 = new Order(id,cid,empid,taid,amm,da);
+                String empid = rs.getString(2);
+                int taid = rs.getInt(3);
+                float amm = rs.getFloat(4);
+                Timestamp da = rs.getTimestamp(5);
+                Order or1 = new Order(id,empid,taid,amm,da);
                 orders.add(or1);
             }
             if(rs2.next()){
