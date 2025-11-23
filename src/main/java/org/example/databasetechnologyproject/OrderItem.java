@@ -7,6 +7,13 @@ public class OrderItem {
     private int quantity;
     private float price;
 
+
+    public OrderItem(int itemid, int quantity, float price) {
+        this.itemid = itemid;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
     public OrderItem(int orderitemid, int orderid, int itemid, int quantity, float price) {
         this.orderitemid = orderitemid;
         this.orderid = orderid;

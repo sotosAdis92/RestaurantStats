@@ -1,23 +1,19 @@
 package org.example.databasetechnologyproject;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +23,7 @@ import java.util.ResourceBundle;
 import static org.example.databasetechnologyproject.CustomerController.dbConnection;
 import static org.example.databasetechnologyproject.HelloController.driverClassName;
 
-public class OrdersCreateController implements Initializable {
+public class inserOrderPart2 implements Initializable {
     private DialogPane dialog;
     public OrdersController mainController;
     @FXML
@@ -157,6 +153,10 @@ public class OrdersCreateController implements Initializable {
     OrderItem item;
     @Override
     public void initialize(URL f, ResourceBundle resourceBundle) {
+        SpinnerValueFactory<Integer> valueFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
+        spin.setValueFactory(valueFactory);
+        combo5.setValue("Nigger");
         try{
             Class.forName(driverClassName);
         }catch (ClassNotFoundException ex){
@@ -168,39 +168,28 @@ public class OrdersCreateController implements Initializable {
         } catch (SQLException ex){
 
         }
-        try{
-            String selectString = "SELECT * FROM getTableNumbers()";
-            getFirstName = dbConnection.prepareStatement(selectString);
-            getFirstName.executeQuery();
-            ResultSet rs = getFirstName.getResultSet();
-            while(rs.next()){
-                int num = rs.getInt(1);
-                combo3.getItems().add(num);
-            }
-            if (!combo3.getItems().isEmpty()) {
-                combo3.setValue(combo3.getItems().get(0));
-            }
-        } catch (SQLException ex){
-            ex.printStackTrace();
-        }
 
         try{
-            String selectString = "SELECT * FROM getEmployeesIdAndNames()";
+            String selectString = "SELECT * FROM getItemsNameAndId()";
             getFirstName = dbConnection.prepareStatement(selectString);
             getFirstName.executeQuery();
             ResultSet rs = getFirstName.getResultSet();
             while(rs.next()){
                 int num = rs.getInt(1);
                 String name =  rs.getString(2);
-                combo2.getItems().add(num + ": " + name);
+                combo5.getItems().add(num + ": " + name);
             }
-            if (!combo2.getItems().isEmpty()) {
-                combo2.setValue(combo2.getItems().get(0));
+            if (!combo5.getItems().isEmpty()) {
+                combo5.setValue(combo5.getItems().get(0));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
-
+        table1.setItems(customers);
+        pro.setCellValueFactory(new PropertyValueFactory<OrderItem, String>("itemid"));
+        quant.setCellValueFactory(new PropertyValueFactory<OrderItem, Object>("quantity"));
+        price.setCellValueFactory(new PropertyValueFactory<OrderItem, Object>("price"));
+        table1.setItems(customers);
     }
 
 
@@ -232,39 +221,40 @@ public class OrdersCreateController implements Initializable {
         this.scene1 = stage;
     }
     public void Submit(ActionEvent event){
+
+    }
+    public void create(ActionEvent event){}
+    public void cancel(ActionEvent event){}
+    public void addProduct(ActionEvent event){
+        int qu = spin.getValue();
+        String name = combo5.getValue();
+        String names;
+        int qua=0;
+        float prices=0;
+        int item=0;
+        String idString = name.replaceAll(":.*", "");
+        int id = Integer.parseInt(idString.trim());
+
         try{
-            int idd = 0;
-            String employee = combo2.getValue();
-            String id = employee.replaceAll("\\D.*", "");
-            int employeeId = Integer.parseInt(id);
-            int table = combo3.getValue();
-            Timestamp date = Timestamp.valueOf(java.time.LocalDateTime.now());
-            float totalprice = 0;
-            String selectString = "SELECT insertOrder(?,?,?,?)";
+            String selectString = "SELECT * FROM getItemPrices(?,?)";
             insert = dbConnection.prepareStatement(selectString);
-            insert.setInt(1, employeeId);
-            insert.setInt(2, table);
-            insert.setFloat(3, totalprice);
-            insert.setTimestamp(4, date);
+            insert.setInt(1, id);
+            insert.setInt(2, qu);
             ResultSet rs = insert.executeQuery();
             while(rs.next()){
-                idd = rs.getInt(1);
+                item = rs.getInt(1);
+                names =rs.getString(2);
+                qua = rs.getInt(3);
+                prices = rs.getFloat(4);
             }
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("insertOrderStep2.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setTitle("Insert Form");
-                Image icon = new Image("logos.png");
-                stage.getIcons().add(icon);
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException ex) {
-                System.out.println("This window could not load");
-                ex.printStackTrace();
-            }
+            OrderItem od = new OrderItem(item,qua,prices);
+            customers.add(od);
         } catch (SQLException ex){
 
         }
     }
+    public void refresh(){
+
+    }
+    public void removeProduct(ActionEvent event){}
 }

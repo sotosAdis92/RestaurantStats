@@ -481,3 +481,23 @@
 .check-box:disabled {
     -fx-opacity: 0.5;
 }
+
+#but{
+        -fx-background-color: #2196F3;
+        -fx-text-fill: white;
+        -fx-font-family: "Segoe UI", "Arial", sans-serif;
+        -fx-font-size: 14px;
+        -fx-font-weight: bold;
+        -fx-padding: 12px 24px;
+        -fx-background-radius: 8px;
+        -fx-border-radius: 8px;
+        -fx-effect: dropshadow(gaussian, rgba(33, 150, 243, 0.3), 10, 0.3, 0, 2);
+        -fx-cursor: hand;
+    }
+
+#but:hover{
+        -fx-background-color: #1976D2;
+        -fx-effect: dropshadow(gaussian, rgba(33, 150, 243, 0.4), 15, 0.4, 0, 3);
+        -fx-translate-y: -1px;
+
+}
