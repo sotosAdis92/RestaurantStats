@@ -21,21 +21,19 @@
    <bottom>
       <AnchorPane prefHeight="450.0" prefWidth="1650.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView layoutX="267.0" layoutY="116.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TableView fx:id="table1" layoutX="267.0" layoutY="116.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columns>
-                  <TableColumn prefWidth="75.0" text="Operation" />
-                  <TableColumn prefWidth="75.0" text="Time" />
-                  <TableColumn prefWidth="75.0" text="User" />
-                  <TableColumn prefWidth="75.0" text="New  Customer" />
-                  <TableColumn prefWidth="75.0" text="Old Customer" />
-                  <TableColumn prefWidth="75.0" text="New Employee" />
-                  <TableColumn prefWidth="75.0" text="Old Employee" />
-                  <TableColumn prefWidth="75.0" text="New Table" />
-                  <TableColumn prefWidth="75.0" text="Old Table" />
-                  <TableColumn prefWidth="75.0" text="New Total" />
-                  <TableColumn prefWidth="75.0" text="Old Total" />
-                  <TableColumn prefWidth="75.0" text="New Date" />
-                  <TableColumn prefWidth="75.0" text="Old Date" />
+                  <TableColumn fx:id="op" prefWidth="75.0" text="Operation" />
+                  <TableColumn fx:id="t" prefWidth="75.0" text="Time" />
+                  <TableColumn fx:id="u" prefWidth="75.0" text="User" />
+                  <TableColumn fx:id="ne" prefWidth="75.0" text="New Employee" />
+                  <TableColumn fx:id="oe" prefWidth="75.0" text="Old Employee" />
+                  <TableColumn fx:id="nt" prefWidth="75.0" text="New Table" />
+                  <TableColumn fx:id="ot" prefWidth="75.0" text="Old Table" />
+                  <TableColumn fx:id="nto" prefWidth="75.0" text="New Total" />
+                  <TableColumn fx:id="oto" prefWidth="75.0" text="Old Total" />
+                  <TableColumn fx:id="nd" prefWidth="75.0" text="New Date" />
+                  <TableColumn fx:id="od" prefWidth="75.0" text="Old Date" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -51,7 +49,7 @@
             <Label fx:id="rowsLabel" layoutX="72.0" layoutY="220.0" text="Rows Returned" />
             <Label fx:id="rowResult" layoutX="248.0" layoutY="220.0" />
             <Label fx:id="firstLabel" layoutX="72.0" layoutY="90.0" text="Operation Filter" />
-            <ComboBox layoutX="72.0" layoutY="111.0" prefHeight="39.0" prefWidth="154.0" />
+            <ComboBox fx:id="combo" layoutX="72.0" layoutY="111.0" prefHeight="39.0" prefWidth="154.0" />
             <ImageView fitHeight="40.0" fitWidth="45.0" layoutX="27.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@f.png" />

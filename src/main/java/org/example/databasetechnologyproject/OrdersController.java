@@ -250,6 +250,7 @@ public class OrdersController implements Initializable {
     }
     public void refresh(){
         try{
+            orders.clear();
             String selectString = "SELECT * FROM getOrdersTable()";
             String selectString2 = "SELECT COUNT(*) FROM getOrdersTable()";
 
@@ -356,7 +357,7 @@ public class OrdersController implements Initializable {
     }
     public void openOrderAudit(ActionEvent event){
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(".fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("orderAudit.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("Log File");
