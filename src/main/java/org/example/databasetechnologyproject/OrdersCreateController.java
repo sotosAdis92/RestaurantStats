@@ -153,6 +153,7 @@ public class OrdersCreateController implements Initializable {
     static String url = dotenv.get("DB_URL");
     static String user = dotenv.get("DB_USER");
     static String password = dotenv.get("DB_PASSWORD");
+    int idd = 0;
     ObservableList<OrderItem> customers = FXCollections.observableArrayList();
     OrderItem item;
     @Override
@@ -169,12 +170,12 @@ public class OrdersCreateController implements Initializable {
 
         }
         try{
-            String selectString = "SELECT * FROM getTableNumbers()";
+            String selectString = "SELECT * FROM getTableIdAndNumber()";
             getFirstName = dbConnection.prepareStatement(selectString);
             getFirstName.executeQuery();
             ResultSet rs = getFirstName.getResultSet();
             while(rs.next()){
-                int num = rs.getInt(1);
+                int num = rs.getInt(2);
                 combo3.getItems().add(num);
             }
             if (!combo3.getItems().isEmpty()) {
@@ -233,11 +234,19 @@ public class OrdersCreateController implements Initializable {
     }
     public void Submit(ActionEvent event){
         try{
-            int idd = 0;
+            int table = 0;
             String employee = combo2.getValue();
             String id = employee.replaceAll("\\D.*", "");
             int employeeId = Integer.parseInt(id);
-            int table = combo3.getValue();
+            String selectString1 = "SELECT * FROM getTableIdAndNumber(?)";
+            getFirstName = dbConnection.prepareStatement(selectString1);
+            getFirstName.setInt(1, combo3.getValue());
+            getFirstName.executeQuery();
+            ResultSet rs2 = getFirstName.getResultSet();
+            while(rs2.next()){
+                table = rs2.getInt(1);
+                System.out.println("table id: "+table);
+            }
             Timestamp date = Timestamp.valueOf(java.time.LocalDateTime.now());
             float totalprice = 0;
             String selectString = "SELECT insertOrder(?,?,?,?)";
@@ -250,21 +259,37 @@ public class OrdersCreateController implements Initializable {
             while(rs.next()){
                 idd = rs.getInt(1);
             }
+            System.out.println("1 " + idd);
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("insertOrderStep2.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
+                inserOrderPart2 controller = fxmlLoader.getController();
+                controller.setOrderId(idd);
+
                 Stage stage = new Stage();
                 stage.setTitle("Insert Form");
                 Image icon = new Image("logos.png");
                 stage.getIcons().add(icon);
                 stage.setScene(new Scene(root));
                 stage.show();
+                controller.setStage(stage);
+
+                Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                controller.setStage(currentStage);
+                controller.setMainController(mainController);
+                controller.setTableView(mainController.customerTable);
+                controller.setFirstNameColumn(mainController.on);
+                controller.setHomeAddressColoumn(mainController.emp);
+                controller.setNumberColumn(mainController.ta);
+                controller.setRatingColumn(mainController.amm);
+                controller.setNew(mainController.da);
+                System.out.println("2 "+idd);
             } catch (IOException ex) {
                 System.out.println("This window could not load");
                 ex.printStackTrace();
             }
         } catch (SQLException ex){
-
+            ex.printStackTrace();
         }
     }
 }

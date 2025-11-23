@@ -42,8 +42,6 @@ public class OrdersController implements Initializable {
     @FXML
     TableColumn<Order, Integer> on;
     @FXML
-    TableColumn<Order, String> cu;
-    @FXML
     TableColumn<Order, String> emp;
     @FXML
     TableColumn<Order, Integer> ta;
@@ -147,7 +145,6 @@ public class OrdersController implements Initializable {
         customerTable.setItems(orders);
 
         on.setCellValueFactory(new PropertyValueFactory<Order, Integer>("orderid"));
-        cu.setCellValueFactory(new PropertyValueFactory<Order, String>("customer"));
         emp.setCellValueFactory(new PropertyValueFactory<Order, String>("employeeid"));
         ta.setCellValueFactory(new PropertyValueFactory<Order, Integer>("tableid"));
         amm.setCellValueFactory(new PropertyValueFactory<Order, Float>("total"));
@@ -389,7 +386,6 @@ public class OrdersController implements Initializable {
             od.setMainController(this);
             od.setTableView(customerTable);
             od.setFirstNameColumn(on);
-            od.setLastNameColumn(cu);
             od.setHomeAddressColoumn(emp);
             od.setNumberColumn(ta);
             od.setRatingColumn(amm);

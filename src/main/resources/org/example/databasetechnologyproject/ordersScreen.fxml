@@ -133,7 +133,6 @@
                     </columnResizePolicy>
                <columns>
                   <TableColumn fx:id="on" prefWidth="75.0" text="Order Number" />
-                  <TableColumn fx:id="cu" prefWidth="75.0" text="Customer" />
                   <TableColumn fx:id="emp" prefWidth="75.0" text="Employee" />
                   <TableColumn fx:id="ta" prefWidth="75.0" text="Table" />
                   <TableColumn fx:id="amm" prefWidth="75.0" text="Ammout" />
