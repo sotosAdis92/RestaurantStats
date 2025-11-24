@@ -13,6 +13,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -35,6 +37,13 @@ public class HelloController implements Initializable {
     Tooltip tooltipexit;
     @FXML
     Button HomeButton;
+    @FXML
+    WebView webview1;
+    WebEngine engine;
+
+    @FXML
+    WebView webView2;
+    WebEngine engine2;
     private DialogPane dialog;
     static String driverClassName = "org.postgresql.Driver";
     static Dotenv dotenv = Dotenv.load();
@@ -74,7 +83,133 @@ public class HelloController implements Initializable {
         } catch (Exception ex){
             System.out.println("Image not found");
         }
+        engine = webview1.getEngine();
+        engine2 = webView2.getEngine();
+        loadPage();
+        loadPage2();
     }
+
+    public void loadPage(){
+        if (engine != null) {
+            String htmlContent = """
+                    <!DOCTYPE html>
+                      <html>
+                      <head>
+                          <meta charset="UTF-8">
+                          <title>Monthly Reservations Chart</title>
+                          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                          <style>
+                              body {\s
+                                  margin: 0;\s
+                                  padding: 0px;\s
+                                  background: white;\s
+                                  font-family: Arial, sans-serif;
+                              }
+                              #chartContainer {
+                                  width: 630px;
+                                  height: 390px;
+                                  background: white;
+                                  border-radius: 10px;
+                                  padding: 0px;
+                                  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                              }
+                              .chart-title {
+                                  text-align: center;
+                                  font-size: 24px;
+                                  font-weight: bold;
+                                  margin-bottom: 20px;
+                                  color: #333;
+                              }
+                          </style>
+                      </head>
+                      <body>
+                        
+                          <div id="chartContainer">
+                              <canvas id="myChart1" width="630px" height="390px"></canvas>
+                          </div>
+                          <script>
+                              // Simple immediate execution
+                              const ctx = document.getElementById('myChart1').getContext('2d');
+                              const myChart = new Chart(ctx, {
+                                  type: 'bar',
+                                  data: {
+                                      labels: [
+                                          'January', 'February', 'March', 'April', 'May', 'June',
+                                          'July', 'August', 'September', 'October', 'November', 'December'
+                                      ],
+                                      datasets: [{
+                                          label: 'Number of Reservations',
+                                          data: [8, 12, 15, 7, 18, 9, 11, 14, 16, 6, 13, 10],
+                                          backgroundColor: [
+                                              '#FFB3BA', '#B3E0FF', '#FFF6B3', '#B3FFDA', '#B3D9FF', '#B3C7D9',
+                                              '#FFB3D9', '#E6B3FF', '#FFE0B3', '#B3E6D9', '#B3D1E0', '#FFB3B3'
+                                          ],
+                                          borderColor: [
+                                              '#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#073B4C',
+                                              '#EF476F', '#7209B7', '#F8961E', '#43AA8B', '#277DA1', '#F94144'
+                                          ],
+                                          borderWidth: 2
+                                      }]
+                                  },
+                                  options: {
+                                      responsive: false,
+                                      maintainAspectRatio: false,
+                                      plugins: {
+                                          legend: {
+                                              display: true,
+                                              position: 'top',
+                                          },
+                                          tooltip: {
+                                              enabled: true
+                                          }
+                                      },
+                                      scales: {
+                                          y: {
+                                              beginAtZero: true,
+                                              title: {
+                                                  display: true,
+                                                  text: 'Number of Reservations'
+                                              },
+                                              ticks: {
+                                                  stepSize: 1
+                                              }
+                                          },
+                                          x: {
+                                              title: {
+                                                  display: true,
+                                                  text: 'Months'
+                                              },
+                                              ticks: {
+                                                  autoSkip: false,
+                                                  maxRotation: 45
+                                              }
+                                          }
+                                      }
+                                  }
+                              });
+                              console.log('Full year chart created!');
+                          </script>
+                      </body>
+                      </html>""";
+            engine.loadContent(htmlContent);
+
+        } else {
+            System.out.println("WebEngine is not initialized");
+        }
+    }
+
+
+    public void loadPage2(){
+        if (engine2 != null) {
+            String htmlContent = """
+                    """;
+            engine2.loadContent(htmlContent);
+
+        } else {
+            System.out.println("WebEngine is not initialized");
+        }
+    }
+
     public void exitButton(ActionEvent event){
         Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
         dialog = alert2.getDialogPane();
