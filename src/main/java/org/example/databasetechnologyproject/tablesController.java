@@ -395,7 +395,7 @@ public class tablesController implements Initializable {
     }
     public void switchToMenuScreen(ActionEvent event){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(".fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("menuScreen.fxml"));
             stage1 = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage1.setScene(scene);
@@ -409,7 +409,7 @@ public class tablesController implements Initializable {
     }
     public void switchToOrdersScene(ActionEvent event){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(".fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("ordersScreen.fxml"));
             stage1 = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage1.setScene(scene);

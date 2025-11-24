@@ -431,21 +431,31 @@ public class MenuItemsController implements Initializable {
             System.out.println("Cannot change scenes");
         }
     }
-    public void switchToReservationsScene(ActionEvent event){
+    public void switchToCustomersScreen(ActionEvent event){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("reservationsScene.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("customerScreen.fxml"));
             stage1 = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage1.setScene(scene);
             stage1.show();
         } catch (IOException ex){
             System.out.println("Cannot change scenes");
-            ex.printStackTrace();
         }
     }
     public void switchToEmployeesScene(ActionEvent event){
         try {
             Parent root = FXMLLoader.load(getClass().getResource("employeesScreen.fxml"));
+            stage1 = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage1.setScene(scene);
+            stage1.show();
+        } catch (IOException ex){
+            System.out.println("Cannot change scenes");
+        }
+    }
+    public void switchToMenuScreen(ActionEvent event){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("menuScreen.fxml"));
             stage1 = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage1.setScene(scene);
@@ -465,7 +475,17 @@ public class MenuItemsController implements Initializable {
             System.out.println("Cannot change scenes");
         }
     }
-
+    public void switchToOrdersScene(ActionEvent event){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("ordersScreen.fxml"));
+            stage1 = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage1.setScene(scene);
+            stage1.show();
+        } catch (IOException ex){
+            System.out.println("Cannot change scenes");
+        }
+    }
     public void switchToAboutScene(ActionEvent event){
         try {
             Parent root = FXMLLoader.load(getClass().getResource("aboutScreen.fxml"));
@@ -477,15 +497,16 @@ public class MenuItemsController implements Initializable {
             System.out.println("Cannot change scenes");
         }
     }
-    public void switchToCustomersScreen(ActionEvent event){
+    public void switchToReservationsScene(ActionEvent event){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("customerScreen.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("reservationsScene.fxml"));
             stage1 = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage1.setScene(scene);
             stage1.show();
         } catch (IOException ex){
             System.out.println("Cannot change scenes");
+            ex.printStackTrace();
         }
     }
     public void refresh(){

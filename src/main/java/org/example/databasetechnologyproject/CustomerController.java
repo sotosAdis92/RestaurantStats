@@ -566,7 +566,7 @@ public class CustomerController implements Initializable {
     }
     public void switchToOrdersScene(ActionEvent event){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("tablesScene.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("ordersScreen.fxml"));
             stage1 = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage1.setScene(scene);
