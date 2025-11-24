@@ -68,6 +68,7 @@ public class orderAuditController implements Initializable {
     ObservableList<OrderAudit> customerAud = FXCollections.observableArrayList();
     @Override
     public void initialize(URL d, ResourceBundle resourceBundle) {
+        combo.setValue("all");
         try {
             Class.forName(driverClassName);
             System.out.println("JDBC driver loaded successfully");
@@ -96,14 +97,14 @@ public class orderAuditController implements Initializable {
                 String time = rs.getString(2);
                 String use = rs.getString(3);
                 int id = rs.getInt(4);
-                String newemp = rs.getString(5);
-                String oldemp = rs.getString(6);
-                int newta = rs.getInt(7);
-                int oldta = rs.getInt(8);
-                float newto = rs.getFloat(9);
-                float oldto = rs.getFloat(10);
-                Timestamp nDate = rs.getTimestamp(11);
-                Timestamp oDate = rs.getTimestamp(12);
+                String newemp = rs.getString(6);
+                String oldemp = rs.getString(5);
+                int newta = rs.getInt(8);
+                int oldta = rs.getInt(7);
+                float newto = rs.getFloat(10);
+                float oldto = rs.getFloat(9);
+                Timestamp nDate = rs.getTimestamp(12);
+                Timestamp oDate = rs.getTimestamp(11);
                 OrderAudit ad = new OrderAudit(ope,time,use,id,newemp,oldemp,newta,oldta,newto,oldto,nDate,oDate);
                 customerAud.add(ad);
             }
@@ -115,6 +116,7 @@ public class orderAuditController implements Initializable {
 
         }
         try{
+            combo.getItems().add("all");
             String selectString = "SELECT * FROM getOrderAuditOp()";
             getaudit = dbConnection.prepareStatement(selectString);
             ResultSet rs = getaudit.executeQuery();
@@ -154,14 +156,14 @@ public class orderAuditController implements Initializable {
                 String time = rs.getString(2);
                 String use = rs.getString(3);
                 int id = rs.getInt(4);
-                String newemp = rs.getString(5);
-                String oldemp = rs.getString(6);
-                int newta = rs.getInt(7);
-                int oldta = rs.getInt(8);
-                float newto = rs.getFloat(9);
-                float oldto = rs.getFloat(10);
-                Timestamp nDate = rs.getTimestamp(11);
-                Timestamp oDate = rs.getTimestamp(12);
+                String newemp = rs.getString(6);
+                String oldemp = rs.getString(5);
+                int newta = rs.getInt(8);
+                int oldta = rs.getInt(7);
+                float newto = rs.getFloat(10);
+                float oldto = rs.getFloat(9);
+                Timestamp nDate = rs.getTimestamp(12);
+                Timestamp oDate = rs.getTimestamp(11);
                 OrderAudit ad = new OrderAudit(ope,time,use,id,newemp,oldemp,newta,oldta,newto,oldto,nDate,oDate);
                 customerAud.add(ad);
             }
@@ -191,14 +193,14 @@ public class orderAuditController implements Initializable {
                 String time = rs.getString(2);
                 String use = rs.getString(3);
                 int id = rs.getInt(4);
-                String newemp = rs.getString(5);
-                String oldemp = rs.getString(6);
-                int newta = rs.getInt(7);
-                int oldta = rs.getInt(8);
-                float newto = rs.getFloat(9);
-                float oldto = rs.getFloat(10);
-                Timestamp nDate = rs.getTimestamp(11);
-                Timestamp oDate = rs.getTimestamp(12);
+                String newemp = rs.getString(6);
+                String oldemp = rs.getString(5);
+                int newta = rs.getInt(8);
+                int oldta = rs.getInt(7);
+                float newto = rs.getFloat(10);
+                float oldto = rs.getFloat(9);
+                Timestamp nDate = rs.getTimestamp(12);
+                Timestamp oDate = rs.getTimestamp(11);
                 OrderAudit ad = new OrderAudit(ope,time,use,id,newemp,oldemp,newta,oldta,newto,oldto,nDate,oDate);
                 customerAud.add(ad);
             }

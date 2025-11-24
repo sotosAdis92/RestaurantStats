@@ -24,6 +24,8 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -64,6 +66,17 @@ public class OrdersController implements Initializable {
     Button resetAllButton;
     @FXML
     Label rowResult;
+    @FXML
+            CheckBox c1;
+    @FXML
+            CheckBox c2;
+    @FXML
+            ComboBox<Object> combo1;
+    @FXML
+     DatePicker date1;
+
+    @FXML
+     DatePicker date2;
     ObservableList<Order> orders = FXCollections.observableArrayList();
     PreparedStatement fillTable;
     PreparedStatement delete;
@@ -75,6 +88,7 @@ public class OrdersController implements Initializable {
     PreparedStatement getFname;
     PreparedStatement getCountCustomer;
     PreparedStatement getCountOfTable;
+    PreparedStatement selector;
 
     int i = 0;
     private DialogPane dialog;
@@ -87,6 +101,10 @@ public class OrdersController implements Initializable {
     static Connection dbConnection;
     @Override
     public void initialize(URL d, ResourceBundle resourceBundle) {
+        date1.setValue(LocalDate.now());
+        date2.setValue(LocalDate.now());
+        c1.setSelected(true);
+        c2.setSelected(false);
         try {
             dbConnection = DriverManager.getConnection(url, user, password);
             System.out.println("Database connection established successfully");
@@ -140,6 +158,20 @@ public class OrdersController implements Initializable {
             }
         }catch (SQLException ex){
             System.out.println("SQL error");
+        }
+        try{
+            combo1.getItems().add("all");
+            String selectString = "SELECT * FROM getTableNumberFromOrders()";
+            getFirstName = dbConnection.prepareStatement(selectString);
+            getFirstName.executeQuery();
+            ResultSet rs = getFirstName.getResultSet();
+            while(rs.next()){
+                Object num = rs.getObject(1);
+                combo1.getItems().add(num);
+
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
         }
 
         customerTable.setItems(orders);
@@ -393,6 +425,218 @@ public class OrdersController implements Initializable {
             od.setNew(da);
         } catch (IOException ex) {
             System.out.println("This window could not load");
+            ex.printStackTrace();
+        }
+    }
+
+    public void check(ActionEvent event){
+        if(c1.isSelected()){
+            date1.setDisable(true);
+            combo1.setDisable(false);
+            date2.setDisable(true);
+        }
+        if(c2.isSelected()){
+            date1.setDisable(false);
+            combo1.setDisable(true);
+            date2.setDisable(false);
+        }
+        if(c1.isSelected() && c2.isSelected()){
+            date1.setDisable(false);
+            combo1.setDisable(false);
+            date2.setDisable(false);
+        }
+        if(!c1.isSelected() && !c2.isSelected()){
+            date1.setDisable(true);
+            combo1.setDisable(true);
+            date2.setDisable(true);
+        }
+    }
+
+    public void select(ActionEvent event){
+        boolean c1sel = c1.isSelected();
+        boolean c2sel = c2.isSelected();
+        if (c1sel && c2sel) {
+            executeAllFilters();
+        } else if (c1sel) {
+            executeNameFilter();
+        } else if (c2sel) {
+            executePositionFilter();
+        }  else {
+            return;
+        }
+    }
+    public void executePositionFilter(){
+        try{
+            LocalDate date1s = date1.getValue();
+            LocalDate date2s = date2.getValue();
+
+            System.out.println("Date 1: " + date1s);
+            System.out.println("Date 2: " + date2s);
+
+
+            Timestamp t1 = Timestamp.valueOf(date1s.atStartOfDay());
+            Timestamp t2 = Timestamp.valueOf(date2s.atTime(23, 59, 59));
+
+            System.out.println("Timestamp 1: " + t1);
+            System.out.println("Timestamp 2: " + t2);
+
+            String selectString = "SELECT * FROM filterOrdersByDate(?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterOrdersByDate(?,?)";
+
+            selector = dbConnection.prepareStatement(selectString);
+            getRating = dbConnection.prepareStatement(selectString2);
+            selector.setTimestamp(1, t1);
+            selector.setTimestamp(2, t2);
+            getRating.setTimestamp(1, t1);
+            getRating.setTimestamp(2, t2);
+
+            ResultSet rs = selector.executeQuery();
+            ResultSet rs2 = getRating.executeQuery();
+            orders.clear();
+            while(rs.next()){
+                int id = rs.getInt(1);
+                String empid = rs.getString(2);
+                int taid = rs.getInt(3);
+                float amm = rs.getFloat(4);
+                Timestamp da = rs.getTimestamp(5);
+                Order or1 = new Order(id,empid,taid,amm,da);
+                orders.add(or1);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+
+        }
+
+    }
+    public void executeNameFilter(){
+        try{
+            int firstName = 0;
+            int lastname = 0;
+            String postion = null;
+            int id = 0;
+            orders.clear();
+            Object selected = combo1.getSelectionModel().getSelectedItem();
+            String selectString = "SELECT * FROM filterOrderByTable(?)";
+            String selectString2 = "SELECT COUNT(*) FROM filterOrderByTable(?)";
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
+            getFname = dbConnection.prepareStatement(selectString);
+            if (selected instanceof Integer) {
+                getFname.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getFname.setNull(1, Types.INTEGER);
+            } else {
+                getFname.setNull(1, Types.INTEGER);
+            }
+
+            if (selected instanceof Integer) {
+                getCountCustomer.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            } else {
+                getCountCustomer.setNull(1, Types.INTEGER);
+            }
+
+            ResultSet rs = getFname.executeQuery();
+            ResultSet rs2 = getCountCustomer.executeQuery();
+            while(rs.next()){
+                id = rs.getInt(1);
+                String empid = rs.getString(2);
+                int taid = rs.getInt(3);
+                float amm = rs.getFloat(4);
+                Timestamp da = rs.getTimestamp(5);
+                Order or1 = new Order(id,empid,taid,amm,da);
+                orders.add(or1);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    public void executeAllFilters(){
+        try{
+            orders.clear();
+            LocalDate date1s = date1.getValue();
+            LocalDate date2s = date2.getValue();
+            Object selected = combo1.getSelectionModel().getSelectedItem();
+
+            System.out.println("Date 1: " + date1s);
+            System.out.println("Date 2: " + date2s);
+
+
+            Timestamp t1 = Timestamp.valueOf(date1s.atStartOfDay());
+            Timestamp t2 = Timestamp.valueOf(date2s.atTime(23, 59, 59));
+
+            System.out.println("Timestamp 1: " + t1);
+            System.out.println("Timestamp 2: " + t2);
+
+            String selectString = "SELECT * FROM allOrderFilters(?,?,?)";
+            String selectString2 = "SELECT COUNT(*) FROM allOrderFilters(?,?,?)";
+
+            selector = dbConnection.prepareStatement(selectString);
+            getRating = dbConnection.prepareStatement(selectString2);
+            selector.setTimestamp(2, t1);
+            selector.setTimestamp(3, t2);
+            getRating.setTimestamp(2, t1);
+            getRating.setTimestamp(3, t2);
+            if (selected instanceof Integer) {
+                selector.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                selector.setNull(1, Types.INTEGER);
+            } else {
+                selector.setNull(1, Types.INTEGER);
+            }
+
+            if (selected instanceof Integer) {
+                getRating.setInt(1, (Integer) selected);
+            } else if ("all".equals(selected)) {
+                getRating.setNull(1, Types.INTEGER);
+            } else {
+                getRating.setNull(1, Types.INTEGER);
+            }
+
+            ResultSet rs = selector.executeQuery();
+            ResultSet rs2 = getRating.executeQuery();
+            orders.clear();
+            while(rs.next()){
+                int id = rs.getInt(1);
+                String empid = rs.getString(2);
+                int taid = rs.getInt(3);
+                float amm = rs.getFloat(4);
+                Timestamp da = rs.getTimestamp(5);
+                Order or1 = new Order(id,empid,taid,amm,da);
+                orders.add(or1);
+            }
+            while(rs2.next()){
+                int result = rs2.getInt(1);
+                rowResult.setText(String.valueOf(result));
+            }
+        } catch (SQLException ex){
+
+        }
+    }
+    public void resetFilters() {
+        try {
+            c1.setSelected(true);
+            c2.setSelected(false);
+            combo1.getSelectionModel().clearSelection();
+            combo1.setValue(null);
+            date1.setValue(LocalDate.now());
+            date2.setValue(LocalDate.now());
+            date1.setDisable(true);
+            date2.setDisable(true);
+            combo1.setDisable(false);
+            refresh();
+
+            System.out.println("Filters reset successfully");
+
+        } catch (Exception ex) {
+            System.out.println("Error resetting filters: " + ex.getMessage());
             ex.printStackTrace();
         }
     }

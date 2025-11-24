@@ -125,11 +125,11 @@ public class OrderAudit {
         return oldto;
     }
 
-    public Timestamp getnDate() {
+    public Timestamp getNDate() {
         return nDate;
     }
 
-    public Timestamp getoDate() {
+    public Timestamp getODate() {
         return oDate;
     }
 }

@@ -129,7 +129,7 @@ public class tablesController implements Initializable {
         }
         try{
             textfield.getItems().add("all");
-            String selectString = "SELECT * FROM getTableNumbers()";
+            String selectString = "SELECT * FROM getTableNumberFromOrders()";
             getFirstName = dbConnection.prepareStatement(selectString);
             getFirstName.executeQuery();
             ResultSet rs = getFirstName.getResultSet();
