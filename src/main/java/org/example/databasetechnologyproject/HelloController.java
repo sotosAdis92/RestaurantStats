@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -48,6 +49,25 @@ public class HelloController implements Initializable {
     ComboBox<String> combo1;
     @FXML
     ComboBox<Integer> combo2;
+
+    @FXML
+    ComboBox<Integer> combo5;
+    @FXML
+    ComboBox<Integer> combo6;
+
+
+    @FXML
+    DatePicker date1;
+    @FXML
+    Label Label111;
+    @FXML
+    Label Label11;
+
+    @FXML
+    Label Label12;
+    @FXML
+    Label Label1;
+
     private DialogPane dialog;
     PreparedStatement fillTable;
     PreparedStatement delete;
@@ -67,10 +87,24 @@ public class HelloController implements Initializable {
     static Connection dbConnection;
 
     public void initialize(URL location, ResourceBundle arg1){
+        combo2.setVisible(true);
+        combo5.setVisible(false);
+        combo6.setVisible(false);
+        date1.setVisible(false);
+        Label11.setVisible(false);
+        Label111.setVisible(false);
+        Label12.setVisible(false);
+        Label1.setVisible(true);
+        int currentYear = java.time.Year.now().getValue();
         combo1.setValue("Yearly");
+        combo5.setValue(currentYear);
+        combo2.setValue(currentYear);
+        combo6.setValue(1);
+
         System.out.println(url);
         System.out.println(user);
         System.out.println(password);
+
         try{
             Class.forName(driverClassName);
         }catch (ClassNotFoundException ex){
@@ -100,9 +134,7 @@ public class HelloController implements Initializable {
         }
         combo1.getItems().add("Yearly");
         combo1.getItems().add("Monthly");
-        combo1.getItems().add("Weekly");
         combo1.getItems().add("Daily");
-        int currentYear = java.time.Year.now().getValue();
         combo2.setValue(currentYear);
         try{
             String SelectString = "SELECT * FROM getYears()";
@@ -112,10 +144,23 @@ public class HelloController implements Initializable {
             while(rs.next()){
                 int y = rs.getInt(1);
                 combo2.getItems().add(y);
+                combo5.getItems().add(y);
             }
         } catch (SQLException ex){
 
         }
+        combo6.getItems().add(1);
+        combo6.getItems().add(2);
+        combo6.getItems().add(3);
+        combo6.getItems().add(4);
+        combo6.getItems().add(5);
+        combo6.getItems().add(6);
+        combo6.getItems().add(7);
+        combo6.getItems().add(8);
+        combo6.getItems().add(9);
+        combo6.getItems().add(10);
+        combo6.getItems().add(11);
+        combo6.getItems().add(12);
 
 
         engine = webview1.getEngine();
@@ -123,54 +168,119 @@ public class HelloController implements Initializable {
         int year = combo2.getValue();
         if(combo1.getValue().equals("Yearly")){
             loadPage(year);
-            loadPage2();
+            Label1.setVisible(true);
+            combo1.setVisible(true);
+            combo2.setVisible(true);
+            combo5.setVisible(false);
+            combo6.setVisible(false);
+            date1.setVisible(false);
+            Label11.setVisible(false);
+            Label111.setVisible(false);
+            Label12.setVisible(false);
         }
         else if(combo1.getValue().equals("Monthly")){
 
-        }
-        else if(combo1.getValue().equals("Weekly")){
-
+            Label1.setVisible(false);
+            combo2.setVisible(false);
+            combo5.setVisible(true);
+            combo6.setVisible(true);
+            date1.setVisible(false);
+            Label11.setVisible(true);
+            Label111.setVisible(false);
+            Label12.setVisible(true);
         }
         else if(combo1.getValue().equals("Daily")){
-
+            Label1.setVisible(false);
+            combo2.setVisible(false);
+            combo5.setVisible(false);
+            combo6.setVisible(false);
+            date1.setVisible(true);
+            Label11.setVisible(false);
+            Label111.setVisible(true);
+            Label12.setVisible(false);
         }
     }
 
     public void select(){
         int year = combo2.getValue();
+        int year2 = combo5.getValue();
+        int month = combo6.getValue();
+        LocalDate date = date1.getValue();
         if(combo1.getValue().equals("Yearly")){
             loadPage(year);
-            loadPage2();
+            Label1.setVisible(true);
+            combo2.setVisible(true);
+            combo5.setVisible(false);
+            combo6.setVisible(false);
+            date1.setVisible(false);
+            Label11.setVisible(false);
+            Label111.setVisible(false);
+            Label12.setVisible(false);
         }
         else if(combo1.getValue().equals("Monthly")){
-
-        }
-        else if(combo1.getValue().equals("Weekly")){
-
+            loadPageMonthly(year2,month);
+            Label1.setVisible(false);
+            combo2.setVisible(false);
+            combo5.setVisible(true);
+            combo6.setVisible(true);
+            date1.setVisible(false);
+            Label11.setVisible(true);
+            Label111.setVisible(false);
+            Label12.setVisible(true);
         }
         else if(combo1.getValue().equals("Daily")){
-
+            loadPageDaily(date);
+            Label1.setVisible(false);
+            combo2.setVisible(false);
+            combo5.setVisible(false);
+            combo6.setVisible(false);
+            date1.setVisible(true);
+            Label11.setVisible(false);
+            Label111.setVisible(true);
+            Label12.setVisible(false);
         }
     }
     public void select2(){
         int year = combo2.getValue();
+        int year2 = combo5.getValue();
+        int month = combo6.getValue();
+        LocalDate date = date1.getValue();
         if(combo1.getValue().equals("Yearly")){
             loadPage(year);
-            loadPage2();
+            Label1.setVisible(true);
+            combo2.setVisible(true);
+            combo5.setVisible(false);
+            combo6.setVisible(false);
+            date1.setVisible(false);
+            Label11.setVisible(false);
+            Label111.setVisible(false);
+            Label12.setVisible(false);
         }
         else if(combo1.getValue().equals("Monthly")){
-
-        }
-        else if(combo1.getValue().equals("Weekly")){
-
+            loadPageMonthly(year2,month);
+            Label1.setVisible(false);
+            combo2.setVisible(false);
+            combo5.setVisible(true);
+            combo6.setVisible(true);
+            date1.setVisible(false);
+            Label11.setVisible(true);
+            Label111.setVisible(false);
+            Label12.setVisible(true);
         }
         else if(combo1.getValue().equals("Daily")){
-
+            loadPageDaily(date);
+            Label1.setVisible(false);
+            combo2.setVisible(false);
+            combo5.setVisible(false);
+            combo6.setVisible(false);
+            date1.setVisible(true);
+            Label11.setVisible(false);
+            Label111.setVisible(true);
+            Label12.setVisible(false);
         }
     }
 
     public void loadPage(int year){
-
         int[] nums = new int[12];
         int[] months = new int[12];
         Arrays.fill(nums, 0);
@@ -302,6 +412,137 @@ public class HelloController implements Initializable {
         } else {
             System.out.println("WebEngine is not initialized");
         }
+    }
+
+    public void loadPageMonthly(int year,int month){
+        int[] dailyData = new int[31];
+        Arrays.fill(dailyData, 0);
+
+        try {
+            String selectString = "SELECT * FROM getMonthlyReservations(?,?)";
+            fillTable = dbConnection.prepareStatement(selectString);
+            fillTable.setInt(1, year);
+            fillTable.setInt(2, month);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+
+            while(rs.next()) {
+                int day = rs.getInt(1);
+                int num = rs.getInt(2);
+                if (day >= 1 && day <= 31) {
+                    dailyData[day - 1] = num;
+                }
+                System.out.println("Day " + day + ": " + num + " reservations");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        if (engine != null) {
+            String arrayData = Arrays.toString(dailyData).replace("[", "").replace("]", "");
+            String htmlContent = """
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>Monthly Reservations Chart</title>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <style>
+                    body {
+                        margin: 0;
+                        padding: 0px;
+                        background: white;
+                        font-family: Arial, sans-serif;
+                    }
+                    #chartContainer {
+                        width: 630px;
+                        height: 330px;
+                        background: white;
+                        border-radius: 10px;
+                        margin-top: 50px;
+                        padding: 0px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    }
+                    .chart-title {
+                        text-align: center;
+                        font-size: 24px;
+                        font-weight: bold;
+                        margin-bottom: 20px;
+                        color: #333;
+                    }
+                </style>
+            </head>
+            <body>
+                <div id="chartContainer">
+                    <canvas id="myChart1" width="630px" height="330px"></canvas>
+                </div>
+                <script>
+                    const ctx = document.getElementById('myChart1').getContext('2d');
+                    const myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+                            datasets: [{
+                                label: 'Number of Reservations',
+                                data: [%s],
+                                backgroundColor: [
+                                    '#FFB3BA', '#B3E0FF', '#FFF6B3', '#B3FFDA', '#B3D9FF', '#B3C7D9',
+                                    '#FFB3D9', '#E6B3FF', '#FFE0B3', '#B3E6D9', '#B3D1E0', '#FFB3B3'
+                                ],
+                                borderColor: [
+                                    '#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#073B4C',
+                                    '#EF476F', '#7209B7', '#F8961E', '#43AA8B', '#277DA1', '#F94144'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: false,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'top',
+                                },
+                                tooltip: {
+                                    enabled: true
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Number of Reservations'
+                                    },
+                                    ticks: {
+                                        stepSize: 1
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Days'
+                                    },
+                                    ticks: {
+                                        autoSkip: false,
+                                        maxRotation: 45
+                                    }
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </body>
+            </html>""".formatted(arrayData);
+
+            System.out.println("HTML Content generated with data: " + arrayData);
+            engine.loadContent(htmlContent);
+        } else {
+            System.out.println("WebEngine is not initialized");
+        }
+     }
+    public void loadPageDaily(LocalDate selectedDate){
+
     }
     public void loadPage2(){
         if (engine2 != null) {

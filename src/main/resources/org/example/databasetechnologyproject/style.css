@@ -204,6 +204,52 @@
     -fx-background-insets: 0;
 }
 
+#center5{
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 15, 0.3, 0, 4);
+    -fx-padding: 0px;
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-width: 1px;
+    -fx-background-insets: 0;
+}
+
+#center6{
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 15, 0.3, 0, 4);
+    -fx-padding: 0px;
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-width: 1px;
+    -fx-background-insets: 0;
+}
+
+#center7{
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 15, 0.3, 0, 4);
+    -fx-padding: 0px;
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-width: 1px;
+    -fx-background-insets: 0;
+}
+
+#center12{
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 15, 0.3, 0, 4);
+    -fx-padding: 0px;
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-width: 1px;
+    -fx-background-insets: 0;
+}
+
+
+
 #rowsLabel{
     -fx-font-family: "Lexend Giga";
     -fx-font-size: 18px;
@@ -326,4 +372,29 @@
 
 .check-box:disabled {
     -fx-opacity: 0.5;
+}
+#Label1{
+    -fx-font-size: 15px;
+    -fx-font-family: 'Lexend Giga';
+    -fx-font-weight: 800;
+}
+#Label11{
+    -fx-font-size: 15px;
+    -fx-font-family: 'Lexend Giga';
+    -fx-font-weight: 800;
+}
+#Label12{
+    -fx-font-size: 15px;
+    -fx-font-family: 'Lexend Giga';
+    -fx-font-weight: 800;
+}
+#Label111{
+    -fx-font-size: 15px;
+    -fx-font-family: 'Lexend Giga';
+    -fx-font-weight: 800;
+}
+#Label112{
+    -fx-font-size: 15px;
+    -fx-font-family: 'Lexend Giga';
+    -fx-font-weight: 800;
 }
