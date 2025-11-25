@@ -19,9 +19,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -44,7 +43,22 @@ public class HelloController implements Initializable {
     @FXML
     WebView webView2;
     WebEngine engine2;
+
+    @FXML
+    ComboBox<String> combo1;
+    @FXML
+    ComboBox<Integer> combo2;
     private DialogPane dialog;
+    PreparedStatement fillTable;
+    PreparedStatement delete;
+    PreparedStatement update;
+    PreparedStatement getFirstName;
+    PreparedStatement getLastName;
+    PreparedStatement getPhone;
+    PreparedStatement getRating;
+    PreparedStatement getFname;
+    PreparedStatement getCountCustomer;
+    PreparedStatement getCountOfTable;
     static String driverClassName = "org.postgresql.Driver";
     static Dotenv dotenv = Dotenv.load();
     static String url = dotenv.get("DB_URL");
@@ -53,6 +67,7 @@ public class HelloController implements Initializable {
     static Connection dbConnection;
 
     public void initialize(URL location, ResourceBundle arg1){
+        combo1.setValue("Yearly");
         System.out.println(url);
         System.out.println(user);
         System.out.println(password);
@@ -83,14 +98,213 @@ public class HelloController implements Initializable {
         } catch (Exception ex){
             System.out.println("Image not found");
         }
+        combo1.getItems().add("Yearly");
+        combo1.getItems().add("Monthly");
+        combo1.getItems().add("Weekly");
+        combo1.getItems().add("Daily");
+        int currentYear = java.time.Year.now().getValue();
+        combo2.setValue(currentYear);
+        try{
+            String SelectString = "SELECT * FROM getYears()";
+            fillTable = dbConnection.prepareStatement(SelectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            while(rs.next()){
+                int y = rs.getInt(1);
+                combo2.getItems().add(y);
+            }
+        } catch (SQLException ex){
+
+        }
+
+
         engine = webview1.getEngine();
         engine2 = webView2.getEngine();
-        loadPage();
-        loadPage2();
+        int year = combo2.getValue();
+        if(combo1.getValue().equals("Yearly")){
+            loadPage(year);
+            loadPage2();
+        }
+        else if(combo1.getValue().equals("Monthly")){
+
+        }
+        else if(combo1.getValue().equals("Weekly")){
+
+        }
+        else if(combo1.getValue().equals("Daily")){
+
+        }
     }
 
-    public void loadPage(){
+    public void select(){
+        int year = combo2.getValue();
+        if(combo1.getValue().equals("Yearly")){
+            loadPage(year);
+            loadPage2();
+        }
+        else if(combo1.getValue().equals("Monthly")){
+
+        }
+        else if(combo1.getValue().equals("Weekly")){
+
+        }
+        else if(combo1.getValue().equals("Daily")){
+
+        }
+    }
+    public void select2(){
+        int year = combo2.getValue();
+        if(combo1.getValue().equals("Yearly")){
+            loadPage(year);
+            loadPage2();
+        }
+        else if(combo1.getValue().equals("Monthly")){
+
+        }
+        else if(combo1.getValue().equals("Weekly")){
+
+        }
+        else if(combo1.getValue().equals("Daily")){
+
+        }
+    }
+
+    public void loadPage(int year){
+
+        int[] nums = new int[12];
+        int[] months = new int[12];
+        Arrays.fill(nums, 0);
+        Arrays.fill(months, 0);
+        try {
+            String selectString = "SELECT * FROM getYearlyReservations(?)";
+            fillTable = dbConnection.prepareStatement(selectString);
+            fillTable.setInt(1, year);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+
+            int i = 0;
+            while(rs.next() && i<12) {
+                int month = rs.getInt(1);
+                int num = rs.getInt(2);
+                nums[month - 1] = num;
+                System.out.println("Month " + (i + 1) + ": " + nums[i]);
+                i++;
+            }
+            System.out.println("Full array: " + Arrays.toString(nums));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
         if (engine != null) {
+            String arrayData = Arrays.toString(nums).replace("[", "").replace("]", "");
+
+            String htmlContent = """
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>Monthly Reservations Chart</title>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <style>
+                    body {
+                        margin: 0;
+                        padding: 0px;
+                        background: white;
+                        font-family: Arial, sans-serif;
+                    }
+                    #chartContainer {
+                        width: 630px;
+                        height: 330px;
+                        background: white;
+                        border-radius: 10px;
+                        margin-top: 50px;
+                        padding: 0px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    }
+                    .chart-title {
+                        text-align: center;
+                        font-size: 24px;
+                        font-weight: bold;
+                        margin-bottom: 20px;
+                        color: #333;
+                    }
+                </style>
+            </head>
+            <body>
+                <div id="chartContainer">
+                    <canvas id="myChart1" width="630px" height="330px"></canvas>
+                </div>
+                <script>
+                    const ctx = document.getElementById('myChart1').getContext('2d');
+                    const myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [
+                                'January', 'February', 'March', 'April', 'May', 'June',
+                                'July', 'August', 'September', 'October', 'November', 'December'
+                            ],
+                            datasets: [{
+                                label: 'Number of Reservations',
+                                data: [%s],
+                                backgroundColor: [
+                                    '#FFB3BA', '#B3E0FF', '#FFF6B3', '#B3FFDA', '#B3D9FF', '#B3C7D9',
+                                    '#FFB3D9', '#E6B3FF', '#FFE0B3', '#B3E6D9', '#B3D1E0', '#FFB3B3'
+                                ],
+                                borderColor: [
+                                    '#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#073B4C',
+                                    '#EF476F', '#7209B7', '#F8961E', '#43AA8B', '#277DA1', '#F94144'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: false,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'top',
+                                },
+                                tooltip: {
+                                    enabled: true
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Number of Reservations'
+                                    },
+                                    ticks: {
+                                        stepSize: 1
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Months'
+                                    },
+                                    ticks: {
+                                        autoSkip: false,
+                                        maxRotation: 45
+                                    }
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </body>
+            </html>""".formatted(arrayData);
+
+            System.out.println("HTML Content generated with data: " + arrayData);
+            engine.loadContent(htmlContent);
+        } else {
+            System.out.println("WebEngine is not initialized");
+        }
+    }
+    public void loadPage2(){
+        if (engine2 != null) {
             String htmlContent = """
                     <!DOCTYPE html>
                       <html>
@@ -129,7 +343,7 @@ public class HelloController implements Initializable {
                               <canvas id="myChart1" width="630px" height="390px"></canvas>
                           </div>
                           <script>
-                              // Simple immediate execution
+                              
                               const ctx = document.getElementById('myChart1').getContext('2d');
                               const myChart = new Chart(ctx, {
                                   type: 'bar',
@@ -140,7 +354,7 @@ public class HelloController implements Initializable {
                                       ],
                                       datasets: [{
                                           label: 'Number of Reservations',
-                                          data: [8, 12, 15, 7, 18, 9, 11, 14, 16, 6, 13, 10],
+                                          data: [],
                                           backgroundColor: [
                                               '#FFB3BA', '#B3E0FF', '#FFF6B3', '#B3FFDA', '#B3D9FF', '#B3C7D9',
                                               '#FFB3D9', '#E6B3FF', '#FFE0B3', '#B3E6D9', '#B3D1E0', '#FFB3B3'
@@ -191,18 +405,7 @@ public class HelloController implements Initializable {
                               console.log('Full year chart created!');
                           </script>
                       </body>
-                      </html>""";
-            engine.loadContent(htmlContent);
-
-        } else {
-            System.out.println("WebEngine is not initialized");
-        }
-    }
-
-
-    public void loadPage2(){
-        if (engine2 != null) {
-            String htmlContent = """
+                      </html>
                     """;
             engine2.loadContent(htmlContent);
 

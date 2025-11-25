@@ -203,3 +203,127 @@
     -fx-border-width: 1px;
     -fx-background-insets: 0;
 }
+
+#rowsLabel{
+    -fx-font-family: "Lexend Giga";
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #5CABF5;
+}
+.combo-box{
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-radius: 12px;
+}
+
+.combo-box .text-input {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-prompt-text-fill: #64748b;
+    -fx-highlight-fill: #3b82f6;
+    -fx-highlight-text-fill: white;
+}
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0 5 5 0;
+    -fx-padding: 5 8 5 8;
+}
+.combo-box .arrow {
+    -fx-background-color: #64748b;
+    -fx-shape: "M 0 0 L 5 5 L 10 0 Z";
+    -fx-scale-shape: false;
+    -fx-padding: 4 5 4 5;
+}
+
+
+.combo-box-base:focused {
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.4), 6, 0.3, 0, 1);
+}
+
+.combo-box-base:pressed {
+    -fx-background-color: #f8fafc;
+}
+.combo-box-popup .list-view {
+    -fx-background-color: white;
+    -fx-background-radius: 6;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.2, 0, 3);
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: #334155;
+    -fx-padding: 8 10;
+}
+
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #f1f5f9;
+}
+.combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+}
+#filterPane {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 15, 0.3, 0, 4);
+    -fx-padding: 0px;
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-width: 1px;
+    -fx-background-insets: 0;
+}
+
+.combo-box-base {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-background-radius: 10px;
+    -fx-border-color: rgba(203, 213, 225, 0.6);
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5;
+    -fx-padding: 8px 12px;
+}
+
+.combo-box-base:hover {
+    -fx-background-color: white;
+    -fx-border-color: #5CABF5;
+}
+.check-box {
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-font-size: 14px;
+    -fx-text-fill: #2d3748;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #cbd5e0;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-border-width: 2px;
+    -fx-padding: 2px;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #3b82f6;
+    -fx-border-color: #2563eb;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:hover .box {
+    -fx-border-color: #3b82f6;
+}
+
+.check-box:focused .box {
+    -fx-border-color: #3b82f6;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.5), 10, 0.5, 0, 0);
+}
+
+.check-box:disabled {
+    -fx-opacity: 0.5;
+}
