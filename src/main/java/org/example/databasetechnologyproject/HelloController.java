@@ -18,6 +18,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -59,6 +60,15 @@ public class HelloController implements Initializable {
     Label Label12;
     @FXML
     Label Label1;
+
+    @FXML
+    Label customer;
+    @FXML
+    Label table;
+    @FXML
+    Label order;
+    @FXML
+    Label mone;
 
     private DialogPane dialog;
     PreparedStatement fillTable;
@@ -172,6 +182,63 @@ public class HelloController implements Initializable {
             combo6.setVisible(true);
             Label11.setVisible(true);
             Label12.setVisible(true);
+        }
+
+        try{
+            String SelectString = "SELECT * FROM getHighestCustomerRating()";
+            fillTable = dbConnection.prepareStatement(SelectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            while(rs.next()){
+                String name = rs.getString(1);
+                String surname = rs.getString(2);
+                customer.setText(name + " " + surname);
+            }
+        } catch (SQLException ex){
+
+        }
+
+        try{
+            String SelectString = "SELECT * FROM mostReservedTable()";
+            fillTable = dbConnection.prepareStatement(SelectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            while(rs.next()){
+                int num = rs.getInt(1);
+                table.setText(String.valueOf(num));
+            }
+        } catch (SQLException ex){
+
+        }
+
+        try{
+            String SelectString = "SELECT * FROM averageOrderValue()";
+            fillTable = dbConnection.prepareStatement(SelectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            while(rs.next()){
+                float num = rs.getFloat(1);
+                order.setText(String.valueOf(num) + "€");
+            }
+        } catch (SQLException ex){
+
+        }
+
+        try {
+            String SelectString = "SELECT totalRevenueToday()";
+            fillTable = dbConnection.prepareStatement(SelectString);
+            ResultSet rs = fillTable.executeQuery();
+
+            if (rs.next()) {
+                int num = rs.getInt(1);
+                mone.setText(String.valueOf(num) + "€");
+                System.out.println("number: " + num);
+            } else {
+                mone.setText("0");
+                System.out.println("No result returned");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 

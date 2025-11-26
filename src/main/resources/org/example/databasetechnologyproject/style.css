@@ -8,6 +8,11 @@
     -fx-font-family: 'Lexend Giga';
     -fx-font-weight: 800;
 }
+#Label11{
+    -fx-font-size: 20px;
+    -fx-font-family: 'Lexend Giga';
+    -fx-font-weight: 800;
+}
 #exitButton{
     -fx-background-image: url('exit.png');
     -fx-background-color: transparent;
@@ -397,4 +402,89 @@
     -fx-font-size: 15px;
     -fx-font-family: 'Lexend Giga';
     -fx-font-weight: 800;
+}
+
+
+#center19{
+    -fx-font-size: 17px;
+    -fx-text-fill: #1e40af;
+    -fx-background-color: #dbeafe;
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 1px;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.2), 8, 0.2, 0, 2);
+}
+#center19:hover{
+    -fx-background-color: #bfdbfe;
+    -fx-border-color: #2563eb;
+    -fx-text-fill: #1e3a8a;
+    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.3), 10, 0.3, 0, 3);
+}
+
+#center20{
+    -fx-font-size: 17px;
+    -fx-text-fill: #9a3412;
+    -fx-background-color: #ffedd5;
+    -fx-border-color: #9a3412;
+    -fx-border-width: 1px;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(154, 52, 18, 0.2), 8, 0.2, 0, 2);
+}
+#center20:hover{
+    -fx-background-color: #fed7aa;
+    -fx-border-color: #7c2d12;
+    -fx-text-fill: #7c2d12;
+    -fx-effect: dropshadow(gaussian, rgba(124, 45, 18, 0.3), 10, 0.3, 0, 3);
+}
+
+#center50{
+    -fx-font-size: 17px;
+    -fx-text-fill: #001D00;
+    -fx-background-color: #dcfce7;
+    -fx-border-color: #22c55e;
+    -fx-border-width: 1px;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(34, 197, 94, 0.2), 8, 0.2, 0, 2);
+}
+#center50:hover{
+    -fx-background-color: #bbf7d0;
+    -fx-border-color: #16a34a;
+    -fx-text-fill: #001f00;
+    -fx-effect: dropshadow(gaussian, rgba(22, 163, 74, 0.3), 10, 0.3, 0, 3);
+}
+
+#center100{
+    -fx-font-size: 17px;
+    -fx-text-fill: #854d0e;
+    -fx-background-color: #fef9c3;
+    -fx-border-color: #eab308;
+    -fx-border-width: 1px;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(234, 179, 8, 0.2), 8, 0.2, 0, 2);
+}
+#center100:hover{
+    -fx-background-color: #fef08a;
+    -fx-border-color: #ca8a04;
+    -fx-text-fill: #713f12;
+    -fx-effect: dropshadow(gaussian, rgba(202, 138, 4, 0.3), 10, 0.3, 0, 3);
+}
+#customer{
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+#table{
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+#order{
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+#mone{
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
 }
