@@ -104,11 +104,11 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="settingsButton" layoutX="26.0" layoutY="604.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Settings">
+            <Button fx:id="settingsButton" layoutX="26.0" layoutY="604.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Guide">
                <graphic>
                   <ImageView fitHeight="44.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Group%2012.png" />
+                        <Image url="@help-252.png" />
                      </image>
                   </ImageView>
                </graphic>

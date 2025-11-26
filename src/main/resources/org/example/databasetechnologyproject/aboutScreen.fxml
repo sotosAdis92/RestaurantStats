@@ -1,6 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" />
+<BorderPane fx:id="scene1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="1600.0" stylesheets="@styleCustomer.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.CustomerController">
+    <top>
+        <AnchorPane fx:id="stage" prefHeight="74.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="75.0" fitWidth="79.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="1507.0" AnchorPane.topAnchor="0.0">
+                    <image>
+                        <Image url="@../../../logos.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="Label1" layoutX="90.0" layoutY="16.0" prefHeight="46.0" prefWidth="290.0" stylesheets="@style.css" text="RestaurantStats">
+                    <font>
+                        <Font name="Lexend Regular" size="12.0" />
+                    </font>
+                </Label>
+                <Button fx:id="exitButton" layoutX="1518.0" layoutY="17.0" mnemonicParsing="false" onAction="#exitButton" prefHeight="54.0" prefWidth="52.0">
+                    <tooltip>
+                        <Tooltip fx:id="tooltipexit" text="Exit Application">
+                            <graphic>
+                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                            </graphic></Tooltip>
+                    </tooltip>
+                </Button>
+            </children>
+        </AnchorPane>
+    </top>
+    <left>
+        <AnchorPane fx:id="menuSideBar" prefHeight="858.0" prefWidth="271.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="HomeButton" layoutX="26.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToHomeScene" prefHeight="55.0" prefWidth="220.0" text="Home Page">
+                    <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@house2.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="CustomersButton" layoutX="26.0" layoutY="111.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Customers" textAlignment="CENTER">
+                    <graphic>
+                        <ImageView fx:id="customerView" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@customer.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="ReservationsButton" layoutX="26.0" layoutY="190.0" mnemonicParsing="false" onAction="#switchToReservationsScene" prefHeight="55.0" prefWidth="220.0" text="Reservations" textAlignment="CENTER">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@reservations.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="EmployeesButton" layoutX="26.0" layoutY="270.0" mnemonicParsing="false" onAction="#switchToEmployeesScene" prefHeight="55.0" prefWidth="220.0" text="Employees" textAlignment="CENTER">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@emp.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="MenuButton" layoutX="26.0" layoutY="354.0" mnemonicParsing="false" onAction="#switchToMenuScreen" prefHeight="55.0" prefWidth="220.0" text="Menu">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@menu.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="TablesButton" layoutX="26.0" layoutY="437.0" mnemonicParsing="false" onAction="#switchToTableScene" prefHeight="55.0" prefWidth="220.0" text="Tables">
+                    <graphic>
+                        <ImageView fitHeight="38.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Group%2010.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="OrdersButton" layoutX="26.0" layoutY="520.0" mnemonicParsing="false" onAction="#switchToOrdersScene" prefHeight="55.0" prefWidth="220.0" text="Orders">
+                    <graphic>
+                        <ImageView fitHeight="41.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Group%2014.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="settingsButton" layoutX="26.0" layoutY="604.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Guide">
+                    <graphic>
+                        <ImageView fitHeight="44.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@help-252.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="AboutButton" layoutX="26.0" layoutY="687.0" mnemonicParsing="false" onAction="#switchToAboutScene" prefHeight="55.0" prefWidth="220.0" text="About">
+                    <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Group%2013.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </AnchorPane>
+    </left>
+    <right>
+        <AnchorPane fx:id="homePageCenter" prefHeight="837.0" prefWidth="1329.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="homeTitle" layoutX="554.0" layoutY="14.0" text="About Screen" />
+                <Label fx:id="rowResult" layoutX="286.0" layoutY="403.0" prefHeight="17.0" prefWidth="48.0" />
+            <AnchorPane fx:id="center" layoutX="25.0" layoutY="69.0" prefHeight="486.0" prefWidth="1284.0">
+               <children>
+                  <Label fx:id="undertitle" layoutX="14.0" layoutY="14.0" text="About this App:" />
+                  <Label fx:id="text" layoutX="14.0" layoutY="55.0" text="This is a project Developed in my 7th Semester in University, for the Class named &quot;Database Technologies&quot;" />
+                  <Label fx:id="text" layoutX="14.0" layoutY="85.0" text="this was a project that asked of us to create an application using JavaSwing or JavaFx for the UI" />
+                  <Label fx:id="text" layoutX="14.0" layoutY="115.0" text="and connect to either an Oracle or PostgreSQL Relation Database of Minimum 5 Tables with Primary" />
+                  <Label fx:id="text" layoutX="14.0" layoutY="145.0" text="and Foreign keys" />
+                  <Label fx:id="text" layoutX="14.0" layoutY="168.0" text="The Application needed to meet a certain standard" />
+                  <Label fx:id="text" layoutX="14.0" layoutY="195.0" text="and afterwards you could go as far beyond as you wished, the standards were a minimum of" />
+                  <Label fx:id="text" layoutX="14.0" layoutY="226.0" text="5 tables in a relational model, 1 or more log file tables, 10 Prepared Statements" />
+                  <Label fx:id="text" layoutX="14.0" layoutY="256.0" text="with parameters called at runtime, INSERT/UPDATE/DELETE functions through the ui." />
+                  <Label fx:id="text" layoutX="511.0" layoutY="299.0" text="Technologies Used:" />
+                  <ImageView fitHeight="99.0" fitWidth="109.0" layoutX="475.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@257a8be2-bbf2-4218-a55b-219d819578b2-removebg-preview.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="text" layoutX="481.0" layoutY="337.0" text="JavaFx" />
+                  <Label fx:id="text" layoutX="669.0" layoutY="337.0" text="PostgreSQL" />
+                  <ImageView fitHeight="99.0" fitWidth="109.0" layoutX="684.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Postgresql_elephant.svg-removebg-preview.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="center" layoutX="26.0" layoutY="573.0" prefHeight="267.0" prefWidth="1283.0">
+               <children>
+                  <Label fx:id="undertitle" layoutX="14.0" layoutY="14.0" text="About the Creator:" />
+                  <Label fx:id="text" layoutX="14.0" layoutY="54.0" text="Im Currently an Undergraduate Student at I.H.U, " />
+                  <Label fx:id="text" layoutX="14.0" layoutY="88.0" text="Department of Information and Electronics Engineering, in my 4th year." />
+               </children>
+            </AnchorPane>
+            </children>
+        </AnchorPane>
+    </right>
+</BorderPane>
