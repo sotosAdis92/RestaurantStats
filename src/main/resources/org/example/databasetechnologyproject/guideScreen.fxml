@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="scene1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="1600.0" stylesheets="@styleCustomer.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.CustomerController">
+<BorderPane fx:id="scene1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="1600.0" stylesheets="@styleCustomer.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.guideController">
     <top>
         <AnchorPane fx:id="stage" prefHeight="74.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
             <children>
@@ -46,7 +46,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="CustomersButton" layoutX="26.0" layoutY="111.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="220.0" text="Customers" textAlignment="CENTER">
+                <Button fx:id="CustomersButton" layoutX="26.0" layoutY="111.0" mnemonicParsing="false" onAction="#switchToSceneCustomer" prefHeight="55.0" prefWidth="220.0" text="Customers" textAlignment="CENTER">
                     <graphic>
                         <ImageView fx:id="customerView" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>

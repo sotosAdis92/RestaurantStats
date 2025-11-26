@@ -640,4 +640,15 @@ public class OrdersController implements Initializable {
             ex.printStackTrace();
         }
     }
+    public void guide(ActionEvent event){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("guideScreen.fxml"));
+            stage1 = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage1.setScene(scene);
+            stage1.show();
+        } catch (IOException ex){
+            System.out.println("Cannot change scenes");
+        }
+    }
 }
