@@ -242,17 +242,7 @@ public class HelloController implements Initializable {
             ex.printStackTrace();
         }
     }
-    public void guide(ActionEvent event){
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("guideScreen.fxml"));
-            stage1 = (Stage)((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage1.setScene(scene);
-            stage1.show();
-        } catch (IOException ex){
-            System.out.println("Cannot change scenes");
-        }
-    }
+
 
     public void select(){
         int year = combo2.getValue();
@@ -660,6 +650,19 @@ public class HelloController implements Initializable {
             stage.show();
         } catch (IOException ex){
             System.out.println("Cannot change scenes");
+            ex.printStackTrace();
+        }
+    }
+    public void guide(ActionEvent event){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("guideScreen.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex){
+            System.out.println("Cannot change scenes");
+            ex.printStackTrace();
         }
     }
 
