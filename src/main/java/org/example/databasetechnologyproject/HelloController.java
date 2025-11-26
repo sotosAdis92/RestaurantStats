@@ -41,9 +41,6 @@ public class HelloController implements Initializable {
     WebView webview1;
     WebEngine engine;
 
-    @FXML
-    WebView webView2;
-    WebEngine engine2;
 
     @FXML
     ComboBox<String> combo1;
@@ -55,11 +52,6 @@ public class HelloController implements Initializable {
     @FXML
     ComboBox<Integer> combo6;
 
-
-    @FXML
-    DatePicker date1;
-    @FXML
-    Label Label111;
     @FXML
     Label Label11;
 
@@ -90,9 +82,7 @@ public class HelloController implements Initializable {
         combo2.setVisible(true);
         combo5.setVisible(false);
         combo6.setVisible(false);
-        date1.setVisible(false);
         Label11.setVisible(false);
-        Label111.setVisible(false);
         Label12.setVisible(false);
         Label1.setVisible(true);
         int currentYear = java.time.Year.now().getValue();
@@ -134,7 +124,6 @@ public class HelloController implements Initializable {
         }
         combo1.getItems().add("Yearly");
         combo1.getItems().add("Monthly");
-        combo1.getItems().add("Daily");
         combo2.setValue(currentYear);
         try{
             String SelectString = "SELECT * FROM getYears()";
@@ -164,7 +153,6 @@ public class HelloController implements Initializable {
 
 
         engine = webview1.getEngine();
-        engine2 = webView2.getEngine();
         int year = combo2.getValue();
         if(combo1.getValue().equals("Yearly")){
             loadPage(year);
@@ -173,9 +161,7 @@ public class HelloController implements Initializable {
             combo2.setVisible(true);
             combo5.setVisible(false);
             combo6.setVisible(false);
-            date1.setVisible(false);
             Label11.setVisible(false);
-            Label111.setVisible(false);
             Label12.setVisible(false);
         }
         else if(combo1.getValue().equals("Monthly")){
@@ -184,20 +170,8 @@ public class HelloController implements Initializable {
             combo2.setVisible(false);
             combo5.setVisible(true);
             combo6.setVisible(true);
-            date1.setVisible(false);
             Label11.setVisible(true);
-            Label111.setVisible(false);
             Label12.setVisible(true);
-        }
-        else if(combo1.getValue().equals("Daily")){
-            Label1.setVisible(false);
-            combo2.setVisible(false);
-            combo5.setVisible(false);
-            combo6.setVisible(false);
-            date1.setVisible(true);
-            Label11.setVisible(false);
-            Label111.setVisible(true);
-            Label12.setVisible(false);
         }
     }
 
@@ -205,16 +179,13 @@ public class HelloController implements Initializable {
         int year = combo2.getValue();
         int year2 = combo5.getValue();
         int month = combo6.getValue();
-        LocalDate date = date1.getValue();
         if(combo1.getValue().equals("Yearly")){
             loadPage(year);
             Label1.setVisible(true);
             combo2.setVisible(true);
             combo5.setVisible(false);
             combo6.setVisible(false);
-            date1.setVisible(false);
             Label11.setVisible(false);
-            Label111.setVisible(false);
             Label12.setVisible(false);
         }
         else if(combo1.getValue().equals("Monthly")){
@@ -223,37 +194,21 @@ public class HelloController implements Initializable {
             combo2.setVisible(false);
             combo5.setVisible(true);
             combo6.setVisible(true);
-            date1.setVisible(false);
             Label11.setVisible(true);
-            Label111.setVisible(false);
             Label12.setVisible(true);
-        }
-        else if(combo1.getValue().equals("Daily")){
-            loadPageDaily(date);
-            Label1.setVisible(false);
-            combo2.setVisible(false);
-            combo5.setVisible(false);
-            combo6.setVisible(false);
-            date1.setVisible(true);
-            Label11.setVisible(false);
-            Label111.setVisible(true);
-            Label12.setVisible(false);
         }
     }
     public void select2(){
         int year = combo2.getValue();
         int year2 = combo5.getValue();
         int month = combo6.getValue();
-        LocalDate date = date1.getValue();
         if(combo1.getValue().equals("Yearly")){
             loadPage(year);
             Label1.setVisible(true);
             combo2.setVisible(true);
             combo5.setVisible(false);
             combo6.setVisible(false);
-            date1.setVisible(false);
             Label11.setVisible(false);
-            Label111.setVisible(false);
             Label12.setVisible(false);
         }
         else if(combo1.getValue().equals("Monthly")){
@@ -262,21 +217,8 @@ public class HelloController implements Initializable {
             combo2.setVisible(false);
             combo5.setVisible(true);
             combo6.setVisible(true);
-            date1.setVisible(false);
             Label11.setVisible(true);
-            Label111.setVisible(false);
             Label12.setVisible(true);
-        }
-        else if(combo1.getValue().equals("Daily")){
-            loadPageDaily(date);
-            Label1.setVisible(false);
-            combo2.setVisible(false);
-            combo5.setVisible(false);
-            combo6.setVisible(false);
-            date1.setVisible(true);
-            Label11.setVisible(false);
-            Label111.setVisible(true);
-            Label12.setVisible(false);
         }
     }
 
@@ -323,8 +265,8 @@ public class HelloController implements Initializable {
                         font-family: Arial, sans-serif;
                     }
                     #chartContainer {
-                        width: 630px;
-                        height: 330px;
+                        width: 850px;
+                        height: 500px;
                         background: white;
                         border-radius: 10px;
                         margin-top: 50px;
@@ -342,7 +284,7 @@ public class HelloController implements Initializable {
             </head>
             <body>
                 <div id="chartContainer">
-                    <canvas id="myChart1" width="630px" height="330px"></canvas>
+                    <canvas id="myChart1" width="850px" height="500px"></canvas>
                 </div>
                 <script>
                     const ctx = document.getElementById('myChart1').getContext('2d');
@@ -454,8 +396,8 @@ public class HelloController implements Initializable {
                         font-family: Arial, sans-serif;
                     }
                     #chartContainer {
-                        width: 630px;
-                        height: 330px;
+                        width: 850px;
+                        height: 500px;
                         background: white;
                         border-radius: 10px;
                         margin-top: 50px;
@@ -473,7 +415,7 @@ public class HelloController implements Initializable {
             </head>
             <body>
                 <div id="chartContainer">
-                    <canvas id="myChart1" width="630px" height="330px"></canvas>
+                    <canvas id="myChart1" width="850px" height="500px"></canvas>
                 </div>
                 <script>
                     const ctx = document.getElementById('myChart1').getContext('2d');
@@ -541,119 +483,6 @@ public class HelloController implements Initializable {
             System.out.println("WebEngine is not initialized");
         }
      }
-    public void loadPageDaily(LocalDate selectedDate){
-
-    }
-    public void loadPage2(){
-        if (engine2 != null) {
-            String htmlContent = """
-                    <!DOCTYPE html>
-                      <html>
-                      <head>
-                          <meta charset="UTF-8">
-                          <title>Monthly Reservations Chart</title>
-                          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                          <style>
-                              body {\s
-                                  margin: 0;\s
-                                  padding: 0px;\s
-                                  background: white;\s
-                                  font-family: Arial, sans-serif;
-                              }
-                              #chartContainer {
-                                  width: 630px;
-                                  height: 390px;
-                                  background: white;
-                                  border-radius: 10px;
-                                  margin-top: 50px;
-                                  padding: 0px;
-                                  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                              }
-                              .chart-title {
-                                  text-align: center;
-                                  font-size: 24px;
-                                  font-weight: bold;
-                                  margin-bottom: 20px;
-                                  color: #333;
-                              }
-                          </style>
-                      </head>
-                      <body>
-                        
-                          <div id="chartContainer">
-                              <canvas id="myChart1" width="630px" height="390px"></canvas>
-                          </div>
-                          <script>
-                              
-                              const ctx = document.getElementById('myChart1').getContext('2d');
-                              const myChart = new Chart(ctx, {
-                                  type: 'bar',
-                                  data: {
-                                      labels: [
-                                          'January', 'February', 'March', 'April', 'May', 'June',
-                                          'July', 'August', 'September', 'October', 'November', 'December'
-                                      ],
-                                      datasets: [{
-                                          label: 'Number of Reservations',
-                                          data: [],
-                                          backgroundColor: [
-                                              '#FFB3BA', '#B3E0FF', '#FFF6B3', '#B3FFDA', '#B3D9FF', '#B3C7D9',
-                                              '#FFB3D9', '#E6B3FF', '#FFE0B3', '#B3E6D9', '#B3D1E0', '#FFB3B3'
-                                          ],
-                                          borderColor: [
-                                              '#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#073B4C',
-                                              '#EF476F', '#7209B7', '#F8961E', '#43AA8B', '#277DA1', '#F94144'
-                                          ],
-                                          borderWidth: 2
-                                      }]
-                                  },
-                                  options: {
-                                      responsive: false,
-                                      maintainAspectRatio: false,
-                                      plugins: {
-                                          legend: {
-                                              display: true,
-                                              position: 'top',
-                                          },
-                                          tooltip: {
-                                              enabled: true
-                                          }
-                                      },
-                                      scales: {
-                                          y: {
-                                              beginAtZero: true,
-                                              title: {
-                                                  display: true,
-                                                  text: 'Number of Reservations'
-                                              },
-                                              ticks: {
-                                                  stepSize: 1
-                                              }
-                                          },
-                                          x: {
-                                              title: {
-                                                  display: true,
-                                                  text: 'Months'
-                                              },
-                                              ticks: {
-                                                  autoSkip: false,
-                                                  maxRotation: 45
-                                              }
-                                          }
-                                      }
-                                  }
-                              });
-                              console.log('Full year chart created!');
-                          </script>
-                      </body>
-                      </html>
-                    """;
-            engine2.loadContent(htmlContent);
-
-        } else {
-            System.out.println("WebEngine is not initialized");
-        }
-    }
 
     public void exitButton(ActionEvent event){
         Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);

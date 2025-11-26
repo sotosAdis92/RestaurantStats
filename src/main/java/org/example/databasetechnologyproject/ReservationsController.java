@@ -175,8 +175,8 @@ public class ReservationsController implements Initializable {
         select1.setValue("Any");
         select2.setValue("Any");
         select3.setValue("12:00:00");
-        select4.setValue(LocalDate.now());
-        select5.setValue(LocalDate.now());
+        select4.setValue(null);
+        select5.setValue(null);
         System.out.println(url);
         System.out.println(user);
         System.out.println(password);
@@ -676,43 +676,40 @@ public class ReservationsController implements Initializable {
     public void select(ActionEvent event){
         try{
             Reservations.clear();
+
             LocalDate date1 = select4.getValue();
             LocalDate date2 = select5.getValue();
-            LocalTime t = LocalTime.parse(select3.getValue());
+            LocalTime t = null;
 
-            LocalDateTime dateTime1 = LocalDateTime.of(date1,t);
-            LocalDateTime dateTime2 = LocalDateTime.of(date2,t);
 
-            Timestamp timestamp1 = Timestamp.valueOf(dateTime1);
-            Timestamp timestamp2 = Timestamp.valueOf(dateTime2);
+            try {
+                if (select3.getValue() != null) {
+                    t = LocalTime.parse(select3.getValue());
+                }
+            } catch (Exception e) {
+                System.out.println("DEBUG: Failed to parse time: " + e.getMessage());
 
-            if (!validateDatesForQuery(date1, date2)) {
-                return;
             }
+
+
 
             Object tableValue = select1.getValue();
             Object partySizeValue = select2.getValue();
 
-            String digits1 = timestamp1.toString();
-            String digits2 = timestamp2.toString();
 
-            String removeddigits = digits1.replace(".0","");
-            String removeddigits2 = digits2.replace(".0","");
-
-            Timestamp t1 = Timestamp.valueOf(removeddigits);
-            Timestamp t2 = Timestamp.valueOf(removeddigits2);
 
             String selectString = "SELECT * FROM getFilteredRes(?,?,?,?)";
             String selectString2 = "SELECT COUNT(*) FROM getFilteredRes(?,?,?,?)";
+
+
+
             getRating = dbConnection.prepareStatement(selectString2);
             selector = dbConnection.prepareStatement(selectString);
+
 
             if (tableValue instanceof Integer) {
                 selector.setInt(1, (Integer) tableValue);
                 getRating.setInt(1, (Integer) tableValue);
-            } else if ("Any".equals(tableValue)) {
-                selector.setNull(1, Types.INTEGER);
-                getRating.setNull(1, Types.INTEGER);
             } else {
                 selector.setNull(1, Types.INTEGER);
                 getRating.setNull(1, Types.INTEGER);
@@ -720,24 +717,56 @@ public class ReservationsController implements Initializable {
 
 
             if (partySizeValue instanceof Integer) {
+                System.out.println("DEBUG: Setting party = " + partySizeValue);
                 selector.setInt(2, (Integer) partySizeValue);
                 getRating.setInt(2, (Integer) partySizeValue);
-            } else if ("Any".equals(partySizeValue)) {
-                selector.setNull(2, Types.INTEGER);
-                getRating.setNull(2, Types.INTEGER);
             } else {
+                System.out.println("DEBUG: Setting party = NULL");
                 selector.setNull(2, Types.INTEGER);
                 getRating.setNull(2, Types.INTEGER);
             }
-            selector.setTimestamp(3, t1);
-            selector.setTimestamp(4, t2);
 
-            getRating.setTimestamp(3, t1);
-            getRating.setTimestamp(4, t2);
+
+            if (date1 != null && date2 != null && t != null) {
+
+                LocalDateTime dateTimeStart = LocalDateTime.of(date1, LocalTime.MIN);
+                LocalDateTime dateTimeEnd = LocalDateTime.of(date2, LocalTime.of(23, 59, 59));
+
+                Timestamp timestampStart = Timestamp.valueOf(dateTimeStart);
+                Timestamp timestampEnd = Timestamp.valueOf(dateTimeEnd);
+
+
+                selector.setTimestamp(3, timestampStart);
+                selector.setTimestamp(4, timestampEnd);
+                getRating.setTimestamp(3, timestampStart);
+                getRating.setTimestamp(4, timestampEnd);
+            } else if (date1 != null && date2 != null && t == null) {
+
+                LocalDateTime dateTimeStart = LocalDateTime.of(date1, LocalTime.MIN);
+                LocalDateTime dateTimeEnd = LocalDateTime.of(date2, LocalTime.of(23, 59, 59));
+
+                Timestamp timestampStart = Timestamp.valueOf(dateTimeStart);
+                Timestamp timestampEnd = Timestamp.valueOf(dateTimeEnd);
+
+
+                selector.setTimestamp(3, timestampStart);
+                selector.setTimestamp(4, timestampEnd);
+                getRating.setTimestamp(3, timestampStart);
+                getRating.setTimestamp(4, timestampEnd);
+            } else {
+                selector.setNull(3, Types.TIMESTAMP);
+                selector.setNull(4, Types.TIMESTAMP);
+                getRating.setNull(3, Types.TIMESTAMP);
+                getRating.setNull(4, Types.TIMESTAMP);
+            }
+
 
             ResultSet rs = selector.executeQuery();
             ResultSet rs2 = getRating.executeQuery();
+
+            int rowCount = 0;
             while(rs.next()){
+                rowCount++;
                 int id = rs.getInt(1);
                 int cid = rs.getInt(2);
                 int tid = rs.getInt(3);
@@ -745,12 +774,20 @@ public class ReservationsController implements Initializable {
                 int pt = rs.getInt(5);
                 Reservation r = new Reservation(id,cid,tid,rv,pt);
                 Reservations.add(r);
+
             }
-            while(rs2.next()){
+
+
+            if(rs2.next()){
                 int result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
+
+
         } catch (SQLException ex){
+
+            ex.printStackTrace();
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -758,8 +795,8 @@ public class ReservationsController implements Initializable {
         select1.setValue("Any");
         select2.setValue("Any");
         select3.setValue("12:00:00");
-        select4.setValue(LocalDate.now());
-        select5.setValue(LocalDate.now());
+        select4.setValue(null);
+        select5.setValue(null);
         refresh();
     }
     private boolean validateDatesForQuery(LocalDate fromDate, LocalDate toDate) {
