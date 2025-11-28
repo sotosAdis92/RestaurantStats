@@ -93,7 +93,17 @@ public class HelloController implements Initializable {
 
     @FXML
     private Label la3;
+    @FXML
+    Label total;
 
+    @FXML
+    Label tsi;
+
+    @FXML
+    Label lrt;
+
+    @FXML
+    Label per;
     private DialogPane dialog;
     PreparedStatement fillTable;
     PreparedStatement delete;
@@ -304,6 +314,58 @@ public class HelloController implements Initializable {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }
+
+        try{
+            String SelectString = "SELECT * FROM getCountCustomers()";
+            fillTable = dbConnection.prepareStatement(SelectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            while(rs.next()){
+                int num = rs.getInt(1);
+                total.setText(String.valueOf(num));
+            }
+        } catch (SQLException ex){
+
+        }
+
+        try{
+            String SelectString = "SELECT * FROM getBestItem()";
+            fillTable = dbConnection.prepareStatement(SelectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            while(rs.next()){
+                String num = rs.getString(2);
+                tsi.setText(num);
+            }
+        } catch (SQLException ex){
+
+        }
+
+        try{
+            String SelectString = "SELECT * FROM leastReservedTable()";
+            fillTable = dbConnection.prepareStatement(SelectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            while(rs.next()){
+                int num = rs.getInt(1);
+                lrt.setText(String.valueOf(num));
+            }
+        } catch (SQLException ex){
+
+        }
+
+        try{
+            String SelectString = "SELECT * FROM getTopEmployee()";
+            fillTable = dbConnection.prepareStatement(SelectString);
+            fillTable.executeQuery();
+            ResultSet rs = fillTable.getResultSet();
+            while(rs.next()){
+                String num = rs.getString(2);
+                per.setText(num);
+            }
+        } catch (SQLException ex){
+
         }
     }
 
@@ -665,7 +727,6 @@ public class HelloController implements Initializable {
             System.out.println("WebEngine is not initialized");
         }
     }
-
     public void loadPage(int year){
         int[] nums = new int[12];
         int[] months = new int[12];
@@ -799,7 +860,6 @@ public class HelloController implements Initializable {
             System.out.println("WebEngine is not initialized");
         }
     }
-
     public void loadPageMonthly(int year,int month){
         int[] dailyData = new int[31];
         Arrays.fill(dailyData, 0);
@@ -927,7 +987,6 @@ public class HelloController implements Initializable {
             System.out.println("WebEngine is not initialized");
         }
      }
-
     public void exitButton(ActionEvent event){
         Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
         dialog = alert2.getDialogPane();
@@ -981,7 +1040,6 @@ public class HelloController implements Initializable {
             System.out.println("Cannot change scenes");
         }
     }
-
     public void switchToMenuScreen(ActionEvent event){
         try {
             Parent root = FXMLLoader.load(getClass().getResource("menuScreen.fxml"));
