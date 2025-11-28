@@ -427,6 +427,94 @@
 
 #center19{
     -fx-font-size: 17px;
+    -fx-text-fill: #854d0e;
+    -fx-background-color: #fef9c3;
+    -fx-border-color: #eab308;
+    -fx-border-width: 1px;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(234, 179, 8, 0.2), 8, 0.2, 0, 2);
+}
+#center19:hover{
+    -fx-background-color: #fef08a;
+    -fx-border-color: #ca8a04;
+    -fx-text-fill: #713f12;
+    -fx-effect: dropshadow(gaussian, rgba(202, 138, 4, 0.3), 10, 0.3, 0, 3);
+}
+
+/* Total Customers - Orange */
+#center89{
+    -fx-font-size: 17px;
+    -fx-text-fill: #9a3412;
+    -fx-background-color: #ffedd5;
+    -fx-border-color: #ea580c;
+    -fx-border-width: 1px;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(234, 88, 12, 0.2), 8, 0.2, 0, 2);
+}
+#center89:hover{
+    -fx-background-color: #fed7aa;
+    -fx-border-color: #c2410c;
+    -fx-text-fill: #7c2d12;
+    -fx-effect: dropshadow(gaussian, rgba(194, 65, 12, 0.3), 10, 0.3, 0, 3);
+}
+
+#centerXX{
+    -fx-font-size: 17px;
+    -fx-text-fill: #0f766e;
+    -fx-background-color: #ccfbf1;
+    -fx-border-color: #14b8a6;
+    -fx-border-width: 1px;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(20, 184, 166, 0.2), 8, 0.2, 0, 2);
+}
+#centerXX:hover{
+    -fx-background-color: #99f6e4;
+    -fx-border-color: #0d9488;
+    -fx-text-fill: #115e59;
+    -fx-effect: dropshadow(gaussian, rgba(13, 148, 136, 0.3), 10, 0.3, 0, 3);
+}
+
+/* Least Reserved Table - Indigo (darker purple) */
+#centerYY{
+    -fx-font-size: 17px;
+    -fx-text-fill: #3730a3;
+    -fx-background-color: #e0e7ff;
+    -fx-border-color: #6366f1;
+    -fx-border-width: 1px;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(99, 102, 241, 0.2), 8, 0.2, 0, 2);
+}
+#centerYY:hover{
+    -fx-background-color: #c7d2fe;
+    -fx-border-color: #4f46e5;
+    -fx-text-fill: #312e81;
+    -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.3), 10, 0.3, 0, 3);
+}
+
+/* Performative Employee - Rose */
+#centerZZ{
+    -fx-font-size: 17px;
+    -fx-text-fill: #be123c;
+    -fx-background-color: #ffe4e6;
+    -fx-border-color: #fb7185;
+    -fx-border-width: 1px;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(251, 113, 133, 0.2), 8, 0.2, 0, 2);
+}
+#centerZZ:hover{
+    -fx-background-color: #fecdd3;
+    -fx-border-color: #e11d48;
+    -fx-text-fill: #9f1239;
+    -fx-effect: dropshadow(gaussian, rgba(225, 29, 72, 0.3), 10, 0.3, 0, 3);
+}
+
+#center20{
+    -fx-font-size: 17px;
     -fx-text-fill: #1e40af;
     -fx-background-color: #dbeafe;
     -fx-border-color: #3b82f6;
@@ -435,28 +523,11 @@
     -fx-border-radius: 12;
     -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.2), 8, 0.2, 0, 2);
 }
-#center19:hover{
+#center20:hover{
     -fx-background-color: #bfdbfe;
     -fx-border-color: #2563eb;
     -fx-text-fill: #1e3a8a;
     -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.3), 10, 0.3, 0, 3);
-}
-
-#center20{
-    -fx-font-size: 17px;
-    -fx-text-fill: #9a3412;
-    -fx-background-color: #ffedd5;
-    -fx-border-color: #9a3412;
-    -fx-border-width: 1px;
-    -fx-background-radius: 12;
-    -fx-border-radius: 12;
-    -fx-effect: dropshadow(gaussian, rgba(154, 52, 18, 0.2), 8, 0.2, 0, 2);
-}
-#center20:hover{
-    -fx-background-color: #fed7aa;
-    -fx-border-color: #7c2d12;
-    -fx-text-fill: #7c2d12;
-    -fx-effect: dropshadow(gaussian, rgba(124, 45, 18, 0.3), 10, 0.3, 0, 3);
 }
 
 #center50{
@@ -478,25 +549,43 @@
 
 #center100{
     -fx-font-size: 17px;
-    -fx-text-fill: #854d0e;
-    -fx-background-color: #fef9c3;
-    -fx-border-color: #eab308;
+    -fx-text-fill: #581c87;
+    -fx-background-color: #f3e8ff;
+    -fx-border-color: #a855f7;
     -fx-border-width: 1px;
     -fx-background-radius: 12;
     -fx-border-radius: 12;
-    -fx-effect: dropshadow(gaussian, rgba(234, 179, 8, 0.2), 8, 0.2, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(168, 85, 247, 0.2), 8, 0.2, 0, 2);
 }
 #center100:hover{
-    -fx-background-color: #fef08a;
-    -fx-border-color: #ca8a04;
-    -fx-text-fill: #713f12;
-    -fx-effect: dropshadow(gaussian, rgba(202, 138, 4, 0.3), 10, 0.3, 0, 3);
+    -fx-background-color: #e9d5ff;
+    -fx-border-color: #9333ea;
+    -fx-text-fill: #4c1d95;
+    -fx-effect: dropshadow(gaussian, rgba(147, 51, 234, 0.3), 10, 0.3, 0, 3);
 }
 #customer{
     -fx-font-weight: bold;
     -fx-font-size: 24px;
 }
+#total{
+
+        -fx-font-weight: bold;
+        -fx-font-size: 24px;
+
+}
 #table{
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+#tsi{
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+#per{
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+#lrt{
     -fx-font-weight: bold;
     -fx-font-size: 24px;
 }
