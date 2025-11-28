@@ -138,7 +138,7 @@
                   <Label fx:id="rowsLabel" layoutX="69.0" layoutY="23.0" text="Reservation Statistics" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="center20" layoutX="367.0" layoutY="55.0" prefHeight="127.0" prefWidth="307.0">
+            <AnchorPane fx:id="center20" layoutX="689.0" layoutY="55.0" prefHeight="127.0" prefWidth="307.0">
                <children>
                   <Label fx:id="Label11" layoutX="52.0" layoutY="14.0" text="Most Reserved Table" />
                   <ImageView fitHeight="36.0" fitWidth="45.0" layoutX="30.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
@@ -148,7 +148,7 @@
                   </ImageView>
                   <Label fx:id="table" layoutX="143.0" layoutY="46.0" prefHeight="35.0" prefWidth="127.0" />
                </children></AnchorPane>
-            <AnchorPane fx:id="center50" layoutX="696.0" layoutY="55.0" prefHeight="127.0" prefWidth="296.0">
+            <AnchorPane fx:id="center50" layoutX="369.0" layoutY="55.0" prefHeight="127.0" prefWidth="296.0">
                <children>
                   <Label fx:id="Label11" layoutX="51.0" layoutY="14.0" text="Average Order Cost" />
                   <ImageView fitHeight="40.0" fitWidth="45.0" layoutX="29.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
