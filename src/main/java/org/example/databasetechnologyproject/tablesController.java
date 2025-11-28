@@ -97,6 +97,7 @@ public class tablesController implements Initializable {
         c1.setSelected(true);
         c2.setSelected(false);
         c3.setSelected(false);
+
         try {
             Class.forName(driverClassName);
             System.out.println("JDBC driver loaded successfully");
@@ -293,6 +294,7 @@ public class tablesController implements Initializable {
         capacity.setCellValueFactory(new PropertyValueFactory<Tables, Integer>("capacity"));
         status.setCellValueFactory(new PropertyValueFactory<Tables, String>("status"));
         customerTable.setItems(tabl);
+        refreshTableStatuses();
     }
     public void showNotification(int ind){
         Stage toastStage = new Stage();
@@ -1001,6 +1003,15 @@ public class tablesController implements Initializable {
             textfield3.setDisable(true);
             textfield.setDisable(true);
             textfield2.setDisable(true);
+        }
+    }
+    private void refreshTableStatuses() {
+        try {
+            String sql = "SELECT refresh_table_statuses()";
+            getFirstName = dbConnection.prepareStatement(sql);
+            getFirstName.executeQuery();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 }
