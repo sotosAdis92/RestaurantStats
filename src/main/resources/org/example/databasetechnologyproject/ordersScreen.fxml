@@ -204,7 +204,7 @@
                             </image>
                         </ImageView>
                         <Label fx:id="utilityLabel" layoutX="56.0" layoutY="16.0" text="Table Actions:" />
-                  <Button fx:id="view" layoutX="55.0" layoutY="442.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="210.0" text="View Order Items">
+                  <Button fx:id="view" layoutX="55.0" layoutY="442.0" mnemonicParsing="false" onAction="#openOrderDetails" prefHeight="60.0" prefWidth="210.0" text="View Order Items">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>

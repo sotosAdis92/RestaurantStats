@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane fx:id="center" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="904.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="center" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="904.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.databasetechnologyproject.OrderDetailsController">
    <children>
       <Label fx:id="r" layoutX="54.0" layoutY="16.0" text="Order Details">
          <font>
@@ -24,7 +24,7 @@
       </ImageView>
       <AnchorPane fx:id="center" layoutX="10.0" layoutY="409.0" prefHeight="486.0" prefWidth="682.0">
          <children>
-            <TableView layoutX="29.0" prefHeight="475.0" prefWidth="70.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+            <TableView fx:id="ta" layoutX="29.0" prefHeight="475.0" prefWidth="70.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                <columns>
                   <TableColumn fx:id="item" prefWidth="75.0" text="Item" />
                   <TableColumn fx:id="q" prefWidth="75.0" text="Quantity" />
@@ -55,7 +55,7 @@
                   <Image url="@Group%2010.png" />
                </image>
             </ImageView>
-            <Label fx:id="table" layoutX="130.0" layoutY="58.0" text="Label" />
+            <Label fx:id="table" layoutX="133.0" layoutY="58.0" text="Label" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="center1000" layoutX="18.0" layoutY="238.0" prefHeight="150.0" prefWidth="320.0">
@@ -66,7 +66,7 @@
                   <Image url="@dffd-removebg-preview.png" />
                </image>
             </ImageView>
-            <Label fx:id="order" layoutX="130.0" layoutY="61.0" text="Label" />
+            <Label fx:id="order" layoutX="77.0" layoutY="61.0" text="Label" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="center500" layoutX="366.0" layoutY="238.0" prefHeight="150.0" prefWidth="320.0">

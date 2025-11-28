@@ -651,4 +651,23 @@ public class OrdersController implements Initializable {
             System.out.println("Cannot change scenes");
         }
     }
+    public void openOrderDetails(ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("orderDetails.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Insert Form");
+            Image icon = new Image("logos.png");
+            stage.getIcons().add(icon);
+            stage.setScene(new Scene(root));
+            Order selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+            int customerId = selectedCustomer.getOrderid();
+            OrderDetailsController od = fxmlLoader.getController();
+            od.setOrderId(customerId);
+            System.out.println("Scene1"+customerId);
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }
