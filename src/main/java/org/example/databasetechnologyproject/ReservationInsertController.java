@@ -34,7 +34,7 @@ public class ReservationInsertController implements Initializable {
     @FXML
     PreparedStatement insert;
     @FXML
-    TableColumn<Reservation, Integer> customerColumn;
+    TableColumn<Reservation, String> customerColumn;
     @FXML
     TableColumn<Reservation, Integer> tableColumn;
     @FXML
@@ -84,7 +84,6 @@ public class ReservationInsertController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
         text1.setValue("Pick a customer from the database");
-        text2.setValue(0);
         text3.setValue("12:00");
         try{
             Class.forName(driverClassName);
@@ -113,6 +112,7 @@ public class ReservationInsertController implements Initializable {
             ex.printStackTrace();
         }
         try{
+            Integer firstTableNumber = null;
             String selectString = "SELECT * FROM getTableNumber()";
             getTabelNumb = dbConnection.prepareStatement(selectString);
             getTabelNumb.executeQuery();
@@ -120,6 +120,14 @@ public class ReservationInsertController implements Initializable {
             while(rs.next()){
                 int number = rs.getInt(1);
                 text2.getItems().add(number);
+                if (firstTableNumber == null) {
+                    firstTableNumber = number;
+                }
+                if (firstTableNumber != null) {
+                    text2.setValue(firstTableNumber);
+                } else {
+                    text2.setValue(0);
+                }
             }
         } catch (SQLException ex){
             ex.printStackTrace();;
@@ -145,7 +153,7 @@ public class ReservationInsertController implements Initializable {
     public void setTableView(TableView<Reservation> reservationTable){
         this.reservationTable = reservationTable;
     }
-    public void setCustomerColumn(TableColumn<Reservation, Integer> customerColumn){
+    public void setCustomerColumn(TableColumn<Reservation, String> customerColumn){
         this.customerColumn = customerColumn;
     }
     public void setTableColumn(TableColumn<Reservation, Integer> tableColumn){
@@ -398,11 +406,24 @@ public class ReservationInsertController implements Initializable {
 
         Timestamp timestamp = Timestamp.valueOf(dateTime);
 
+        int tableId = 0;
+        try {
+            String query = "SELECT * FROM getIdFromTableNumber(?)";
+            PreparedStatement stmt = dbConnection.prepareStatement(query);
+            stmt.setInt(1, tableNumber);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                tableId = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
         try{
             String selectString = "SELECT insertReserve(?,?,?,?)";
             setReservation = dbConnection.prepareStatement(selectString);
             setReservation.setInt(1, id);
-            setReservation.setInt(2, tableNumber);
+            setReservation.setInt(2, tableId);
             setReservation.setTimestamp(3, timestamp);
             setReservation.setInt(4, party_size);
             ResultSet rs = setReservation.executeQuery();

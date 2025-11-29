@@ -170,9 +170,13 @@ public class tablesController implements Initializable {
         }
         try{
             String selectString = "SELECT * FROM fillTablesTable()";
+            String selectString2 = "SELECT COUNT(*) FROM fillTablesTable()";
             getFirstName = dbConnection.prepareStatement(selectString);
+            getCountCustomer = dbConnection.prepareStatement(selectString2);
             getFirstName.executeQuery();
+            getCountCustomer.executeQuery();
             ResultSet rs = getFirstName.getResultSet();
+            ResultSet rs2 = getCountCustomer.getResultSet();
             while(rs.next()){
                 int id = rs.getInt(1);
                 int tnum = rs.getInt(2);
@@ -180,6 +184,11 @@ public class tablesController implements Initializable {
                 String state = rs.getString(4);
                 Tables ta1 = new Tables(id,tnum,c,state);
                 tabl.add(ta1);
+            }
+            while(rs2.next()){
+                int num = rs2.getInt(1);
+                System.out.println(num);
+                rowResult.setText(String.valueOf(num));
             }
         }catch (SQLException ex){
             ex.printStackTrace();
@@ -499,11 +508,14 @@ public class tablesController implements Initializable {
     }
     public void refresh(){
         try{
-            tabl.clear();
             String selectString = "SELECT * FROM fillTablesTable()";
             getFirstName = dbConnection.prepareStatement(selectString);
             getFirstName.executeQuery();
+            String selectString2 = "SELECT COUNT(*) FROM fillTablesTable()";
+            getFirstName = dbConnection.prepareStatement(selectString2);
+            getFirstName.executeQuery();
             ResultSet rs = getFirstName.getResultSet();
+            ResultSet rs2 = getFirstName.getResultSet();
             while(rs.next()){
                 int id = rs.getInt(1);
                 int tnum = rs.getInt(2);
@@ -511,6 +523,10 @@ public class tablesController implements Initializable {
                 String state = rs.getString(4);
                 Tables ta1 = new Tables(id,tnum,c,state);
                 tabl.add(ta1);
+            }
+            while(rs2.next()){
+                int num = rs2.getInt(1);
+                rowResult.setText(String.valueOf(num));
             }
         }catch (SQLException ex){
             ex.printStackTrace();

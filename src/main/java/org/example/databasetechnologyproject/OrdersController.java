@@ -104,7 +104,10 @@ public class OrdersController implements Initializable {
         date1.setValue(LocalDate.now());
         date2.setValue(LocalDate.now());
         c1.setSelected(true);
+        combo1.setValue("all");
         c2.setSelected(false);
+        date1.setDisable(true);
+        date2.setDisable(true);
         try {
             dbConnection = DriverManager.getConnection(url, user, password);
             System.out.println("Database connection established successfully");
@@ -631,6 +634,7 @@ public class OrdersController implements Initializable {
             date1.setDisable(true);
             date2.setDisable(true);
             combo1.setDisable(false);
+            combo1.setValue("all");
             refresh();
 
             System.out.println("Filters reset successfully");

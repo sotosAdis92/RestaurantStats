@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
@@ -36,6 +37,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class ReservationsController implements Initializable {
@@ -70,7 +73,7 @@ public class ReservationsController implements Initializable {
     private Button TablesButton;
 
     @FXML
-    private TableColumn<Reservation, Integer> customerColumn;
+    private TableColumn<Reservation, String> customerColumn;
 
     @FXML
     private ImageView customerView;
@@ -235,9 +238,11 @@ public class ReservationsController implements Initializable {
                 int id = rs.getInt(1);
                 int cid = rs.getInt(2);
                 int tid = rs.getInt(3);
-                Timestamp d = rs.getTimestamp(4);
-                int ps = rs.getInt(5);
-                Reservation reserve = new Reservation(id,cid,tid,d,ps);
+                int tnumber = rs.getInt(4);
+                Timestamp d = rs.getTimestamp(5);
+                int ps = rs.getInt(6);
+                String n = rs.getString(7);
+                Reservation reserve = new Reservation(id,cid,tid,d,ps,n,tnumber);
                 Reservations.add(reserve);
             }
             if(rs2.next()){
@@ -246,6 +251,7 @@ public class ReservationsController implements Initializable {
             }
         }catch (SQLException ex){
             System.out.println("SQL error");
+            ex.printStackTrace();
         }
         try{
             select1.getItems().add("Any");
@@ -276,78 +282,140 @@ public class ReservationsController implements Initializable {
 
         customerColumn.setCellValueFactory(cellData -> {
             Reservation r = cellData.getValue();
-            return new SimpleIntegerProperty(r.getCustomerid()).asObject();
+            return new SimpleStringProperty(r.getCname());
         });
-        customerColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        customerColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Reservation, Integer>>() {
+
+        ObservableList<String> customerNames = FXCollections.observableArrayList();
+        Map<String, Integer> nameToIdMap = new HashMap<>();
+
+        try {
+            String query = "SELECT * FROM getN()";
+            PreparedStatement stmt = dbConnection.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int customerId = rs.getInt(1);
+                String firstName = rs.getString(2);
+                String lastName = rs.getString(3);
+                String fullName = firstName + " " + lastName;
+
+                customerNames.add(fullName);
+                nameToIdMap.put(fullName, customerId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        customerColumn.setCellFactory(ComboBoxTableCell.forTableColumn(customerNames));
+
+        customerColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Reservation, String>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Reservation, Integer> event) {
+            public void handle(TableColumn.CellEditEvent<Reservation, String> event) {
                 Reservation rev = event.getRowValue();
-                rev.setCustomerid(event.getNewValue());
+                String selectedCustomerName = event.getNewValue();
 
-                int cid = rev.getCustomerid();
-                int tid = rev.getTableid();
-                Timestamp time = rev.getReservationtime();
-                int ps = rev.getParty_size();
-                int rid = rev.getReservationid();
+                Integer newCustomerId = nameToIdMap.get(selectedCustomerName);
 
-                try{
-                    String updateString = "SELECT updateReservatio(?,?,?,?,?)";
-                    update = dbConnection.prepareStatement(updateString);
-                    update.setInt(1, rid);
-                    update.setInt(2, cid);
-                    update.setTimestamp(3, time);
-                    update.setInt(4, tid);
-                    update.setInt(5, ps);
-                    update.executeQuery();
+                if (newCustomerId != null) {
+                    rev.setCustomerid(newCustomerId);
+                    rev.setCname(selectedCustomerName); // Update the displayed name
 
-                } catch (SQLException e){
-                    e.printStackTrace();
+                    int cid = rev.getCustomerid();
+                    int tid = rev.getTableid();
+                    Timestamp time = rev.getReservationtime();
+                    int ps = rev.getParty_size();
+                    int rid = rev.getReservationid();
+
+                    try{
+                        String updateString = "SELECT updateReservatio(?,?,?,?,?)";
+                        update = dbConnection.prepareStatement(updateString);
+                        update.setInt(1, rid);
+                        update.setInt(2, cid);
+                        update.setTimestamp(3, time);
+                        update.setInt(4, tid);
+                        update.setInt(5, ps);
+                        update.executeQuery();
+
+                    } catch (SQLException e){
+                        e.printStackTrace();
+                    }
+
+                    int selectedIndex = ReservationTable.getSelectionModel().getSelectedIndex();
+                    i = selectedIndex + 1;
+                    refresh();
+                    ReservationServiceClass.getInstance().triggerRefresh();
+                    showNotification(i);
+                } else {
+                    refresh();
                 }
-
-                int selectedIndex = ReservationTable.getSelectionModel().getSelectedIndex();
-                i = selectedIndex + 1;
-                refresh();
-                ReservationServiceClass.getInstance().triggerRefresh();
-                showNotification(i);
             }
         });
+
+
+
+        ObservableList<Integer> tableNumbers = FXCollections.observableArrayList();
+        Map<Integer, Integer> tableNumberToIdMap = new HashMap<>();
+
+        try {
+            String query = "SELECT * FROM getTableChars()";
+            PreparedStatement stmt = dbConnection.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int tableId = rs.getInt(1);
+                int tableNumber = rs.getInt(2);
+                tableNumbers.add(tableNumber);
+                tableNumberToIdMap.put(tableNumber, tableId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         tableColumn.setCellValueFactory(cellData -> {
             Reservation r = cellData.getValue();
-            return new SimpleIntegerProperty(r.getTableid()).asObject();
+            return new SimpleIntegerProperty(r.getTableNumber()).asObject();
         });
-        tableColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
+        tableColumn.setCellFactory(ComboBoxTableCell.forTableColumn(tableNumbers));
+
         tableColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Reservation, Integer>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Reservation, Integer> event) {
                 Reservation rev = event.getRowValue();
-                rev.setTableid(event.getNewValue());
+                int selectedTableNumber = event.getNewValue();
 
-                int cid = rev.getCustomerid();
-                int tid = rev.getTableid();
-                Timestamp time = rev.getReservationtime();
-                int ps = rev.getParty_size();
-                int rid = rev.getReservationid();
+                Integer newTableId = tableNumberToIdMap.get(selectedTableNumber);
 
-                try{
-                    String updateString = "SELECT updateReservatio(?,?,?,?,?)";
-                    update = dbConnection.prepareStatement(updateString);
-                    update.setInt(1, rid);
-                    update.setInt(2, cid);
-                    update.setTimestamp(3, time);
-                    update.setInt(4, tid);
-                    update.setInt(5, ps);
-                    update.executeQuery();
+                if (newTableId != null) {
+                    rev.setTableid(newTableId);
+                    rev.setTableNumber(selectedTableNumber);
 
-                } catch (SQLException e){
-                    e.printStackTrace();
+                    int cid = rev.getCustomerid();
+                    int tid = rev.getTableid();
+                    Timestamp time = rev.getReservationtime();
+                    int ps = rev.getParty_size();
+                    int rid = rev.getReservationid();
+
+                    try{
+                        String updateString = "SELECT updateReservatio(?,?,?,?,?)";
+                        update = dbConnection.prepareStatement(updateString);
+                        update.setInt(1, rid);
+                        update.setInt(2, cid);
+                        update.setTimestamp(3, time);
+                        update.setInt(4, tid);
+                        update.setInt(5, ps);
+                        update.executeQuery();
+
+                    } catch (SQLException e){
+                        e.printStackTrace();
+                    }
+
+                    int selectedIndex = ReservationTable.getSelectionModel().getSelectedIndex();
+                    i = selectedIndex + 1;
+                    refresh();
+                    ReservationServiceClass.getInstance().triggerRefresh();
+                    showNotification(i);
+                } else {
+                    refresh();
                 }
-
-                int selectedIndex = ReservationTable.getSelectionModel().getSelectedIndex();
-                i = selectedIndex + 1;
-                refresh();
-                ReservationServiceClass.getInstance().triggerRefresh();
-                showNotification(i);
             }
         });
 
@@ -392,8 +460,8 @@ public class ReservationsController implements Initializable {
 
         ReservationTable.setItems(Reservations);
 
-        customerColumn.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("customerid"));
-        tableColumn.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("tableid"));
+        customerColumn.setCellValueFactory(new PropertyValueFactory<Reservation, String>("cname"));
+        tableColumn.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("tableNumber"));
         timeColumn.setCellValueFactory(new PropertyValueFactory<Reservation, String>("reservationtime"));
         partySizeColumn.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("party_size"));
         ReservationTable.setItems(Reservations);
@@ -581,17 +649,20 @@ public class ReservationsController implements Initializable {
                 int id = rs.getInt(1);
                 int cid = rs.getInt(2);
                 int tid = rs.getInt(3);
-                Timestamp d = rs.getTimestamp(4);
-                int ps = rs.getInt(5);
-                Reservation reserve = new Reservation(id,cid,tid,d,ps);
+                int tnumber = rs.getInt(4);
+                Timestamp d = rs.getTimestamp(5);
+                int ps = rs.getInt(6);
+                String n = rs.getString(7);
+                Reservation reserve = new Reservation(id,cid,tid,d,ps,n,tnumber);
                 Reservations.add(reserve);
             }
             if(rs2.next()){
                 int result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
-        } catch (SQLException es){
-
+        }catch (SQLException ex){
+            System.out.println("SQL error");
+            ex.printStackTrace();
         }
     }
     public void showNotification2(){
