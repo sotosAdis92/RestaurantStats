@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
@@ -231,35 +232,39 @@ public class MenuItemsController implements Initializable {
             }
         });
 
-        cat.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
-        cat.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        ObservableList<String> categories = FXCollections.observableArrayList(
+                "Side", "Main", "Dessert", "Appetizer"
+        );
+
+        cat.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
+        cat.setCellFactory(ComboBoxTableCell.forTableColumn(categories));
         cat.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<MenuItem, String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<MenuItem, String> event) {
-                MenuItem customer1 = event.getRowValue();
-                customer1.setCategory(event.getNewValue());
-                String firstName = customer1.getItemname();
-                int id = customer1.getItemid();
-                String cat = customer1.getCategory();
-                String av = customer1.getState();
-                float price = customer1.getPrice();
-                try{
+                MenuItem menuItem = event.getRowValue();
+                String newCategory = event.getNewValue();
+                menuItem.setCategory(newCategory);
+                try {
                     String selectString = "SELECT updateMenuItem(?,?,?,?,?)";
                     update = dbConnection.prepareStatement(selectString);
-                    update.setInt(1,id);
-                    update.setString(2,firstName);
-                    update.setString(3, cat);
-                    update.setString(4, av);
-                    update.setFloat(5, price);
-                    update.executeQuery();
-
-                }catch (SQLException e){
+                    update.setInt(1, menuItem.getItemid());
+                    update.setString(2, menuItem.getItemname());
+                    update.setString(3, newCategory);
+                    update.setString(4, menuItem.getState());
+                    update.setFloat(5, menuItem.getPrice());
+                    ResultSet rs = update.executeQuery();
+                    if (rs.next()) {
+                        System.out.println("Update successful, returned: " + rs.getString(1));
+                    }
+                    rs.close();
+                } catch (SQLException e) {
+                    System.out.println("SQL Error: " + e.getMessage());
                     e.printStackTrace();
                 }
+
                 ObservableList<Integer> selectedItem = customerTable.getSelectionModel().getSelectedIndices();
-                selectedItem.forEach(index ->{
-                    i = index + 1;
-                });
+                selectedItem.forEach(index -> { i = index + 1; });
                 refresh();
                 MenuItemsServiceClass.getInstance().triggerRefresh();
                 showNotification(i);

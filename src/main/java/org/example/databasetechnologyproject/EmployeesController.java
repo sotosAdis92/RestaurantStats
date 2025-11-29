@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
@@ -350,9 +351,11 @@ public class EmployeesController implements Initializable {
                 showNotification(i);
             }
         });
-
+        ObservableList<String> positions = FXCollections.observableArrayList(
+                "Manager", "Waiter", "Chef", "Cashier", "Host", "Bartender", "Cleaner"
+        );
         posColoumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
-        posColoumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        posColoumn.setCellFactory(ComboBoxTableCell.forTableColumn(positions));
         posColoumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employee, String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Employee, String> event) {
