@@ -180,6 +180,7 @@ public class orderAuditController implements Initializable {
         try{
             customerAud.clear();
             String operation = combo.getSelectionModel().getSelectedItem();
+            System.out.println(combo.getValue());
             String selectString = "SELECT * FROM getOrderByOperation(?)";
             String selectString2 = "SELECT COUNT(*) FROM getOrderByOperation(?)";
             getCountOfTable = dbConnection.prepareStatement(selectString2);

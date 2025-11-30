@@ -901,7 +901,7 @@ public class EmployeesController implements Initializable {
             getFname.setString(2, selected2);
             if (selected3 instanceof Integer) {
                 getFname.setInt(3, (Integer) selected3);
-            } else if ("all".equals(selected4)) {
+            } else if ("all".equals(selected3)) {
                 getFname.setNull(3, Types.INTEGER);
             } else {
                 getFname.setNull(3, Types.INTEGER);
@@ -912,7 +912,7 @@ public class EmployeesController implements Initializable {
             getCountCustomer.setString(2, selected2);
             if (selected3 instanceof Integer) {
                 getCountCustomer.setInt(3, (Integer) selected3);
-            } else if ("all".equals(selected4)) {
+            } else if ("all".equals(selected3)) {
                 getCountCustomer.setNull(3, Types.INTEGER);
             } else {
                 getCountCustomer.setNull(3, Types.INTEGER);
