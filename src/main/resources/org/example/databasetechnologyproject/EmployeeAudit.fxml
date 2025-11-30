@@ -46,7 +46,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="rowResult" layoutX="180.0" layoutY="211.0" prefHeight="17.0" prefWidth="79.0" />
+            <Label fx:id="rowResult" layoutX="238.0" layoutY="212.0" prefHeight="17.0" prefWidth="79.0" />
             <Label fx:id="filterLabel" layoutX="60.0" layoutY="40.0" text="Table Filters" />
             <Label fx:id="rowsLabel" layoutX="60.0" layoutY="211.0" text="Rows Returned" />
             <ComboBox fx:id="textfield" layoutX="68.0" layoutY="109.0" onAction="#select" prefWidth="150.0" />
