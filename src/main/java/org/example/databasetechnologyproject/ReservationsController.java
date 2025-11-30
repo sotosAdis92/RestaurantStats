@@ -664,6 +664,7 @@ public class ReservationsController implements Initializable {
             System.out.println("SQL error");
             ex.printStackTrace();
         }
+
     }
     public void showNotification2(){
         Stage toastStage = new Stage();
@@ -763,7 +764,6 @@ public class ReservationsController implements Initializable {
             LocalDate date2 = select5.getValue();
             LocalTime t = null;
 
-
             try {
                 if (select3.getValue() != null) {
                     t = LocalTime.parse(select3.getValue());
@@ -772,8 +772,6 @@ public class ReservationsController implements Initializable {
                 System.out.println("DEBUG: Failed to parse time: " + e.getMessage());
 
             }
-
-
 
             Object tableValue = select1.getValue();
             Object partySizeValue = select2.getValue();
@@ -854,7 +852,9 @@ public class ReservationsController implements Initializable {
                 int tid = rs.getInt(3);
                 Timestamp rv = rs.getTimestamp(4);
                 int pt = rs.getInt(5);
-                Reservation r = new Reservation(id,cid,tid,rv,pt);
+                String customerName = rs.getString(6);
+                int tableNumber = rs.getInt(7);
+                Reservation r = new Reservation(id, cid, tid, rv, pt, customerName, tableNumber);
                 Reservations.add(r);
 
             }
