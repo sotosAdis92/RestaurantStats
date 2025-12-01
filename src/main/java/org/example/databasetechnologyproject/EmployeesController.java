@@ -1,7 +1,9 @@
 package org.example.databasetechnologyproject;
 
+import atlantafx.base.theme.PrimerLight;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.animation.PauseTransition;
+import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -27,6 +29,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javafx.util.converter.IntegerStringConverter;
+import net.arikia.dev.drpc.DiscordEventHandlers;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 
 import java.io.IOException;
 import java.net.URL;
@@ -132,6 +137,8 @@ public class EmployeesController implements Initializable {
     static Connection dbConnection;
 
     ObservableList<Employee> empl = FXCollections.observableArrayList();
+    DiscordRichPresence rich;
+    DiscordEventHandlers handlers;
     PreparedStatement fillTable;
     PreparedStatement delete;
     PreparedStatement update;
@@ -252,6 +259,7 @@ public class EmployeesController implements Initializable {
         }catch (SQLException ex){
 
         }
+        int result = 0;
         try{
             String selectString = "SELECT * FROM getEmployees()";
             String selectString2 = "SELECT COUNT(*) FROM getEmployees();";
@@ -272,12 +280,19 @@ public class EmployeesController implements Initializable {
                 empl.add(emp1);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         }catch (SQLException ex){
             System.out.println("SQL error");
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Employees").build();
+        DiscordRPC.discordUpdatePresence(rich);
+
         firstNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
         firstNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         firstNameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Employee, String>>() {
@@ -619,6 +634,7 @@ public class EmployeesController implements Initializable {
         }
     }
     public void refresh(){
+        int result = 0;
         try{
             empl.clear();
             String selectString = "SELECT * FROM getEmployees()";
@@ -640,12 +656,17 @@ public class EmployeesController implements Initializable {
                 empl.add(emp1);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException es){
 
         }
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Employees").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void showNotification2(){
         Stage toastStage = new Stage();

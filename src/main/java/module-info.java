@@ -11,6 +11,7 @@ module org.example.databasetechnologyproject {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires org.postgresql.jdbc;
+    requires discord.rpc;
 
     opens org.example.databasetechnologyproject to javafx.fxml;
     requires java.dotenv;

@@ -1,7 +1,9 @@
 package org.example.databasetechnologyproject;
 
+import atlantafx.base.theme.PrimerLight;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.animation.PauseTransition;
+import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -28,6 +30,9 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
+import net.arikia.dev.drpc.DiscordEventHandlers;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,6 +47,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class ReservationsController implements Initializable {
+    DiscordRichPresence rich;
+    DiscordEventHandlers handlers;
     @FXML
     private Button AboutButton;
 
@@ -220,6 +227,7 @@ public class ReservationsController implements Initializable {
                     "    -fx-text-fill: white;\n" +
                     "    -fx-alignment: CENTER_LEFT;");
         }
+        int result = 0;
         try{
             String selectString = "SELECT * FROM getReserves()";
             String selectString2 = "SELECT COUNT(*) FROM getReserves()";
@@ -246,7 +254,7 @@ public class ReservationsController implements Initializable {
                 Reservations.add(reserve);
             }
             if(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         }catch (SQLException ex){
@@ -304,6 +312,12 @@ public class ReservationsController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Reservations").build();
+        DiscordRPC.discordUpdatePresence(rich);
 
         customerColumn.setCellFactory(ComboBoxTableCell.forTableColumn(customerNames));
 
@@ -757,6 +771,7 @@ public class ReservationsController implements Initializable {
         }
     }
     public void select(ActionEvent event){
+        int result = 0;
         try{
             Reservations.clear();
 
@@ -861,7 +876,7 @@ public class ReservationsController implements Initializable {
 
 
             if(rs2.next()){
-                int result = rs2.getInt(1);
+                result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
 
@@ -869,9 +884,13 @@ public class ReservationsController implements Initializable {
         } catch (SQLException ex){
 
             ex.printStackTrace();
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Customers").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void resetAll(ActionEvent event){
         select1.setValue("Any");

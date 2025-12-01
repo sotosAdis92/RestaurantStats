@@ -1,7 +1,9 @@
 package org.example.databasetechnologyproject;
 
+import atlantafx.base.theme.PrimerLight;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.animation.PauseTransition;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +22,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import net.arikia.dev.drpc.DiscordEventHandlers;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 
 import java.io.IOException;
 import java.net.URL;
@@ -78,6 +83,8 @@ public class OrdersController implements Initializable {
     @FXML
      DatePicker date2;
     ObservableList<Order> orders = FXCollections.observableArrayList();
+    DiscordRichPresence rich;
+    DiscordEventHandlers handlers;
     PreparedStatement fillTable;
     PreparedStatement delete;
     PreparedStatement update;
@@ -132,6 +139,7 @@ public class OrdersController implements Initializable {
         } catch (Exception ex) {
             System.out.println("Image not found");
         }
+        int result = 0;
         try{
             String selectString = "SELECT * FROM getOrdersTable()";
             String selectString2 = "SELECT COUNT(*) FROM getOrdersTable()";
@@ -156,12 +164,19 @@ public class OrdersController implements Initializable {
                 orders.add(or1);
             }
             if(rs2.next()){
-                int result = rs2.getInt(1);
+                result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         }catch (SQLException ex){
             System.out.println("SQL error");
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Orders").build();
+        DiscordRPC.discordUpdatePresence(rich);
+
         try{
             combo1.getItems().add("all");
             String selectString = "SELECT * FROM getTableNumberFromOrders()";
@@ -284,6 +299,7 @@ public class OrdersController implements Initializable {
         }
     }
     public void refresh(){
+        int result = 0;
         try{
             orders.clear();
             String selectString = "SELECT * FROM getOrdersTable()";
@@ -309,7 +325,7 @@ public class OrdersController implements Initializable {
                 orders.add(or1);
             }
             if(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         }catch (SQLException ex){

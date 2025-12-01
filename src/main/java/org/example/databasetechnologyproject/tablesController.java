@@ -1,7 +1,9 @@
 package org.example.databasetechnologyproject;
 
+import atlantafx.base.theme.PrimerLight;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.animation.PauseTransition;
+import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -26,6 +28,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javafx.util.converter.IntegerStringConverter;
+import net.arikia.dev.drpc.DiscordEventHandlers;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 
 import java.io.IOException;
 import java.net.URL;
@@ -83,6 +88,8 @@ public class tablesController implements Initializable {
     PreparedStatement getFname;
     PreparedStatement getCountCustomer;
     ObservableList<Tables> tabl = FXCollections.observableArrayList();
+    DiscordRichPresence rich;
+    DiscordEventHandlers handlers;
     int i = 0;
     private DialogPane dialog;
     DialogPane dialog3;
@@ -168,6 +175,7 @@ public class tablesController implements Initializable {
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+        int num = 0;
         try{
             String selectString = "SELECT * FROM fillTablesTable()";
             String selectString2 = "SELECT COUNT(*) FROM fillTablesTable()";
@@ -186,13 +194,20 @@ public class tablesController implements Initializable {
                 tabl.add(ta1);
             }
             while(rs2.next()){
-                int num = rs2.getInt(1);
+                 num = rs2.getInt(1);
                 System.out.println(num);
                 rowResult.setText(String.valueOf(num));
             }
         }catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + num).setDetails("Viewing Tables").build();
+        DiscordRPC.discordUpdatePresence(rich);
+
         tnumber.setCellValueFactory(cellData -> {
             Tables customer = cellData.getValue();
             return new SimpleIntegerProperty(customer.getTnumber()).asObject();

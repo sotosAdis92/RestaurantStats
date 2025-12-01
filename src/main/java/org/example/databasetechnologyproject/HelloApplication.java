@@ -13,10 +13,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import net.arikia.dev.drpc.DiscordEventHandlers;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+    DiscordRichPresence rich;
+    DiscordEventHandlers handlers;
     private DialogPane dialog;
     private Stage stage;
     private Scene scene;
@@ -34,6 +39,10 @@ public class HelloApplication extends Application {
         stage.show();
 
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Viewing Statistics").setDetails("").build();
+        DiscordRPC.discordUpdatePresence(rich);
 
         stage.setOnCloseRequest(event ->{
             Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);

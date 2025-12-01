@@ -1,7 +1,9 @@
 package org.example.databasetechnologyproject;
 
+import atlantafx.base.theme.PrimerLight;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.animation.PauseTransition;
+import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -26,6 +28,9 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javafx.util.converter.IntegerStringConverter;
+import net.arikia.dev.drpc.DiscordEventHandlers;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 
 import java.io.IO;
 import java.io.IOException;
@@ -75,6 +80,8 @@ public class CustomerController implements Initializable {
 
 
     ObservableList<Customer> customers = FXCollections.observableArrayList();
+    DiscordRichPresence rich;
+    DiscordEventHandlers handlers;
     PreparedStatement fillTable;
     PreparedStatement delete;
     PreparedStatement update;
@@ -191,6 +198,7 @@ public class CustomerController implements Initializable {
         } catch (SQLException ex){
 
         }
+        int result = 0;
         try{
             String selectString = "SELECT * FROM getTable()";
             String selectString2 = "SELECT COUNT(*) FROM getTable()";
@@ -216,12 +224,18 @@ public class CustomerController implements Initializable {
                 customers.add(customer1);
             }
             if(rs2.next()){
-                int result = rs2.getInt(1);
+                result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         }catch (SQLException ex){
             System.out.println("SQL error");
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Customers").build();
+        DiscordRPC.discordUpdatePresence(rich);
 
         customerTable.setOnMouseClicked(event ->{
             if(event.getClickCount()==1 || event.getClickCount()==2){
@@ -658,6 +672,7 @@ public class CustomerController implements Initializable {
         } catch (SQLException es){
 
         }
+
     }
 
     public void deleteCustomer(ActionEvent event){
@@ -708,6 +723,7 @@ public class CustomerController implements Initializable {
     }
 
     public void select(ActionEvent event){
+        int result = 0;
         try{
             String firstName = null;
             String lastname = null;
@@ -760,12 +776,18 @@ public class CustomerController implements Initializable {
                 customers.add(customer1);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.getMessage();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Customers").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void resetAll(ActionEvent evet){
         textfield.setValue("all");

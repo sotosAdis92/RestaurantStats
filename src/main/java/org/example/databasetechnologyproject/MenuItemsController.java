@@ -1,7 +1,9 @@
 package org.example.databasetechnologyproject;
 
+import atlantafx.base.theme.PrimerLight;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.animation.PauseTransition;
+import javafx.application.Application;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -26,6 +28,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javafx.util.converter.FloatStringConverter;
+import net.arikia.dev.drpc.DiscordEventHandlers;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 
 import javax.swing.plaf.MenuItemUI;
 import java.io.IOException;
@@ -69,6 +74,8 @@ public class MenuItemsController implements Initializable {
     @FXML
     Label rowResult;
     ObservableList<MenuItem> items = FXCollections.observableArrayList();
+    DiscordRichPresence rich;
+    DiscordEventHandlers handlers;
     PreparedStatement fillTable;
     PreparedStatement delete;
     PreparedStatement update;
@@ -166,6 +173,7 @@ public class MenuItemsController implements Initializable {
         } catch (SQLException ex){
 
         }
+        int result = 0;
         try{
             String selectString = "SELECT * FROM getMenuItems()";
             String selectString2 = "SELECT COUNT(*) FROM getMenuItems()";
@@ -190,12 +198,18 @@ public class MenuItemsController implements Initializable {
                 items.add(item);
             }
             if(rs2.next()){
-                int result = rs2.getInt(1);
+                result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         }catch (SQLException ex){
             System.out.println("SQL error");
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Menu Items").build();
+        DiscordRPC.discordUpdatePresence(rich);
 
         name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getClass().getName()));
         name.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -515,6 +529,7 @@ public class MenuItemsController implements Initializable {
         }
     }
     public void refresh(){
+        int result = 0;
         try{
             items.clear();
             String selectString = "SELECT * FROM getMenuItems()";
@@ -540,12 +555,17 @@ public class MenuItemsController implements Initializable {
                 items.add(item);
             }
             if(rs2.next()){
-                int result = rs2.getInt(1);
+                result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         }catch (SQLException ex){
             System.out.println("SQL error");
         }
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Menu Items").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void deleteOrder(ActionEvent event){
         Alert alert3 = new Alert(Alert.AlertType.CONFIRMATION);

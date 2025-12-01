@@ -1,6 +1,8 @@
 package org.example.databasetechnologyproject;
 
+import atlantafx.base.theme.PrimerLight;
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import net.arikia.dev.drpc.DiscordEventHandlers;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,6 +42,8 @@ public class guideController implements Initializable {
     static String url = dotenv.get("DB_URL");
     static String user = dotenv.get("DB_USER");
     static String password = dotenv.get("DB_PASSWORD");
+    DiscordRichPresence rich;
+    DiscordEventHandlers handlers;
     static Connection dbConnection;
     @Override
     public void initialize(URL r, ResourceBundle rb){
@@ -48,6 +55,11 @@ public class guideController implements Initializable {
                     "    -fx-text-fill: white;\n" +
                     "    -fx-alignment: CENTER_LEFT;");
         }
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("").setDetails("Viewing Guide").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void exitButton(ActionEvent event){
         Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
