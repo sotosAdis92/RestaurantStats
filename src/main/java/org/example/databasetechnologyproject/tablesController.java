@@ -614,6 +614,7 @@ public class tablesController implements Initializable {
     }
 
     public void executeAllFilters(){
+        int result = 0;
         try{
             int firstName = 0;
             int lastname = 0;
@@ -673,14 +674,21 @@ public class tablesController implements Initializable {
                 tabl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Tables").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void executeNameAndPositionFilter(){
+        int result = 0;
         try{
             int firstName = 0;
             int lastname = 0;
@@ -736,14 +744,21 @@ public class tablesController implements Initializable {
                 tabl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Tables").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void executePositionAndEmailFilter(){
+        int result = 0;
         try{
             int firstName = 0;
             int lastname = 0;
@@ -785,14 +800,21 @@ public class tablesController implements Initializable {
                 tabl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Tables").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void executeNameAndEmailFilter(){
+        int result = 0;
         try{
             int firstName = 0;
             int lastname = 0;
@@ -834,14 +856,21 @@ public class tablesController implements Initializable {
                 tabl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Tables").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void executeNameFilter(){
+        int result = 0;
         try{
             int firstName = 0;
             int lastname = 0;
@@ -880,14 +909,21 @@ public class tablesController implements Initializable {
                 tabl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Tables").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void executePositionFilter(){
+        int result = 0;
         try{
             int firstName = 0;
             int lastname = 0;
@@ -926,14 +962,21 @@ public class tablesController implements Initializable {
                 tabl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Tables").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void executeEmailFilter(){
+        int result = 0;
         try{
             int firstName = 0;
             int lastname = 0;
@@ -958,12 +1001,18 @@ public class tablesController implements Initializable {
                 tabl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Tables").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void select(ActionEvent event){
         boolean c1sel = c1.isSelected();

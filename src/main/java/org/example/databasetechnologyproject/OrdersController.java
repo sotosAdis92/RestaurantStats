@@ -485,6 +485,7 @@ public class OrdersController implements Initializable {
         }
     }
     public void executePositionFilter(){
+        int result = 0;
         try{
             LocalDate date1s = date1.getValue();
             LocalDate date2s = date2.getValue();
@@ -522,15 +523,21 @@ public class OrdersController implements Initializable {
                 orders.add(or1);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
 
         }
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Orders").build();
+        DiscordRPC.discordUpdatePresence(rich);
 
     }
     public void executeNameFilter(){
+        int result = 0;
         try{
             int firstName = 0;
             int lastname = 0;
@@ -570,14 +577,20 @@ public class OrdersController implements Initializable {
                 orders.add(or1);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Orders").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void executeAllFilters(){
+        int result = 0;
         try{
             orders.clear();
             LocalDate date1s = date1.getValue();
@@ -632,12 +645,17 @@ public class OrdersController implements Initializable {
                 orders.add(or1);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
 
         }
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Orders").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void resetFilters() {
         try {
