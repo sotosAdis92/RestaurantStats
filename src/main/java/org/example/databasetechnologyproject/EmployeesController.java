@@ -840,6 +840,7 @@ public class EmployeesController implements Initializable {
         }
     }
     public void executeAllFilters(){
+        int result = 0;
         try{
             String firstName = null;
             String lastname = null;
@@ -894,14 +895,21 @@ public class EmployeesController implements Initializable {
                 empl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Employees").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void executeNameAndPositionFilter(){
+        int result = 0;
         try{
             String firstName = null;
             String lastname = null;
@@ -952,14 +960,21 @@ public class EmployeesController implements Initializable {
                 empl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Employees").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void executeNameAndEmailFilter(){
+        int result = 0;
         try{
             String firstName = null;
             String lastname = null;
@@ -995,14 +1010,21 @@ public class EmployeesController implements Initializable {
                 empl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Employees").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void executePositionAndEmailFilter(){
+        int result = 0;
         try{
             String firstName = null;
             String lastname = null;
@@ -1051,15 +1073,22 @@ public class EmployeesController implements Initializable {
                 empl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Employees").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
 
     public void executeNameFilter(){
+        int result = 0;
         try{
             String firstName;
             String lastname;
@@ -1091,14 +1120,21 @@ public class EmployeesController implements Initializable {
                 empl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Employees").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void executePositionFilter(){
+        int result = 0;
         try{
             String firstName = null;
             String lastname = null;
@@ -1144,14 +1180,21 @@ public class EmployeesController implements Initializable {
                 empl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                 result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Employees").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
     public void executeEmailFilter(){
+        int result = 0;
         try{
             String firstName = null;
             String lastname = null;
@@ -1182,12 +1225,18 @@ public class EmployeesController implements Initializable {
                 empl.add(emp);
             }
             while(rs2.next()){
-                int result = rs2.getInt(1);
+                result = rs2.getInt(1);
                 rowResult.setText(String.valueOf(result));
             }
         } catch (SQLException ex){
             ex.printStackTrace();
         }
+
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {}).build();
+        DiscordRPC.discordInitialize("1421645118569451541",handlers,true);
+        rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Employees").build();
+        DiscordRPC.discordUpdatePresence(rich);
     }
 
     public void select2(ActionEvent event){
