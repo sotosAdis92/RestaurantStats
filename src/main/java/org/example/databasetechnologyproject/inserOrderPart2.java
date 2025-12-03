@@ -334,8 +334,10 @@ public class inserOrderPart2 implements Initializable {
         int qua=0;
         float prices=0;
         int item=0;
+        int orderId =0;
         String idString = name.replaceAll(":.*", "");
         int id = Integer.parseInt(idString.trim());
+        int orderItemId = 0;
 
         try{
             String selectString = "SELECT * FROM getItemPrices(?,?)";
@@ -349,9 +351,7 @@ public class inserOrderPart2 implements Initializable {
                 qua = rs.getInt(3);
                 prices = rs.getFloat(4);
             }
-            OrderItem od = new OrderItem(item,qua,prices);
             System.out.println(prices);
-            customers.add(od);
         } catch (SQLException ex){
 
         }
@@ -363,6 +363,15 @@ public class inserOrderPart2 implements Initializable {
             insert.setInt(3, qua);
             insert.setFloat(4, prices);
             ResultSet rs = insert.executeQuery();
+            String selectString = "SELECT * FROM getOrderItems()";
+            fillTable = dbConnection.prepareStatement(selectString);
+            ResultSet rs2 = fillTable.executeQuery();
+            while(rs2.next()){
+                orderItemId = rs2.getInt(1);
+                orderId = rs2.getInt(2);
+            }
+            OrderItem od = new OrderItem(orderItemId,orderId, item, qua, prices);
+            customers.add(od);
         } catch (SQLException ex){
 
         }

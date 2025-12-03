@@ -22,6 +22,13 @@ public class OrderItem {
         this.price = price;
     }
 
+    public OrderItem(int orderitemid, int itemid, int quantity, float price) {
+        this.orderitemid = orderitemid;
+        this.itemid = itemid;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
     public void setOrderitemid(int orderitemid) {
         this.orderitemid = orderitemid;
     }
