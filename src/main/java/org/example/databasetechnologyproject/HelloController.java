@@ -571,7 +571,7 @@ public class HelloController implements Initializable {
                                     beginAtZero: true,
                                     title: {
                                         display: true,
-                                        text: 'Number of Reservations'
+                                        text: 'Number of Orders'
                                     },
                                     ticks: {
                                         stepSize: 1
@@ -698,7 +698,7 @@ public class HelloController implements Initializable {
                                     beginAtZero: true,
                                     title: {
                                         display: true,
-                                        text: 'Number of Reservations'
+                                        text: 'Number of Orders'
                                     },
                                     ticks: {
                                         stepSize: 1
