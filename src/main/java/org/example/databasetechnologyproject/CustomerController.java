@@ -23,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.stage.StageStyle;
@@ -32,6 +33,7 @@ import net.arikia.dev.drpc.DiscordEventHandlers;
 import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
 
+import javafx.geometry.Rectangle2D;
 import java.io.IO;
 import java.io.IOException;
 import java.net.URL;
@@ -465,6 +467,7 @@ public class CustomerController implements Initializable {
         toastStage.setScene(scene);
         toastStage.setWidth(450);
         toastStage.setHeight(60);
+
         toastStage.setX(currentStage.getX() + currentStage.getWidth() - 470);
         toastStage.setY(currentStage.getY() + currentStage.getHeight() - 80);
 
