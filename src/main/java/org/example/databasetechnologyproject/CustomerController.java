@@ -468,6 +468,7 @@ public class CustomerController implements Initializable {
         toastStage.setWidth(450);
         toastStage.setHeight(60);
 
+
         toastStage.setX(currentStage.getX() + currentStage.getWidth() - 470);
         toastStage.setY(currentStage.getY() + currentStage.getHeight() - 80);
 
