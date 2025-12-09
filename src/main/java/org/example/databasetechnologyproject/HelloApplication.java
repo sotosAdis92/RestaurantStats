@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import net.arikia.dev.drpc.DiscordEventHandlers;
 import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -35,6 +36,8 @@ public class HelloApplication extends Application {
         Image icon = new Image("logos.png");
         stage.getIcons().add(icon);
         stage.setTitle("RestaurantStats");
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
 

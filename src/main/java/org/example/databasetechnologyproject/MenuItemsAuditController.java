@@ -90,6 +90,7 @@ public class MenuItemsAuditController implements Initializable {
             System.err.println("Failed to connect to database: " + ex.getMessage());
             ex.printStackTrace();
         }
+        textfield.setValue("all");
         try{
             textfield.getItems().addAll("all");
             String selectString = "SELECT * FROM getItemsAudit()";
