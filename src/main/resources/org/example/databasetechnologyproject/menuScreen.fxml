@@ -27,7 +27,7 @@
                         <Font name="Lexend Regular" size="12.0" />
                     </font>
                 </Label>
-                <Button fx:id="exitButton" layoutX="1518.0" layoutY="17.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="52.0">
+                <Button fx:id="exitButton" layoutX="1518.0" layoutY="17.0" mnemonicParsing="false" onAction="#exitButton" prefHeight="54.0" prefWidth="52.0">
                     <tooltip>
                         <Tooltip fx:id="tooltipexit" text="Exit Application">
                             <graphic>

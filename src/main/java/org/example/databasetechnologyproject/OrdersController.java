@@ -657,6 +657,7 @@ public class OrdersController implements Initializable {
         rich = new DiscordRichPresence.Builder("Rows Returned: " + result).setDetails("Viewing Orders").build();
         DiscordRPC.discordUpdatePresence(rich);
     }
+
     public void resetFilters() {
         try {
             c1.setSelected(true);
